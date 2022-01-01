@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+
+{% block body_block %}
+
+<div class="p-4 mb-4 bg-light rounded-3">
+  <h1>Welcome to MG Tourism!</h1>
+  <p>Explore all the amazing things you can do on the State of Mina Gerais, Brazil, my home state!</p>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-auto p-2">
+      <a href="{%url 'core:things'%}?attractions=on"><button  type="button" class="btn btn-outline-dark"><h2>Attractions</h2></button></a>
+    </div>
+    <div class="col-auto p-2">
+      <a href="{%url 'core:things'%}?tours=on"><button  type="button" class="btn btn-outline-dark"><h2>Tours</h2></button></a>
+    </div>
+    <div class="col-auto p-2">
+      <a href=""><button  type="button" class="btn btn-outline-dark"><h2>Food</h2></button></a>
+    </div>
+    <div class="col-auto p-2">
+      <a href=""><button  type="button" class="btn btn-outline-dark"><h2>Outdoor Activities</h2></button></a>
+    </div>
+    <div class="col-auto p-2">
+      <a href=""><button  type="button" class="btn btn-outline-dark"><h2>Shopping</h2></button></a>
+    </div>
+    <div class="col-auto p-2">
+      <a href="{%url 'core:things'%}"><button  type="button" class="btn btn-outline-dark"><h2>See All</h2></button></a>
+  </div>
+</div>
+
+{% endblock body_block %}

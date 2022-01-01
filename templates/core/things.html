@@ -1,0 +1,74 @@
+{% extends 'core/base.html' %}
+
+
+{% block body_block %}
+
+<form class='pb-4'> 
+    <div class="form-check form-check-inline form-switch">
+        <input {{attraction}} name='attraction' class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Attractions</label>
+    </div>
+    <div class="form-check form-check-inline form-switch">
+        <input {{tour}} name='tour' class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Tours</label>
+    </div>
+    <div class="form-check form-check-inline form-switch">
+        <input {{food}} name='food' class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Food</label>
+    </div>
+    <div class="form-check form-check-inline form-switch">
+        <input {{outdoor_activities}} name='outdoor_activities' class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Outdoor Activities</label>
+    </div>
+    <div class="form-check form-check-inline form-switch">
+        <input {{shopping}} name='shopping' class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Shopping</label>
+    </div>
+
+{% if attraction %}
+    
+
+{% endif %}
+    
+    <button type="submit" class="btn btn-dark">Submit</button>
+</form>
+
+<div class="p-4 bg-light rounded-3">
+    <div class="row">
+        {% for thing in things %}
+            <div class="col-md-6 col-sm-12 pb-2">
+                <div class="card bg-dark text-white">
+                    <img src={{thing.get_picture.image.url}} class="card-img img-fluid height-25%" alt="...">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title">{{thing.name}}</h5>
+                        <p class="card-text">{{thing.description}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Stars: {{thing.stars}}</li>
+                        <li class="list-group-item">Address: {{thing.address}}</li>
+
+                    {% if thing.category == 'Attraction' %}
+                        <li class="list-group-item">Category: {{thing.category}}</li>
+                        <li class="list-group-item">Neighborhood: {{thing.attraction.neighborhood}}</li>
+                        <li class="list-group-item">Type: {{thing.attraction.type}}</li>
+                        <li class="list-group-item">Good for {{thing.attraction.good_for}}</li>
+
+                    {% elif thing.category == 'Tour' %}
+                        <li class="list-group-item">Category: {{thing.category}}</li>
+                        <li class="list-group-item">Type: {{thing.tour.type}}</li>
+                        <li class="list-group-item">Price: {{thing.tour.price}}</li>
+                        <li class="list-group-item">Duration: {{thing.tour.duration}}</li>
+
+                    {% endif %}
+                    </ul>
+                </div>           
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+
+{% endblock body_block %}
