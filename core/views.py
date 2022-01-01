@@ -1,4 +1,5 @@
 from typing import final
+from django.db.models import query
 from django.shortcuts import render
 from django import forms
 
@@ -8,7 +9,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-from core.models import Thing
+from core.models import Thing, Attraction, Tour
 from core.forms import UserForm, UserProfileInfoForm, AttractionForm, TourForm, ThingForm, PictureForm
 
 # Create your views here.
@@ -185,12 +186,55 @@ def create_tour(request):
 
 # TODO if this was a class I could have all these methods namespaced
 def things(request):
+    # all attributes
+    stars = None
+    # attraction and tour
+    types = []
+
+    # attraction
+    neighborhood = False
+    good_for = []
+
+    # tour
+    price = None
+    duration = None
+
     categories = ['Attraction', 'Tour', 'Food', 'Outdoor Activities', 'Shopping']
 
     querystring = get_querystring(request, categories)
     t_things = filter_(categories, querystring)
     final_things = combine(t_things)
-    context = {'things': final_things} | get_params(categories, querystring)
+
+    if any(querystring):
+        stars = True
+
+    if querystring[0]:
+        types += Attraction.types
+        neighborhood = True
+        good_for += Attraction.good_for_choices
+
+    if querystring[1]:
+        types += Tour.types
+        tours = Tour.objects
+        
+        by_price = tours.order_by('price')
+        lowest_price = by_price[0].price
+        highest_price = by_price[len(list(tours.all()))-1].price
+        price = (lowest_price, highest_price)
+
+        by_duration = tours.order_by('duration')
+        shortest_duration = by_duration[0].duration
+        longest_duration = by_duration[len(list(tours.all()))-1].duration
+
+        duration = (shortest_duration, longest_duration)
+
+    context = {'things': final_things,
+        'stars': stars,
+        'types': types,
+        'neighborhood': neighborhood,
+        'good_for': good_for,
+        'price': price,
+        'duration': duration,} | get_params(categories, querystring)
 
     return render(request, 'core/things.html', context=context)
 

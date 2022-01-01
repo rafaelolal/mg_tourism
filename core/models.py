@@ -46,10 +46,10 @@ class Attraction(models.Model):
 
     neighborhood = CharField(max_length=64)
 
-    choices = ['Kids', ' Big Groups',
+    good_for_choices = ['Kids', ' Big Groups',
         'Adrenaline Seekers',
         'a Rainy Day', 'Couples']
-    tuple_choices = [(choice.lower().replace(' ', '_'), choice) for choice in choices]
+    tuple_choices = [(choice.lower().replace(' ', '_'), choice) for choice in good_for_choices]
     good_for = CharField(max_length=64, choices=tuple_choices)
 
     def __str__(self):
