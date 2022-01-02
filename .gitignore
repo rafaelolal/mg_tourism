@@ -1,1 +1,3 @@
-__pycache__/
+core/__pycache__/
+core/migrations/__pycache__/
+mg_tourism/__pycache__/
