@@ -29,13 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['chemicals-tech-picking-leather.trycloudflare.com',
     'localhost',
-<<<<<<< HEAD
     '127.0.0.1']
-=======
-    '127.0.0.1',
-    "discord.thinkland.ai",
-    '13.82.177.60']
->>>>>>> e24ce1c3675bd518266f291ee3d77127556d7daa
 
 CSRF_TRUSTED_ORIGINS = ['https://chemicals-tech-picking-leather.trycloudflare.com',
     "http://discord.thinkland.ai",
