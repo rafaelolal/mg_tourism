@@ -8,13 +8,15 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.views.generic import (TemplateView, ListView,
+    DetailView, CreateView,
+    UpdateView, DeleteView)
 
-from core.models import Thing, Attraction, Tour
+from core.models import Thing, Attraction, Tour, Picture
 from core.forms import UserForm, UserProfileInfoForm, AttractionForm, TourForm, ThingForm, PictureForm
 
-# Create your views here.
-def index(request):
-    return render(request, 'core/index.html')
+class IndexView(TemplateView):
+    template_name = 'core/index.html'
 
 @login_required
 def user_logout(request):
@@ -80,56 +82,20 @@ def user_login(request):
     else:
         return render(request, 'core/user_login.html')
 
-def create_attraction(request):
-    created = False
+class AttractionCreateView(CreateView):
+    fields = ['name', 'short_description', 'long_description', 'address', 'covid_safe', 'type', 'neighborhood', 'good_for']
+    model = Attraction
 
-    if request.method == 'POST':
-        thing_form = ThingForm(data=request.POST)
-        attraction_form = AttractionForm(data=request.POST)
-        pic_form = PictureForm(request.POST, request.FILES)
+    def form_valid(self, form):
+        form.instance.category = 'Attraction'
+        return super().form_valid(form)
 
-        print(thing_form.is_valid(), 'thing_form')
-        print(attraction_form.is_valid(), 'attraction_form')
-        print(pic_form.is_valid(), 'pic_form')
-
-        if (thing_form.is_valid()
-            and attraction_form.is_valid()
-            and pic_form.is_valid()):
-
-            print("passed the valid test")
-
-            thing = thing_form.save()
-            thing.category = 'Attraction'
-            thing.save()
-
-            attraction = attraction_form.save(commit=False)
-            attraction.thing = thing
-            attraction.save()
-
-            pic = pic_form.save(commit=False)
-            pic.thing = thing
-            pic.image = request.FILES['image']
-            pic.save()
-
-            created = True
-            print(created, 'created!')
-
-        else:
-            print(thing_form.errors, attraction_form.errors)
-            print(pic_form.errors)
-
-    else:
-        thing_form = ThingForm()
-        attraction_form = AttractionForm()
-        pic_form = PictureForm()
-
-    return render(request,
-        'core/create_attraction.html',
-        {
-            'created': created,
-            'thing_form': thing_form,
-            'attraction_form': attraction_form,
-            'pic_form': pic_form,})
+class AttractionDetailView(DetailView):
+    # returns model name in lowercase
+    # better to change it yourself:
+    context_object_name = "attraction_detail"
+    model = Attraction
+    template_name = 'core/attraction_detail.html'
 
 def create_tour(request):
     created = False
@@ -184,98 +150,111 @@ def create_tour(request):
 
 #############################
 
+class ThingListView(ListView):
+    model = Thing
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs,
+        categories=self.model.categories,
+        good_fors=Attraction.good_fors)
+
+    def get_queryset(self):
+        query_paremeters = self.get_query_parameters()
+        return self.query_filter(query_paremeters)
+
+    def get_query_parameters(self):
+        querystring = []
+        for category in self.model.categories:
+            querystring.append(self.convert_on(self.request.GET.get(category.lower().replace(' ', '_'))))
+
+        return querystring
+
+    @staticmethod
+    def convert_on(category):
+        if category == 'on':
+            return 'checked'
+        return ''
+
+    def query_filter(self, querystring):
+        queryset = []
+        for category, param in zip(self.model.categories, querystring):
+            if param:
+                queryset.append(Thing.objects.filter(category=category))
+
+        if queryset:
+            return self.combine(queryset)
+
+        else:
+            return Thing.objects.all()
+
+    @staticmethod
+    def combine(queryset):
+        final_queryset = queryset[0]
+        for query in queryset[1:]:
+            final_queryset = final_queryset | query
+
+        return final_queryset
+
 # TODO if this was a class I could have all these methods namespaced
-def things(request):
-    # all attributes
-    stars = None
-    # attraction and tour
-    types = []
+# def things(request):
+#     # all attributes
+#     stars = None
+#     # attraction and tour
+#     types = []
 
-    # attraction
-    neighborhood = False
-    good_for = []
+#     # attraction
+#     neighborhood = False
+#     good_for = []
 
-    # tour
-    price = None
-    duration = None
+#     # tour
+#     price = None
+#     duration = None
 
-    categories = ['Attraction', 'Tour', 'Food', 'Outdoor Activities', 'Shopping']
+#     categories = ['Attraction', 'Tour', 'Food', 'Outdoor Activities', 'Shopping']
 
-    querystring = get_querystring(request, categories)
-    t_things = filter_(categories, querystring)
-    final_things = combine(t_things)
+#     querystring = get_querystring(request, categories)
+#     t_things = filter_(categories, querystring)
+#     final_things = combine(t_things)
 
-    if any(querystring):
-        stars = True
+#     if any(querystring):
+#         stars = True
 
-    if querystring[0]:
-        types += Attraction.types
-        neighborhood = True
-        good_for += Attraction.good_for_choices
+#     if querystring[0]:
+#         types += Attraction.types
+#         neighborhood = True
+#         good_for += Attraction.good_for_choices
 
-    if querystring[1]:
-        types += Tour.types
-        tours = Tour.objects
+#     if querystring[1]:
+#         types += Tour.types
+#         tours = Tour.objects
         
-        by_price = tours.order_by('price')
-        lowest_price = by_price[0].price
-        highest_price = by_price[len(list(tours.all()))-1].price
-        price = (lowest_price, highest_price)
+#         by_price = tours.order_by('price')
+#         lowest_price = by_price[0].price
+#         highest_price = by_price[len(list(tours.all()))-1].price
+#         price = (lowest_price, highest_price)
 
-        by_duration = tours.order_by('duration')
-        shortest_duration = by_duration[0].duration
-        longest_duration = by_duration[len(list(tours.all()))-1].duration
+#         by_duration = tours.order_by('duration')
+#         shortest_duration = by_duration[0].duration
+#         longest_duration = by_duration[len(list(tours.all()))-1].duration
 
-        duration = (shortest_duration, longest_duration)
+#         duration = (shortest_duration, longest_duration)
 
-    context = {'things': final_things,
-        'stars': stars,
-        'types': types,
-        'neighborhood': neighborhood,
-        'good_for': good_for,
-        'price': price,
-        'duration': duration,} | get_params(categories, querystring)
+#     context = {'things': final_things,
+#         'stars': stars,
+#         'types': types,
+#         'neighborhood': neighborhood,
+#         'good_for': good_for,
+#         'price': price,
+#         'duration': duration,} | get_params(categories, querystring)
 
-    return render(request, 'core/things.html', context=context)
+#     return render(request, 'core/things.html', context=context)
 
-def get_querystring(request, categories):
-    querystring = []
-    for category in categories:
-        querystring.append(
-            convert_on(request.GET.get(category.lower().replace(' ', '_'))))
+class PictureCreateView(CreateView):
+    fields = ['image']
+    model = Picture
 
-    return querystring
-
-def convert_on(category):
-    if category == 'on':
-        return 'checked'
-    return ''
-
-def filter_(categories, querystring):
-    things = []
-    for category, param in zip(categories, querystring):
-        if param:
-            things.append(Thing.objects.filter(category=category))
-
-    if things:
-        return things
-
-    else:
-        return [Thing.objects.all()]
-
-def combine(things):
-    if things:
-        final_things = things[0]
-        for thing in things[1:]:
-            final_things = final_things | thing
-
-    return final_things
-
-def get_params(categories, querystring):
-    params = {}
-    for category, param in zip(categories, querystring):
-        params[category.lower().replace(' ', '_')] = param
-
-    return params
-
-#############################
+    def form_valid(self, form):
+        thing = self.request.GET['thing']
+        t = Thing.objects.get(id=thing)
+        form.instance.thing = t
+        return super().form_valid(form)

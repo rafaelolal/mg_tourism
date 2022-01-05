@@ -13,9 +13,7 @@
 </div>
 <form method="post" enctype='multipart/form-data'>
     {% csrf_token %}
-    {{ thing_form|crispy }}
-    {{ attraction_form|crispy }}
-    {{ pic_form|crispy }}
+    {{form|crispy}}
     <input type="submit", class='btn btn-success', value='Create'>
 </form>
 

@@ -2,6 +2,7 @@ from random import randint
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 from django.db.models.fields import BooleanField, CharField, DurationField, PositiveSmallIntegerField, SmallIntegerField, TextField
 from django.db.models.fields.files import ImageField
@@ -20,44 +21,44 @@ class UserProfileInfo(models.Model):
 
 class Thing(models.Model):
     name = CharField(max_length=64)
-    description = TextField()
+    short_description = TextField()
+    long_description = TextField()
     address = CharField(max_length=128)
     stars = PositiveSmallIntegerField(null=True,
         blank=True)
 
-    categories = [('attraction', 'Attraction'),
-        ('tour', 'Tour')]
-    category = CharField(max_length=64, choices=categories)
+    categories = ['Attraction', 'Tour']
+    tuple_categories = [(c.lower().replace(' ', '_'), c) for c in categories]
+    category = CharField(max_length=64, choices=tuple_categories)
     covid_safe = BooleanField()
 
     def get_picture(self):
         pictures = self.picture_set.all()
-        return pictures[randint(0, len(pictures)-1)]
+        if len(pictures):
+            return pictures[randint(0, len(pictures)-1)]
 
     def __str__(self):
-        return f"{'.'.join([word[:2] for word in self.name.split()])} | {self.category[:5]}"
+        return f"{self.name} | {self.category}"
 
-class Attraction(models.Model):
-    thing = OneToOneField(Thing, on_delete=models.CASCADE)
-    
+class Attraction(Thing):
     types = ['Nightlife', 'Sight', 'Landmark', 'Museum', 'Fun']
     tuple_types = [(t.lower().replace(' ', '_'), t) for t in types]
     type = CharField(max_length=64, choices=tuple_types)
 
     neighborhood = CharField(max_length=64)
 
-    good_for_choices = ['Kids', ' Big Groups',
+    good_fors = ['Kids', 'Big Groups',
         'Adrenaline Seekers',
         'a Rainy Day', 'Couples']
-    tuple_choices = [(choice.lower().replace(' ', '_'), choice) for choice in good_for_choices]
+    tuple_choices = [(choice.lower().replace(' ', '_'), choice) for choice in good_fors]
     good_for = CharField(max_length=64, choices=tuple_choices)
 
-    def __str__(self):
-        return f"{'.'.join([word[:2] for word in self.thing.name.split()])} | {self.type[:5]} | {self.good_for[:5]}"
+    def get_absolute_url(self):
+        return reverse("core:attraction_detail", kwargs={"pk": self.pk})
 
-class Tour(models.Model):
-    thing = OneToOneField(Thing, on_delete=models.CASCADE)
-    
+class Tour(Thing):
+    category = 'Tour'
+
     types = ['Multi-day', 'City', 'Cultural', 'Historical', 'Hicking']
     tuple_types = [(t.lower().replace(' ', '_'), t) for t in types]
     type = CharField(max_length=64, choices=tuple_types)
@@ -65,13 +66,12 @@ class Tour(models.Model):
     price = SmallIntegerField()
     duration = DurationField()
 
-    def __str__(self):
-        r = f"{'.'.join([word[:2] for word in self.thing.name.split()])} | {self.type[:5]}"
-        return r
-
 class Picture(models.Model):
     thing = ForeignKey(Thing, on_delete=models.CASCADE)
     image = ImageField(upload_to='thing_pics')
+
+    def get_absolute_url(self):
+        return reverse(f"core:{self.thing.category.lower()}_detail", kwargs={"pk": self.thing.pk})
 
 #################################################
 

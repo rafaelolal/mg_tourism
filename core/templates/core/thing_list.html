@@ -1,52 +1,27 @@
 {% extends 'core/base.html' %}
-
+{% load thing_filters %}
 
 {% block body_block %}
 
 <form class='pb-4 p-2'>
     <div class="row">
-
         <div class="col col-6">
             <h1>Categories</h1>
-            <div class="form-check form-switch">
-                <input {{attraction}} name='attraction' class="form-check-input" type="checkbox" role="switch" id="switch1">
-                <label class="form-check-label" for="switch1">Attractions</label>
-            </div>
-            <div class="form-check form-switch">
-                <input {{tour}} name='tour' class="form-check-input" type="checkbox" role="switch" id="switch2">
-                <label class="form-check-label" for="switch2">Tours</label>
-            </div>
-            <div class="form-check form-switch">
-                <input {{food}} name='food' class="form-check-input" type="checkbox" role="switch" id="switch3">
-                <label class="form-check-label" for="switch3">Food</label>
-            </div>
-            <div class="form-check form-switch">
-                <input {{outdoor_activities}} name='outdoor_activities' class="form-check-input" type="checkbox" role="switch" id="switch4">
-                <label class="form-check-label" for="switch4">Outdoor Activities</label>
-            </div>
-            <div class="form-check form-switch">
-                <input {{shopping}} name='shopping' class="form-check-input" type="checkbox" role="switch" id="switch5">
-                <label class="form-check-label" for="switch5">Shopping</label>
-            </div>
+            {% for category in categories %}
+                <div class="form-check form-switch">
+                    <input {% is_checked category request.GET %} name={{category}}  id="switch{{forloop.counter}}" class="form-check-input" type="checkbox" role="switch">
+                    <label class="form-check-label" for="switch{{forloop.counter}}">{{category}}</label>
+                </div>
+            {% endfor %}
             <p>Select a category for more filters</p>
             <button type="submit" class="btn btn-dark mb-2">Submit</button>
-
         </div>
-
     <div class="col col-6">
-    {% if stars %}
-        <div class="form-floating mb-2">
-            <input name="min_stars" type="number" class="form-control" id="min_stars">
-            <label for="min_stars">Min Stars</label>
-        </div>
-    {% endif %}
-
-    {% if neighborhood %}
-        <div class="form-floating mb-2">
-            <input name="neighborhood" type="text" class="form-control" id="neighborhood_text">
-            <label for="neighborhood_text">Neighborhood</label>
-        </div>
-    {% endif %}
+    
+    <div class="form-floating mb-2">
+        <input value={% get_min_stars request.GET %} name="min_stars" id="min_stars" type="number" class="form-control">
+        <label for="min_stars">Min Stars</label>
+    </div>
 
     {% if types %}
         <div class="form-floating">
@@ -59,26 +34,32 @@
             <label for="type_select">Type</label>
         </div>
     {% endif %}
-    {% if good_for %}
+
+    {% is_in_query 'attraction' request.GET as is_in %}
+    {% if is_in %}
+        <div class="form-floating mb-2">
+            <input name="neighborhood" type="text" class="form-control" id="neighborhood_text">
+            <label for="neighborhood_text">Neighborhood</label>
+        </div>
+
         <div class="form-floating">
             <select name="good_for" class="form-select mb-2" id="good_for_select">
                 <option selected>Any</option>
-            {%for visible in good_for%}
-                <option value="1">{{visible}}</option>
+            {%for good_for in good_fors%}
+                <option value={{good_for|remove_spaces}}>{{good_for}}</option>
             {% endfor %}
             </select>
             <label for="good_for_select">Good for</label>
         </div>
     {% endif %}
 
-    {% if price %}
+    {% is_in_query 'tour' request.GET as is_in %}
+    {% if is_in %}
         <div class="form-floating mb-2">
             <input name="max_price" type="number" class="form-control" id="max_price">
             <label for="max_price">Max Price</label>
         </div>
-    {% endif %}
 
-    {% if duration %}
         <div class="form-floating mb-2">
             <input name="max_duration" type="number" class="form-control" id="max_duration">
             <label for="max_duration">Max Duration</label>
@@ -90,40 +71,43 @@
 
 <div class="p-4 bg-light rounded-3">
     <div class="row">
-        {% for thing in things %}
+        {% for thing in thing_list %}
             <div class="col-md-6 col-sm-12 pb-2">
                 <div class="card bg-dark text-white">
-                    <img src={{thing.get_picture.image.url}} class="card-img img-fluid height-25%" alt="...">
+                    {% if thing.get_picture.image.url %}
+                        <img src={{thing.get_picture.image.url}} class="card-img img-fluid height-25%">
+                    {% else %}
+                        <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" class="card-img img-fluid height-25%">
+                    {% endif %}
+                    
                     <div class="card-img-overlay">
                         <h5 class="card-title">{{thing.name}}</h5>
-                        <p class="card-text">{{thing.description}}</p>
+                        <p class="card-text">{{thing.short_description}}</p>
                     </div>
+
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Stars: {{thing.stars}}</li>
                         <li class="list-group-item">Address: {{thing.address}}</li>
+                        <li class="list-group-item">Category: {{thing.category}}</li>
 
                     {% if thing.category == 'Attraction' %}
-                        <li class="list-group-item">Category: {{thing.category}}</li>
                         <li class="list-group-item">Neighborhood: {{thing.attraction.neighborhood}}</li>
                         <li class="list-group-item">Type: {{thing.attraction.type}}</li>
                         <li class="list-group-item">Good for {{thing.attraction.good_for}}</li>
 
                     {% elif thing.category == 'Tour' %}
-                        <li class="list-group-item">Category: {{thing.category}}</li>
                         <li class="list-group-item">Type: {{thing.tour.type}}</li>
                         <li class="list-group-item">Price: {{thing.tour.price}}</li>
                         <li class="list-group-item">Duration: {{thing.tour.duration}}</li>
 
                     {% endif %}
+
+                    <a href="{{thing.category|lower}}/{{thing.id}}" class='btn btn-dark'><li class='list-group-item'>Visit</li></a>
                     </ul>
                 </div>           
             </div>
         {% endfor %}
     </div>
 </div>
-
-
-
-
 
 {% endblock body_block %}
