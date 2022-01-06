@@ -37,6 +37,20 @@ class Thing(models.Model):
         if len(pictures):
             return pictures[randint(0, len(pictures)-1)]
 
+    def get_fields(self):
+        category = eval(f"{self.category.capitalize()}")
+        obj = eval(f"self.{self.category}".lower())
+        fields = self.remove_unwanted_keys({field.name: field.value_to_string(obj) for field in category._meta.fields})
+
+        return fields
+
+    def remove_unwanted_keys(self, fields):
+        unwanted = 'id name short_description category thing_ptr'.split(' ')
+        for key in unwanted:
+            del fields[key]
+
+        return fields
+
     def __str__(self):
         return f"{self.name} | {self.category}"
 

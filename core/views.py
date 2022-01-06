@@ -13,7 +13,7 @@ from django.views.generic import (TemplateView, ListView,
     UpdateView, DeleteView)
 
 from core.models import Thing, Attraction, Tour, Picture
-from core.forms import UserForm, UserProfileInfoForm, AttractionForm, TourForm, ThingForm, PictureForm
+from core.forms import UserForm, UserProfileInfoForm
 
 class IndexView(TemplateView):
     template_name = 'core/index.html'
@@ -90,63 +90,20 @@ class AttractionCreateView(CreateView):
         form.instance.category = 'Attraction'
         return super().form_valid(form)
 
-class AttractionDetailView(DetailView):
+class ThingDetailView(DetailView):
     # returns model name in lowercase
     # better to change it yourself:
-    context_object_name = "attraction_detail"
-    model = Attraction
-    template_name = 'core/attraction_detail.html'
+    context_object_name = "thing_detail"
+    model = Thing
+    template_name = 'core/thing_detail.html'
 
-def create_tour(request):
-    created = False
+class TourCreateView(CreateView):
+    fields = ['name', 'short_description', 'long_description', 'address', 'covid_safe', 'type', 'price', 'duration']
+    model = Tour
 
-    if request.method == 'POST':
-        thing_form = ThingForm(data=request.POST)
-        tour_form = TourForm(data=request.POST)
-        pic_form = PictureForm(request.POST, request.FILES)
-
-        print(thing_form.is_valid(), 'thing_form')
-        print(tour_form.is_valid(), 'tour_form')
-        print(pic_form.is_valid(), 'pic_form')
-
-        if (thing_form.is_valid()
-            and tour_form.is_valid()
-            and pic_form.is_valid()):
-
-            print("passed the valid test")
-
-            thing = thing_form.save()
-            thing.category = 'Tour'
-            thing.save()
-
-            tour = tour_form.save(commit=False)
-            tour.thing = thing
-            tour.save()
-
-            pic = pic_form.save(commit=False)
-            pic.thing = thing
-            pic.image = request.FILES['image']
-            pic.save()
-
-            created = True
-            print(created, 'created!')
-
-        else:
-            print(thing_form.errors, tour_form.errors)
-            print(pic_form.errors)
-
-    else:
-        thing_form = ThingForm()
-        tour_form = TourForm()
-        pic_form = PictureForm()
-
-    return render(request,
-        'core/create_tour.html',
-        {
-            'created': created,
-            'thing_form': thing_form,
-            'tour_form': tour_form,
-            'pic_form': pic_form,})
+    def form_valid(self, form):
+        form.instance.category = 'Tour'
+        return super().form_valid(form)
 
 #############################
 

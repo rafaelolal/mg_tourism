@@ -4,8 +4,11 @@ register = template.Library()
 
 @register.filter
 def remove_spaces(value): # Only one argument.
-    """Converts a string into all lowercase"""
     return value.replace(' ', '_')
+
+@register.filter
+def add_spaces(value): # Only one argument.
+    return value.replace('_', ' ').title()
 
 @register.simple_tag
 def is_checked(category, checked):

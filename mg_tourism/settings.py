@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from django_archive import archivers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +41,7 @@ CSRF_TRUSTED_ORIGINS = ['https://chemicals-tech-picking-leather.trycloudflare.co
 INSTALLED_APPS = [
     'core',
     'crispy_forms',
+    'django_archive',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,6 +51,9 @@ INSTALLED_APPS = [
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+ARCHIVE_DIRECTORY = 'archive/'
+ARCHIVE_FORMAT = archivers.ZIP
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

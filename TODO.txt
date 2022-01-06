@@ -1,0 +1,17 @@
+Add more categories/models
+    on faker
+Make filters work
+
+Profile page
+    update profile image
+Leave a comment
+    Create fake users and fake comments
+    places visited/reviews made
+Create your own trip plan
+
+Create help page
+    https://www.tripadvisorsupport.com/en-US/hc/traveler
+
+Fill out homepage
+Search bar functionality
+Azure bot?

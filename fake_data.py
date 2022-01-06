@@ -24,11 +24,14 @@ def populate(N=5):
         for category in categories:
             thing = create_thing(category)
             place = categories[category](thing)
-            picture = create_picture(thing)
+            picture = create_picture(place)
+            picture2 = create_picture(place)
+            picture3 = create_picture(place)
 
-            thing.save()
             place.save()
             picture.save()
+            picture2.save()
+            picture3.save()
 
 def create_attraction(thing):
     type_ = random.choice(
@@ -44,7 +47,13 @@ def create_attraction(thing):
         [choice[1] for choice in Attraction._meta.get_field('good_for').choices])
 
     attraction = Attraction.objects.get_or_create(
-        thing=thing,
+        name=thing[0],
+        long_description=thing[1],
+        short_description=thing[2],
+        address=thing[3],
+        stars=thing[4],
+        category=thing[5],
+        covid_safe=thing[6],
         type=type_,
         neighborhood=neighborhood,
         good_for=good_for)[0]
@@ -59,7 +68,13 @@ def create_tour(thing):
     duration = datetime.timedelta(seconds=random.choice([3600*i for i in range(30)]))
 
     tour = Tour.objects.get_or_create(
-        thing=thing,
+        name=thing[0],
+        long_description=thing[1],
+        short_description=thing[2],
+        address=thing[3],
+        stars=thing[4],
+        category=thing[5],
+        covid_safe=thing[6],
         type=t,
         price=price,
         duration=duration)[0]
@@ -68,19 +83,20 @@ def create_tour(thing):
 
 def create_thing(category):
     name = f"{f.city()} {f.company()}"
-    description = fus.paragraph(nb_sentences=5)
+    long_description = fus.paragraph(nb_sentences=12, variable_nb_sentences=False)
+    short_description = fus.paragraph(nb_sentences=3, variable_nb_sentences=False)
     address = get_address()
     stars = random.randint(2, 5)
     category = category
     covid_safe = random.choice([True, False])
 
-    thing = Thing.objects.get_or_create(
-        name=name,
-        description=description,
-        address=address,
-        stars=stars,
-        category=category,
-        covid_safe=covid_safe)[0]
+    thing = (name,
+        long_description,
+        short_description,
+        address,
+        stars,
+        category,
+        covid_safe)
 
     return thing
 
@@ -99,7 +115,7 @@ def create_picture(thing):
     return picture
 
 def get_image(filename='img.jpg',
-    url='https://picsum.photos/640/480'):
+    url='https://picsum.photos/1280/720'):
 
     r = requests.get(url, stream = True)
 

@@ -77,7 +77,7 @@
                     {% if thing.get_picture.image.url %}
                         <img src={{thing.get_picture.image.url}} class="card-img img-fluid height-25%">
                     {% else %}
-                        <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" class="card-img img-fluid height-25%">
+                        <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" class="card-img img-fluid">
                     {% endif %}
                     
                     <div class="card-img-overlay">
@@ -102,7 +102,7 @@
 
                     {% endif %}
 
-                    <a href="{{thing.category|lower}}/{{thing.id}}" class='btn btn-dark'><li class='list-group-item'>Visit</li></a>
+                    <a href="{{thing.id}}" class='btn btn-dark'><li class='list-group-item'>Visit</li></a>
                     </ul>
                 </div>           
             </div>
