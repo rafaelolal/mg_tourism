@@ -4,7 +4,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mg_tourism.settings')
 import django
 django.setup()
 
-from core.models import Thing, Attraction, Tour, Picture
+from core.models import Attraction, Tour, Food, Outdoor, Shopping, Picture
 from django.core.files import File
 from faker import Faker
 
@@ -16,9 +16,18 @@ import random
 f = Faker('pt_BR')
 fus = Faker('en_US')
 
+neighborhoods = ['Santa Inês','Jardim São José',
+        'Vila Betânia', 'Dom Bosco',
+        'Jonas Veiga', 'Bacurau',
+        'São Francisco', 'Nossa Senhora Do Rosário',
+        'Santa Monica', 'Paraíso']
+
 def populate(N=5):
     categories = {'Attraction': create_attraction,
-        'Tour': create_tour}
+        'Tour': create_tour,
+        'Food': create_food,
+        'Outdoor': create_outdoor,
+        'Shopping': create_shopping}
 
     for _ in range(N):
         for category in categories:
@@ -37,11 +46,7 @@ def create_attraction(thing):
     type_ = random.choice(
         [choice[1] for choice in Attraction._meta.get_field('type').choices])
     
-    neighborhood = random.choice(['Santa Inês','Jardim São José',
-        'Vila Betânia', 'Dom Bosco',
-        'Jonas Veiga', 'Bacurau',
-        'São Francisco', 'Nossa Senhora Do Rosário',
-        'Santa Monica', 'Paraíso'])
+    neighborhood = random.choice(neighborhoods)
     
     good_for = random.choice(
         [choice[1] for choice in Attraction._meta.get_field('good_for').choices])
@@ -80,6 +85,75 @@ def create_tour(thing):
         duration=duration)[0]
 
     return tour
+
+def create_food(thing):
+    type_ = random.choice(
+        [choice[1] for choice in Food._meta.get_field('type').choices])
+    
+    neighborhood = random.choice(neighborhoods)
+    
+    good_for = random.choice(
+        [choice[1] for choice in Food._meta.get_field('good_for').choices])
+
+    food = Food.objects.get_or_create(
+        name=thing[0],
+        long_description=thing[1],
+        short_description=thing[2],
+        address=thing[3],
+        stars=thing[4],
+        category=thing[5],
+        covid_safe=thing[6],
+        type=type_,
+        neighborhood=neighborhood,
+        good_for=good_for)[0]
+
+    return food
+
+def create_outdoor(thing):
+    type_ = random.choice(
+        [choice[1] for choice in Outdoor._meta.get_field('type').choices])
+    
+    neighborhood = random.choice(neighborhoods)
+    
+    good_for = random.choice(
+        [choice[1] for choice in Outdoor._meta.get_field('good_for').choices])
+
+    outdoor = Outdoor.objects.get_or_create(
+        name=thing[0],
+        long_description=thing[1],
+        short_description=thing[2],
+        address=thing[3],
+        stars=thing[4],
+        category=thing[5],
+        covid_safe=thing[6],
+        type=type_,
+        neighborhood=neighborhood,
+        good_for=good_for)[0]
+
+    return outdoor
+
+def create_shopping(thing):
+    type_ = random.choice(
+        [choice[1] for choice in Shopping._meta.get_field('type').choices])
+    
+    neighborhood = random.choice(neighborhoods)
+    
+    good_for = random.choice(
+        [choice[1] for choice in Shopping._meta.get_field('good_for').choices])
+
+    shopping = Shopping.objects.get_or_create(
+        name=thing[0],
+        long_description=thing[1],
+        short_description=thing[2],
+        address=thing[3],
+        stars=thing[4],
+        category=thing[5],
+        covid_safe=thing[6],
+        type=type_,
+        neighborhood=neighborhood,
+        good_for=good_for)[0]
+
+    return shopping
 
 def create_thing(category):
     name = f"{f.city()} {f.company()}"

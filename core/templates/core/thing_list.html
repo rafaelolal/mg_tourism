@@ -90,10 +90,14 @@
                         <li class="list-group-item">Address: {{thing.address}}</li>
                         <li class="list-group-item">Category: {{thing.category}}</li>
 
-                    {% if thing.category == 'Attraction' %}
-                        <li class="list-group-item">Neighborhood: {{thing.attraction.neighborhood}}</li>
-                        <li class="list-group-item">Type: {{thing.attraction.type}}</li>
-                        <li class="list-group-item">Good for {{thing.attraction.good_for}}</li>
+                    {% if thing.category == 'Attraction' or thing.category == 'Food' or thing.category == 'Outdoor' or thing.category == 'Shopping' %}
+                        {% my_get_field 'neighborhood' thing as neighborhood %}
+                        {% my_get_field 'type' thing as type %}
+                        {% my_get_field 'good_for' thing as good_for %}
+
+                        <li class="list-group-item">Neighborhood: {{neighborhood}}</li>
+                        <li class="list-group-item">Type: {{type}}</li>
+                        <li class="list-group-item">Good for {{good_for}}</li>
 
                     {% elif thing.category == 'Tour' %}
                         <li class="list-group-item">Type: {{thing.tour.type}}</li>

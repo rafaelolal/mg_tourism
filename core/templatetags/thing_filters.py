@@ -30,3 +30,8 @@ def get_min_stars(query):
 def is_in_query(category, query):
     query = [k.lower() for k in query.keys()]
     return category in query
+
+@register.simple_tag
+def my_get_field(field, thing):
+    category = thing.category
+    return eval(f'thing.{category}.{field}'.lower())

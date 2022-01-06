@@ -105,8 +105,6 @@ class TourCreateView(CreateView):
         form.instance.category = 'Tour'
         return super().form_valid(form)
 
-#############################
-
 class ThingListView(ListView):
     model = Thing
 
@@ -134,7 +132,10 @@ class ThingListView(ListView):
 
     def query_filter(self, querystring):
         queryset = []
+        print(self.request.GET)
         for category, param in zip(self.model.categories, querystring):
+            print(category, 'category in query')
+            print(param, 'param in query')
             if param:
                 queryset.append(Thing.objects.filter(category=category))
 
