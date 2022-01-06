@@ -14,4 +14,9 @@ Create help page
 
 Fill out homepage
 Search bar functionality
+
+Make the code type hinted
+    add doc strings
+    explain why things are done
+
 Azure bot?
