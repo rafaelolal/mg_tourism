@@ -1,3 +1,5 @@
+FIX LOGIN
+
 Add more categories/models
     on faker
 Make filters work
