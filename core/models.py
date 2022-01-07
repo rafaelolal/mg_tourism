@@ -104,7 +104,7 @@ class Outdoor(Thing):
 
     neighborhood = CharField(max_length=64)
 
-    good_fors = Attraction.good_fors
+    good_fors = Attraction.good_fors.copy()
     good_fors.remove("a Rainy Day")
     tuple_choices = [(choice.lower().replace(' ', '_'), choice) for choice in good_fors]
     good_for = CharField(max_length=64, choices=tuple_choices)
@@ -119,7 +119,7 @@ class Shopping(Thing):
 
     neighborhood = CharField(max_length=64)
 
-    good_fors = Attraction.good_fors
+    good_fors = Attraction.good_fors.copy()
     good_fors.remove('Adrenaline Seekers')
     tuple_choices = [(choice.lower().replace(' ', '_'), choice) for choice in good_fors]
     good_for = CharField(max_length=64, choices=tuple_choices)

@@ -110,19 +110,29 @@ class ThingListView(ListView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(**kwargs,
-        categories=self.model.categories,
-        good_fors=Attraction.good_fors)
+        categories=self.model.categories)
 
     def get_queryset(self):
-        query_paremeters = self.get_query_parameters()
-        return self.query_filter(query_paremeters)
+        query_categories = self.get_query_categories()
+        category_filtered = self.query_filter_categories(query_categories)
+        query_fields = self.get_query_fields()
+        return self.query_filter_fields(query_fields, category_filtered)
 
-    def get_query_parameters(self):
+    def get_query_categories(self):
         querystring = []
         for category in self.model.categories:
-            querystring.append(self.convert_on(self.request.GET.get(category.lower().replace(' ', '_'))))
+            querystring.append(self.convert_on(self.request.GET.get(category)))
 
         return querystring
+
+    def get_query_fields(self):
+        query_fields = {}
+        querystring = self.request.GET
+        for query in querystring:
+            if query not in self.model.categories and (querystring[query] and querystring[query] != 'Any'):
+                query_fields[query] = querystring[query]
+
+        return query_fields
 
     @staticmethod
     def convert_on(category):
@@ -130,12 +140,9 @@ class ThingListView(ListView):
             return 'checked'
         return ''
 
-    def query_filter(self, querystring):
+    def query_filter_categories(self, query_categories):
         queryset = []
-        print(self.request.GET)
-        for category, param in zip(self.model.categories, querystring):
-            print(category, 'category in query')
-            print(param, 'param in query')
+        for category, param in zip(self.model.categories, query_categories):
             if param:
                 queryset.append(Thing.objects.filter(category=category))
 
@@ -144,6 +151,44 @@ class ThingListView(ListView):
 
         else:
             return Thing.objects.all()
+
+    def query_filter_fields(self, query_fields, things):
+        if 'min_stars' in query_fields:
+            things = things.filter(stars__gte=int(query_fields['min_stars']))
+
+        tours = things.filter(category="Tour")
+        others = things.filter(category__in=['Attraction', 'Food', 'Outdoor', 'Shopping'])
+        for field in query_fields:
+            if field in 'type max_price max_duration':
+                if field == 'type':
+                    tours = tours.filter(tour__type=query_fields[field].replace('_', ' '))
+                elif field == 'max_price':
+                    tours = tours.filter(tour__price__lte=int(query_fields[field]))
+                elif field == 'max_duration':
+                    tours = tours.filter(tour__duration__lte=int(query_fields[field]))
+            if field in 'type neighborhood good_for':
+                field_value = query_fields[field]
+                if field == 'good_for':
+                    field_value = query_fields[field].replace('_', ' ')
+                    others = (others.filter(attraction__good_for=field_value)
+                        | others.filter(food__good_for=field_value)
+                        | others.filter(outdoor__good_for=field_value)
+                        | others.filter(shopping__good_for=field_value))
+
+                if field == 'type':
+                    field_value = query_fields[field].replace('_', ' ')
+                    others = (others.filter(attraction__type=field_value)
+                        | others.filter(food__type=field_value)
+                        | others.filter(outdoor__type=field_value)
+                        | others.filter(shopping__type=field_value))
+
+                elif field == 'neighborhood':
+                    others = (others.filter(attraction__neighborhood=query_fields[field])
+                        | others.filter(food__neighborhood=query_fields[field])
+                        | others.filter(outdoor__neighborhood=query_fields[field])
+                        | others.filter(shopping__neighborhood=query_fields[field]))
+
+        return tours | others
 
     @staticmethod
     def combine(queryset):

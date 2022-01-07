@@ -3,115 +3,167 @@
 
 {% block body_block %}
 
-<form class='pb-4 p-2'>
-    <div class="row">
-        <div class="col col-6">
-            <h1>Categories</h1>
-            {% for category in categories %}
-                <div class="form-check form-switch">
-                    <input {% is_checked category request.GET %} name={{category}}  id="switch{{forloop.counter}}" class="form-check-input" type="checkbox" role="switch">
-                    <label class="form-check-label" for="switch{{forloop.counter}}">{{category}}</label>
-                </div>
-            {% endfor %}
-            <p>Select a category for more filters</p>
-            <button type="submit" class="btn btn-dark mb-2">Submit</button>
-        </div>
-    <div class="col col-6">
-    
-    <div class="form-floating mb-2">
-        <input value={% get_min_stars request.GET %} name="min_stars" id="min_stars" type="number" class="form-control">
-        <label for="min_stars">Min Stars</label>
-    </div>
-
-    {% if types %}
-        <div class="form-floating">
-            <select name="attraction_type" class="form-select mb-2" id="type_select">
-                <option selected>Any</option>
-            {%for visible in types%}
-                <option value="1">{{visible}}</option>
-            {% endfor %}
-            </select>
-            <label for="type_select">Type</label>
-        </div>
-    {% endif %}
-
-    {% is_in_query 'attraction' request.GET as is_in %}
-    {% if is_in %}
-        <div class="form-floating mb-2">
-            <input name="neighborhood" type="text" class="form-control" id="neighborhood_text">
-            <label for="neighborhood_text">Neighborhood</label>
-        </div>
-
-        <div class="form-floating">
-            <select name="good_for" class="form-select mb-2" id="good_for_select">
-                <option selected>Any</option>
-            {%for good_for in good_fors%}
-                <option value={{good_for|remove_spaces}}>{{good_for}}</option>
-            {% endfor %}
-            </select>
-            <label for="good_for_select">Good for</label>
-        </div>
-    {% endif %}
-
-    {% is_in_query 'tour' request.GET as is_in %}
-    {% if is_in %}
-        <div class="form-floating mb-2">
-            <input name="max_price" type="number" class="form-control" id="max_price">
-            <label for="max_price">Max Price</label>
-        </div>
-
-        <div class="form-floating mb-2">
-            <input name="max_duration" type="number" class="form-control" id="max_duration">
-            <label for="max_duration">Max Duration</label>
-        </div>
-    {% endif %}
-
-    </div>
-</form>
-
-<div class="p-4 bg-light rounded-3">
-    <div class="row">
-        {% for thing in thing_list %}
-            <div class="col-md-6 col-sm-12 pb-2">
-                <div class="card bg-dark text-white">
-                    {% if thing.get_picture.image.url %}
-                        <img src={{thing.get_picture.image.url}} class="card-img img-fluid height-25%">
-                    {% else %}
-                        <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" class="card-img img-fluid">
-                    {% endif %}
-                    
-                    <div class="card-img-overlay">
-                        <h5 class="card-title">{{thing.name}}</h5>
-                        <p class="card-text">{{thing.short_description}}</p>
+<div class="row">
+    <div class="col-md-3 col-xs-6" id="sticky-sidebar">
+        <div class="sticky-md-top">
+            <h1>‎</h1>
+            <form class='pb-4 p-2'>
+                <h1>Categories</h1>
+                <p>Select a category for more filters</p>
+                {% for category in categories %}
+                    <div class="form-check form-switch">
+                        <input {% is_checked category request.GET %} name={{category}}  id="switch{{forloop.counter}}" class="form-check-input" type="checkbox" role="switch">
+                        <label class="form-check-label" for="switch{{forloop.counter}}">{{category}}</label>
                     </div>
-
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Stars: {{thing.stars}}</li>
-                        <li class="list-group-item">Address: {{thing.address}}</li>
-                        <li class="list-group-item">Category: {{thing.category}}</li>
-
-                    {% if thing.category == 'Attraction' or thing.category == 'Food' or thing.category == 'Outdoor' or thing.category == 'Shopping' %}
-                        {% my_get_field 'neighborhood' thing as neighborhood %}
-                        {% my_get_field 'type' thing as type %}
-                        {% my_get_field 'good_for' thing as good_for %}
-
-                        <li class="list-group-item">Neighborhood: {{neighborhood}}</li>
-                        <li class="list-group-item">Type: {{type}}</li>
-                        <li class="list-group-item">Good for {{good_for}}</li>
-
-                    {% elif thing.category == 'Tour' %}
-                        <li class="list-group-item">Type: {{thing.tour.type}}</li>
-                        <li class="list-group-item">Price: {{thing.tour.price}}</li>
-                        <li class="list-group-item">Duration: {{thing.tour.duration}}</li>
-
+                {% endfor %}
+                
+                <div class="form-floating my-2">
+                    {% get_param_value 'min_stars' request.GET as min_stars_selected%}
+                    {% if min_stars_selected %}
+                    <input value={{min_stars_selected}} name="min_stars" id="min_stars" type="number" class="form-control">
+                    {% else %}
+                    <input name="min_stars" id="min_stars" type="number" class="form-control">
+                    {% endif %}
+                    <label for="min_stars">Min Stars</label>
+                </div>
+            
+                
+                <div class="form-floating">
+                    <select name="type" class="form-select mb-2" id="type_select">
+                    {% get_param_value 'type' request.GET as type_selected %}
+                    {% if type_selected %}
+                        <option>Any</option>
+                    {% else %}
+                        <option selected>Any</option>
                     {% endif %}
 
-                    <a href="{{thing.id}}" class='btn btn-dark'><li class='list-group-item'>Visit</li></a>
-                    </ul>
-                </div>           
+                    {% get_types thing_list as types %}
+                    {% for type in types %}
+                        {% if type_selected == type %}
+                            <option selected value={{type|remove_spaces}}>{{type}}</option>
+                        {% else %}
+                            <option value={{type|remove_spaces}}>{{type}}</option>
+                        {% endif %}
+                    {% endfor %}
+                    </select>
+                    <label for="type_select">Type</label>
+                </div>
+
+                {% is_in_query 'Attraction Food Outdoor Shopping' request.GET as is_in %}
+                {% if is_in %}
+                    <div class="form-floating mb-2">
+                        {% get_param_value 'neighborhood' request.GET as neighborhood_selected %}
+                        {% if neighborhood_selected %}
+                            <input value={{neighborhood_selected}} name="neighborhood" type="text" class="form-control" id="neighborhood_text">
+                        {% else %}
+                            <input name="neighborhood" type="text" class="form-control" id="neighborhood_text">
+                        {% endif %}
+                        <label for="neighborhood_text">Neighborhood</label>
+                    </div>
+            
+                    <div class="form-floating">
+                        <select name="good_for" class="form-select mb-2" id="good_for_select">
+                        {% get_param_value 'good_for' request.GET as good_for_selected %}
+                        {% if good_for_selected %}
+                            <option>Any</option>
+                        {% else %}
+                            <option selected>Any</option>
+                        {% endif %}
+                        {% get_good_fors thing_list as good_fors %}
+                        {% for good_for in good_fors %}
+                            {% if good_for_selected == good_for %}
+                                <option selected value={{good_for|remove_spaces}}>{{good_for}}</option>
+                            {% else %}
+                                <option value={{good_for|remove_spaces}}>{{good_for}}</option>
+                            {% endif %}
+                        {% endfor %}
+                        </select>
+                        <label for="good_for_select">Good for</label>
+                    </div>
+                {% endif %}
+            
+                {% is_in_query 'Tour' request.GET as is_in %}
+                {% if is_in %}
+                    <div class="form-floating mb-2">
+                        {% get_param_value 'max_price' request.GET as max_price_selected %}
+                        {% if max_price_selected %}
+                            <input value={{max_price_selected}} name="max_price" type="number" class="form-control" id="max_price">
+                        {% else %}
+                            <input name="max_price" type="number" class="form-control" id="max_price">
+                        {% endif %}
+                        <label for="max_price">Max Price</label>
+                    </div>
+            
+                    <div class="form-floating mb-2">
+                        {% get_param_value 'max_duration' request.GET as max_duration_selected %}
+                        {% if max_duration_selected %}
+                            <input value=max_duration_selected name="max_duration" type="number" class="form-control" id="max_duration">
+                        {% else %}
+                            <input name="max_duration" type="number" class="form-control" id="max_duration">
+                        {% endif %}
+                        <label for="max_duration">Max Duration</label>
+                    </div>
+                {% endif %}
+
+                <button type="submit" class="btn btn-dark mb-2">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-9 col-xs-6" id="main">
+        <div class="p-4 bg-light rounded-3">
+            <div class="row">
+                {% if thing_list %}
+                {% for thing in thing_list %}
+                    <div class="col-md-6 col-sm-12 pb-2">
+                        <div class="card bg-dark text-white">
+                            {% if thing.get_picture.image.url %}
+                                <img src={{thing.get_picture.image.url}} class="card-img img-fluid height-25%">
+                            {% else %}
+                                <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" class="card-img img-fluid">
+                            {% endif %}
+                            
+                            <div class="card-img-overlay">
+                                <h5 class="card-title">{{thing.name}}</h5>
+                                <p class="card-text">{{thing.short_description}}</p>
+                            </div>
+        
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Stars: {{thing.stars}}</li>
+                                <li class="list-group-item">Address: {{thing.address}}</li>
+                                <li class="list-group-item">Category: {{thing.category}}</li>
+        
+                            {% if thing.category in 'Attraction Food Outdoor Shopping' %}
+                                {% my_get_field 'neighborhood' thing as neighborhood %}
+                                {% my_get_field 'type' thing as type %}
+                                {% my_get_field 'good_for' thing as good_for %}
+        
+                                <li class="list-group-item">Neighborhood: {{neighborhood}}</li>
+                                <li class="list-group-item">Type: {{type}}</li>
+                                <li class="list-group-item">Good for {{good_for}}</li>
+        
+                            {% elif thing.category == 'Tour' %}
+                                <li class="list-group-item">Type: {{thing.tour.type}}</li>
+                                <li class="list-group-item">Price: {{thing.tour.price}}</li>
+                                <li class="list-group-item">Duration: {{thing.tour.duration}}</li>
+        
+                            {% endif %}
+        
+                            <a href="{{thing.id}}" class='btn btn-dark'><li class='list-group-item'>Visit</li></a>
+                            </ul>
+                        </div>           
+                    </div>
+                {% endfor %}
+                {% else %}
+                    <h1>There's nowhere so specific!</h1>
+                    <p>Try less selective options.</p>
+                {% endif %}
             </div>
-        {% endfor %}
+        </div>
     </div>
 </div>
+
+
+
+
 
 {% endblock body_block %}
