@@ -51,6 +51,9 @@ class Thing(models.Model):
 
         return fields
 
+    def get_absolute_url(self):
+        return reverse(f"core:thing_detail", kwargs={"pk": self.pk})
+
     def __str__(self):
         return f"{self.name} | {self.category}"
 
@@ -132,7 +135,12 @@ class Picture(models.Model):
     image = ImageField(upload_to='thing_pics')
 
     def get_absolute_url(self):
-        return reverse(f"core:{self.thing.category.lower()}_detail", kwargs={"pk": self.thing.pk})
+        return reverse(f"core:thing_detail", kwargs={"pk": self.thing.pk})
+
+class Comment(models.Model):
+    content = CharField(max_length=4096)
+    image = ForeignKey(Picture, on_delete=models.CASCADE)
+    author = ForeignKey(User, on_delete=models.CASCADE)
 
 #################################################
 

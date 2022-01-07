@@ -1,18 +1,16 @@
-from typing import final
-from django.db.models import query
 from django.shortcuts import render
 from django import forms
 
 # login
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.generic import (TemplateView, ListView,
     DetailView, CreateView,
     UpdateView, DeleteView)
 
-from core.models import Thing, Attraction, Tour, Picture
+from core.models import Thing, Attraction, Tour, Food, Outdoor, Shopping, Picture
 from core.forms import UserForm, UserProfileInfoForm
 
 class IndexView(TemplateView):
@@ -47,7 +45,6 @@ def register(request):
 
         else:
             print(user_form.errors, profile_form.errors)
-            raise forms.ValidationError('INVALID FORM')
 
     else:
         user_form = UserForm()
@@ -90,12 +87,33 @@ class AttractionCreateView(CreateView):
         form.instance.category = 'Attraction'
         return super().form_valid(form)
 
-class ThingDetailView(DetailView):
-    # returns model name in lowercase
-    # better to change it yourself:
-    context_object_name = "thing_detail"
-    model = Thing
-    template_name = 'core/thing_detail.html'
+class AttractionDeleteView(DeleteView):
+    model = Attraction
+    success_url = reverse_lazy("core:thing_list")
+
+class FoodCreateView(CreateView):
+    fields = ['name', 'short_description', 'long_description', 'address', 'covid_safe', 'type', 'neighborhood', 'good_for']
+    model = Food
+
+    def form_valid(self, form):
+        form.instance.category = 'Food'
+        return super().form_valid(form)
+
+class OutdoorCreateView(CreateView):
+    fields = ['name', 'short_description', 'long_description', 'address', 'covid_safe', 'type', 'neighborhood', 'good_for']
+    model = Outdoor
+
+    def form_valid(self, form):
+        form.instance.category = 'Outdoor'
+        return super().form_valid(form)
+
+class ShoppingCreateView(CreateView):
+    fields = ['name', 'short_description', 'long_description', 'address', 'covid_safe', 'type', 'neighborhood', 'good_for']
+    model = Shopping
+
+    def form_valid(self, form):
+        form.instance.category = 'Shopping'
+        return super().form_valid(form)
 
 class TourCreateView(CreateView):
     fields = ['name', 'short_description', 'long_description', 'address', 'covid_safe', 'type', 'price', 'duration']
@@ -104,6 +122,21 @@ class TourCreateView(CreateView):
     def form_valid(self, form):
         form.instance.category = 'Tour'
         return super().form_valid(form)
+
+class ThingDetailView(DetailView):
+    # returns model name in lowercase
+    # better to change it yourself:
+    context_object_name = "thing_detail"
+    model = Thing
+    template_name = 'core/thing_detail.html'
+
+class ThingDeleteView(DeleteView):
+    model = Thing
+    success_url = reverse_lazy("core:thing_list")
+
+class ThingUpdateView(UpdateView):
+    fields = ['name', 'short_description', 'long_description', 'address', 'covid_safe']
+    model = Thing
 
 class ThingListView(ListView):
     model = Thing
@@ -197,60 +230,6 @@ class ThingListView(ListView):
             final_queryset = final_queryset | query
 
         return final_queryset
-
-# TODO if this was a class I could have all these methods namespaced
-# def things(request):
-#     # all attributes
-#     stars = None
-#     # attraction and tour
-#     types = []
-
-#     # attraction
-#     neighborhood = False
-#     good_for = []
-
-#     # tour
-#     price = None
-#     duration = None
-
-#     categories = ['Attraction', 'Tour', 'Food', 'Outdoor Activities', 'Shopping']
-
-#     querystring = get_querystring(request, categories)
-#     t_things = filter_(categories, querystring)
-#     final_things = combine(t_things)
-
-#     if any(querystring):
-#         stars = True
-
-#     if querystring[0]:
-#         types += Attraction.types
-#         neighborhood = True
-#         good_for += Attraction.good_for_choices
-
-#     if querystring[1]:
-#         types += Tour.types
-#         tours = Tour.objects
-        
-#         by_price = tours.order_by('price')
-#         lowest_price = by_price[0].price
-#         highest_price = by_price[len(list(tours.all()))-1].price
-#         price = (lowest_price, highest_price)
-
-#         by_duration = tours.order_by('duration')
-#         shortest_duration = by_duration[0].duration
-#         longest_duration = by_duration[len(list(tours.all()))-1].duration
-
-#         duration = (shortest_duration, longest_duration)
-
-#     context = {'things': final_things,
-#         'stars': stars,
-#         'types': types,
-#         'neighborhood': neighborhood,
-#         'good_for': good_for,
-#         'price': price,
-#         'duration': duration,} | get_params(categories, querystring)
-
-#     return render(request, 'core/things.html', context=context)
 
 class PictureCreateView(CreateView):
     fields = ['image']
