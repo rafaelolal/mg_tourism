@@ -28,13 +28,11 @@ SECRET_KEY = 'django-insecure-y%&4gfos-g(1e+)_7et0q0jaw885s+37de%$la7ket5+3--uej
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['chemicals-tech-picking-leather.trycloudflare.com',
+ALLOWED_HOSTS = ['chase-dreams-chaos-bowling.trycloudflare.com',
     'localhost',
     '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://chemicals-tech-picking-leather.trycloudflare.com',
-    "http://discord.thinkland.ai",
-    'http://13.82.177.60']
+CSRF_TRUSTED_ORIGINS = ['https://chase-dreams-chaos-bowling.trycloudflare.com']
 
 # Application definition
 
