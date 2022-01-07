@@ -9,12 +9,12 @@
             <form action="{%url 'core:user_login'%}" method='post'>
                 {% csrf_token %}
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="username_input" name="username">
-                    <label for="username_input">Username</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                    <label for="username">Username</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="password_input" name="passowrd">
-                    <label for="password_input">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                    <label for="password">Password</label>
                 </div>
             
                 <input type="submit" value="Login" class='btn btn-dark'>

@@ -31,11 +31,19 @@
               Create a Thing
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="{%url 'core:create_attraction'%}">Attraction</a></li>
               <li><a class="dropdown-item" href="{%url 'core:create_tour'%}">Tour</a></li>
-              <li><hr class="dropdown-divider"></li>
+              <li><hr class="dropdown-divider"></li>  
+              <li><a class="dropdown-item" href="{%url 'core:create_attraction'%}">Attraction</a></li>
+              <li><a class="dropdown-item" href="{%url 'core:create_food'%}">Food</a></li>
+              <li><a class="dropdown-item" href="{%url 'core:create_outdoor'%}">Outdoor</a></li>
+              <li><a class="dropdown-item" href="{%url 'core:create_shopping'%}">Shopping</a></li>
             </ul>
           </li>
+            {% if user.is_superuser %}
+              <li class="nav-item">
+                <a class="nav-link" href="{%url 'admin:index'%}">Admin</a>
+              </li>
+            {% endif %}
             {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{%url 'core:user_logout'%}">Logout</a>

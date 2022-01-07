@@ -38,7 +38,15 @@
     {% else %}
     <h2>NO IMAGES!</h2>
     {% endif %}
-    <a href="{%url "core:add_picture"%}?thing={{thing_detail.id}}" class='btn btn-dark mt-2'>Add Image</a>
+    {% if user.is_authenticated %}
+        <a href="{%url "core:add_picture"%}?thing={{thing_detail.id}}" class='btn btn-dark mt-2'>Add Image</a>
+    {% endif %}
+    {% if user.is_superuser %}
+        <a href="{%url 'core:thing_update' pk=thing_detail.pk%}" class='btn btn-warning mt-2'>Update</a>
+    {% endif %}
+    {% if user.is_superuser %}
+        <a href="{%url 'core:thing_delete' pk=thing_detail.pk%}" class='btn btn-danger mt-2'>Delete</a>
+    {% endif %}
     </div>
 </div>
 <div class="row my-4">
