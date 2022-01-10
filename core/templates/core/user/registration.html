@@ -1,0 +1,17 @@
+{% extends 'core/base/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block base_body %}
+
+<div class="p-4 mb-2 bg-light rounded-3">
+    <h1>Register Here</h1>
+</div>    
+
+<form method="post" enctype='multipart/form-data'>
+    {% csrf_token %}
+    {{ user_form|crispy }}
+    {{ profile_form|crispy }}
+    <input type="submit", class='btn btn-success', value='Register'>
+</form>
+
+{% endblock base_body %}

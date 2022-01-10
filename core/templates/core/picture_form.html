@@ -1,7 +1,10 @@
 {% extends 'core/base.html' %}
 {% load crispy_forms_tags %}
+{% load thing_filters %}
 
 {% block body_block %}
+{% get_thing request.GET as thing %}
+<h1>Adding a picture for "{{thing.name}}"</h1>
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form|crispy }}

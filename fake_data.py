@@ -4,7 +4,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mg_tourism.settings')
 import django
 django.setup()
 
-from core.models import Attraction, Tour, Food, Outdoor, Shopping, Picture
+from core.models import Thing, Comment, Attraction, Tour, Food, Outdoor, Shopping, Picture, User, UserProfileInfo
 from django.core.files import File
 from faker import Faker
 
@@ -21,6 +21,52 @@ neighborhoods = ['Santa Inês','Jardim São José',
         'Jonas Veiga', 'Bacurau',
         'São Francisco', 'Nossa Senhora Do Rosário',
         'Santa Monica', 'Paraíso']
+
+def create_users():
+    for picture in os.listdir("fake_profile_pics"):
+        f_name = fus.first_name()
+        l_name = fus.last_name()
+        u_name = f_name.lower()[0]+l_name.lower() + str(random.randint(100, 999))
+        email = u_name+"@"+"example.com"
+        u = User.objects.get_or_create(username=u_name,
+            first_name=f_name,
+            last_name=l_name,
+            email=email,
+            password=str(random.randint(10000000, 99999999)))[0]
+
+        u.save()
+
+        u_profile = UserProfileInfo.objects.get_or_create(
+            user=u,
+            biography=fus.paragraph(nb_sentences=7),
+            profile_pic=File(open(f"fake_profile_pics/{picture}", 'rb')))[0]
+
+        u_profile.save()
+
+        create_comments(u)
+
+def create_comments(user, N=6):
+    commented_on = []
+    i = 0
+    while i < N:
+        thing = random.choice(Thing.objects.all())
+        if thing not in commented_on:
+            commented_on.append(thing)
+            i += 1
+        else:
+            continue
+
+        title = fus.paragraph(nb_sentences=1, variable_nb_sentences=False)
+        content = fus.paragraph(nb_sentences=24)
+        rating = random.randint(1, 5)
+
+        comment = Comment.objects.get_or_create(title=title,
+            content=content,
+            rating=rating,
+            thing=thing,
+            author=user)[0]
+
+        comment.save()
 
 def populate(N=5):
     categories = {'Attraction': create_attraction,
@@ -201,5 +247,6 @@ def get_image(filename='img.jpg',
 
 if __name__ == "__main__":
     print("populatin script ran")
-    populate(N=6)
+    # populate(N=10)
+    create_users()
     print("population complete")

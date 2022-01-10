@@ -1,0 +1,8 @@
+{% extends 'core/base/form.html' %}
+
+{% block form_body %}
+
+<h1>Updating {{form.instance.name}}</h1>
+<a href="{%url 'core:thing_detail' pk=form.instance.pk%}" class="btn btn-warning">Cancel</a>
+
+{% endblock form_body %}

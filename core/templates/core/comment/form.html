@@ -1,0 +1,11 @@
+{% extends 'core/base/form.html' %}
+
+{% load thing_filters %}
+
+{% block form_body %}
+
+{% get_thing request.GET as thing %}
+<h1>Comment on "{{thing.name}}"</h1>
+<a href="{% url 'core:thing_detail' pk=thing.id%}"><button class="btn btn-warning" type="button">Cancel</button></a>
+
+{% endblock form_body %}

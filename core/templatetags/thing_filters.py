@@ -6,8 +6,12 @@ from core.models import Thing, Attraction, Outdoor, Shopping, Food, Tour
 register = template.Library()
 
 @register.filter
-def remove_spaces(value): # Only one argument.
+def remove_spaces(value):
     return value.replace(' ', '_')
+
+@register.filter
+def to_int(value):
+    return int(value)
 
 @register.filter
 def add_spaces(value): # Only one argument.
@@ -66,3 +70,8 @@ def get_types(things):
                 types.append(thing_type)
     
     return types
+
+@register.simple_tag
+def get_thing(query):
+    id = int(query['thing'])
+    return Thing.objects.get(id=id)

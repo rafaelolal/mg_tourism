@@ -1,0 +1,8 @@
+{% extends 'core/base/form.html' %}
+
+{% block form_body %}
+
+<h1>Updating Your Profile</h1>
+<a href="{%url 'core:user_detail' pk=form.instance.user.pk%}" class="btn btn-warning">Cancel</a>
+
+{% endblock form_body %}

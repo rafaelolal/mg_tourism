@@ -1,0 +1,70 @@
+{% extends 'core/base/base.html' %}
+{% load thing_filters %}
+
+{% block base_body %}
+
+<div class="row">
+    <div class="col-md-3 col-xs-6" id="sticky-sidebar">
+        <div class="sticky-md-top">
+            <h1>‎</h1>
+            <div class="card" style="width: 18rem;">
+                <img src="{{user_detail.userprofileinfo.profile_pic.url}}" class="card-img-top">
+                <div class="card-body">
+                  <h5 class="card-title">{{user_detail.first_name}} {{user_detail.last_name}}</h5>
+                  <p class="card-text">{{user_detail.userprofileinfo.biography}}</p>
+                  {% if user == user_detail %}
+                      <a href="{% url 'core:user_update' pk=user_detail.userprofileinfo.pk%}" class="btn btn-dark">Edit</a>              
+                  {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9 col-xs-6" id="main">
+        <h1>‎</h1>
+        <div class="p-4 bg-light rounded-3">
+            <div class="row">
+                {% if user_detail.comment_set.all %}
+                <h1>Places Visited</h1>
+                {% for comment in user_detail.comment_set.all %}
+                    <div class="col-md-6 col-sm-12 pb-2">
+                        <div class="card bg-dark text-white">
+                            {% if comment.thing.get_picture.image.url %}
+                                <img src={{comment.thing.get_picture.image.url}} class="card-img img-fluid height-25%">
+                            {% else %}
+                                <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" class="card-img img-fluid">
+                            {% endif %}
+                            
+                            <div class="card-img-overlay">
+                                <h5 class="card-title">{{comment.thing.name}}</h5>
+                                <p class="card-text">{{comment.thing.short_description}}</p>
+                            </div>
+        
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Stars: {{comment.thing.stars}}</li>
+                                <li class="list-group-item">Category: {{comment.thing.category}}</li>
+                                <li class="list-group-item">{{user_detail.first_name}}'s rating: {{comment.rating}}</li>
+                            <a href="{% url 'core:thing_detail' pk=comment.thing.id %}" class='btn btn-dark'><li class='list-group-item'>Visit</li></a>
+                            </ul>
+                        </div>           
+                    </div>
+                {% endfor %}
+                {% else %}
+                    {% if user == user_detail %}
+                        <h1>You haven't left a review on any thing.</h1>
+                        <p>Visit the Thing list to find things to do and leave a review!</p>
+                        <a href="{% url 'core:thing_list' %}" class='btn btn-dark'>See All</a>
+                    {% else %}
+                        <h1>{{user_detail.first_name}} has not left a review on anything.</h1>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock base_body %}

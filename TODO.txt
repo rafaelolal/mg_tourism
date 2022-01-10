@@ -1,20 +1,22 @@
-FIX LOGIN
+Make the code type hinted
+    structure code
+    organize code
+    comment code
+    add doc strings
+    explain why things are done
 
-Profile page
-    update profile image
-Leave a comment
-    Create fake users and fake comments
-    places visited/reviews made
+CSS not working on detail.html
+UPDATE THING RATING AS THE COMMENT IS CREATED, EVEN FAKE
+DO NOT CONVERT RATING TO INT
+Allow filter comments
+ADD Permission required for superuser stuff
+
 Create your own trip plan
 
 Create help page
     https://www.tripadvisorsupport.com/en-US/hc/traveler
 
 Fill out homepage
-Search bar functionality
-
-Make the code type hinted
-    add doc strings
-    explain why things are done
+Search bar functionality?
 
 Azure bot?
