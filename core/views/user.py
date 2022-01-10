@@ -88,4 +88,5 @@ class UserUpdateView(UpdateView):
     def form_valid(self, form):
         if not form.instance.profile_pic:
             form.instance.profile_pic = 'profile_pics/default.jpg'
+        
         return super().form_valid(form)

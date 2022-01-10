@@ -5,7 +5,6 @@ from django.db.models.fields.related import ForeignKey, OneToOneField
 
 from .thing import Thing
 
-
 class Plan(models.Model):
     owner = ForeignKey(User, on_delete=models.CASCADE)
 

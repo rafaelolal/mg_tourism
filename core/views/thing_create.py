@@ -7,6 +7,7 @@ class AttractionCreateView(CreateView):
     model = Attraction
     template_name = 'core/thing_forms/attraction.html'
 
+    # manually setting a "default" category on the form before submitting
     def form_valid(self, form):
         form.instance.category = 'Attraction'
         return super().form_valid(form)
