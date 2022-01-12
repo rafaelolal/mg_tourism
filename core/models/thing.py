@@ -1,12 +1,12 @@
 from random import randint
 from typing import Dict, Any
 
+
 from django.db import models
-from django.contrib.auth.models import User
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-from django.db.models.fields import BooleanField, CharField, DurationField, PositiveSmallIntegerField, SmallIntegerField, TextField
+from django.db.models.fields import BooleanField, CharField, DurationField, PositiveSmallIntegerField, SmallIntegerField, DecimalField, TextField
 from django.db.models.fields.files import ImageField
 from django.db.models.fields.related import ForeignKey
 
@@ -15,7 +15,10 @@ class Thing(models.Model):
     short_description = TextField()
     long_description = TextField()
     address = CharField(max_length=128)
-    stars = PositiveSmallIntegerField(null=True,
+    stars = DecimalField(
+        max_digits=2,
+        decimal_places=1,
+        null=True,
         blank=True)
 
     categories = ['Attraction', 'Tour', 'Food', 'Outdoor', 'Shopping']
@@ -28,12 +31,6 @@ class Thing(models.Model):
         pictures = self.picture_set.all()
         if len(pictures):
             return pictures[randint(0, len(pictures)-1)]
-
-    def calculate_stars(self, new_rating: int) -> None:
-        """Updates the average rating of a Thing given a new rating"""
-        N = len(self.comment_set.all())+2
-        self.stars = round((self.stars * (N-1) + new_rating) / N, 1)
-        self.save()
 
     def get_fields(self) -> Dict[str, Any]:
         """Returns the name and value of specific fields in a Thing, independent of its category"""
@@ -68,7 +65,7 @@ class Tour(Thing):
     tuple_types = [(t.lower().replace(' ', '_'), t) for t in types]
     type = CharField(max_length=64, choices=tuple_types)
 
-    price = SmallIntegerField()
+    price = DecimalField(max_digits=9, decimal_places=2)
     duration = DurationField()
 
     def get_absolute_url(self):
@@ -140,17 +137,6 @@ class Shopping(Thing):
 class Picture(models.Model):
     thing = ForeignKey(Thing, on_delete=models.CASCADE, null=True)
     image = ImageField(upload_to='thing_pics')
-
-    def get_absolute_url(self):
-        return reverse(f"core:thing_detail", kwargs={"pk": self.thing.pk})
-
-class Comment(models.Model):
-    title = CharField(max_length=128)
-    content = TextField(max_length=4096)
-    rating = SmallIntegerField(validators=[MaxValueValidator(5), MinValueValidator(1)])
-
-    thing = ForeignKey(Thing, on_delete=models.CASCADE)
-    author = ForeignKey(User, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
         return reverse(f"core:thing_detail", kwargs={"pk": self.thing.pk})

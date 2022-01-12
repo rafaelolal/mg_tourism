@@ -1,12 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 from django.db.models.fields.related import ForeignKey, OneToOneField
 
 from .thing import Thing
-
+from .user import UserProfile
 class Plan(models.Model):
-    owner = ForeignKey(User, on_delete=models.CASCADE)
+    owner = ForeignKey(UserProfile, on_delete=models.CASCADE)
 
 class PlanThing(models.Model):
     thing = OneToOneField(Thing, on_delete=models.CASCADE)

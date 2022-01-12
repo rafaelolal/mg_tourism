@@ -7,5 +7,7 @@
 {% get_thing request.GET as thing %}
 <h1>Comment on "{{thing.name}}"</h1>
 <a href="{% url 'core:thing_detail' pk=thing.id%}"><button class="btn btn-warning" type="button">Cancel</button></a>
-
+{% if comment %}
+<a href="{%url 'core:comment_delete' pk=comment.id%}?thing={{thing.id}}" type="button" class="btn btn-danger">Delete</a>
+{% endif %}
 {% endblock form_body %}

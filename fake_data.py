@@ -4,7 +4,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mg_tourism.settings')
 import django
 django.setup()
 
-from core.models import Thing, Comment, Attraction, Tour, Food, Outdoor, Shopping, Picture, User, UserProfileInfo
+from core.models import Thing, Comment, Attraction, Tour, Food, Outdoor, Shopping, Picture, UserProfile
 from django.core.files import File
 from faker import Faker
 
@@ -28,20 +28,16 @@ def create_users():
         l_name = fus.last_name()
         u_name = f_name.lower()[0]+l_name.lower() + str(random.randint(100, 999))
         email = u_name+"@"+"example.com"
-        u = User.objects.get_or_create(username=u_name,
+        u = UserProfile.objects.get_or_create(username=u_name,
             first_name=f_name,
             last_name=l_name,
             email=email,
-            password=str(random.randint(10000000, 99999999)))[0]
+            password=str(random.randint(10000000, 99999999)),
+            biography=fus.paragraph(nb_sentences=7),
+            profile_pic=File(open(f"fake_profile_pics/{picture}", 'rb')),
+            )[0]
 
         u.save()
-
-        u_profile = UserProfileInfo.objects.get_or_create(
-            user=u,
-            biography=fus.paragraph(nb_sentences=7),
-            profile_pic=File(open(f"fake_profile_pics/{picture}", 'rb')))[0]
-
-        u_profile.save()
 
         create_comments(u)
 
@@ -64,7 +60,9 @@ def create_comments(user, N=6):
             content=content,
             rating=rating,
             thing=thing,
-            author=user)[0]
+            author=user,
+            is_edited=random.choice([False, True]),
+            posted_on=datetime.date(year=2020, month=1, day=1) + datetime.timedelta(days=random.randint(0, 741)))[0]
 
         comment.save()
 
@@ -247,6 +245,6 @@ def get_image(filename='img.jpg',
 
 if __name__ == "__main__":
     print("populatin script ran")
-    # populate(N=10)
+    populate(N=10)
     create_users()
     print("population complete")

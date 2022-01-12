@@ -1,9 +1,13 @@
+from datetime import timedelta
+
 from typing import Dict, List
 
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView
+from django.core.exceptions import FieldError
 
-from core.models import Thing, Picture
+from core.models import *
+from core.mixins import *
 
 class ThingDetailView(DetailView):
     # returns model name in lowercase
@@ -12,12 +16,14 @@ class ThingDetailView(DetailView):
     model = Thing
     template_name = 'core/thing/detail.html'
 
-class ThingDeleteView(DeleteView):
+class ThingDeleteView(SuperUserRequiredMixin, DeleteView):
+    login_url = 'core:user_login'
     model = Thing
     success_url = reverse_lazy("core:thing_list")
     template_name = 'core/thing/confirm_delete.html'
 
-class ThingUpdateView(UpdateView):
+class ThingUpdateView(SuperUserRequiredMixin, UpdateView):
+    login_url = 'core:user_login'
     fields = ['name', 'short_description', 'long_description', 'address', 'covid_safe']
     model = Thing
     template_name = 'core/thing/form.html'
@@ -33,27 +39,29 @@ class ThingListView(ListView):
         categories=self.model.categories)
 
     def get_queryset(self):
-        """Returns the things to be displayed as thing_list
-        First gets the categories in the querystrig of the URL
-        Filters the query given the categories
-        Then gets other filters in the URL
-        Filters the query given the other filters
-        """
         query_categories = self.get_query_categories()
-        category_filtered = self.query_filter_categories(query_categories)
         query_fields = self.get_query_fields()
-        return self.query_filter_fields(query_fields, category_filtered)
+        return self.query_filter_fields(query_fields, query_categories)
 
     def get_query_categories(self) -> List[str]:
         """Returns a list of all categories in the querystring of the URL"""
+        
         query_categories = []
         for category in self.model.categories:
-            query_categories.append(self.convert_on(self.request.GET.get(category)))
+            checked = self.request.GET.get(category)
+            if checked:
+                query_categories.append(category)
+
+        if not query_categories:
+            return self.model.categories
 
         return query_categories
 
     def get_query_fields(self) -> Dict[str, str]:
-        """Returns a dictionary with the name of the parameters and their values in the querystring of the URL"""
+        """Returns a dictionary with the name of the parameters
+        and their values in the querystring of the URL, except categories
+        """
+        
         query_fields = {}
         querystring = self.request.GET
         for query in querystring:
@@ -62,75 +70,69 @@ class ThingListView(ListView):
 
         return query_fields
 
-    @staticmethod
-    def convert_on(category):
-        """If a switch is set to on, converts that to checked
-        Used to remember the state of a switch after submitting the filter form
-        """
-        if category == 'on':
-            return 'checked'
-        return ''
-
-    def query_filter_categories(self, query_categories: List[str]):
-        """Tries to filter the queryset by category
-        If there are no categories to filter, returns all Thing objects"""
-        queryset = []
-        for category, param in zip(self.model.categories, query_categories):
-            if param:
-                queryset.append(Thing.objects.filter(category=category))
-
-        if queryset:
-            return self.combine(queryset)
-
-        else:
-            return Thing.objects.all()
-
-    def query_filter_fields(self, query_fields: Dict[str, str], things):
+    def query_filter_fields(self, query_fields: Dict[str, str], query_categories: Dict[str, str]):
         """Returns a queryset of all objects that satisfy the querystring parameters in the URL"""
 
-        if 'min_stars' in query_fields:
-            things = things.filter(stars__gte=round(float(query_fields['min_stars']), 1))
+        cat_independent_filters = self.get_cat_independent_filters(query_fields)   
+        cat_dependent_filters = self.get_cat_dependent_filters(query_fields, query_categories)
 
-        # tours is the only category with different fields
-        tours = things.filter(category="Tour")
-        others = things.filter(category__in=['Attraction', 'Food', 'Outdoor', 'Shopping'])
+        things = self.model.objects.all().filter(**cat_independent_filters)
+        query_sets = []
+        for category in query_categories:
+            apply_on = things.filter(category=category)
 
-        # following code looks horrible, but muist be done this way since each category has unique fields
-        for field in query_fields:
-            if field in 'type max_price max_duration':
-                if field == 'type':
-                    tours = tours.filter(tour__type=query_fields[field].replace('_', ' '))
-            
-                elif field == 'max_price':
-                    tours = tours.filter(tour__price__lte=round(float(query_fields[field]), 2))
-            
-                elif field == 'max_duration':
-                    # duration is stored in seconds, converting to hours
-                    tours = tours.filter(tour__duration__lte=int(query_fields[field])*3600)
-            
-            if field in 'type neighborhood good_for':
-                field_value = query_fields[field]
-                if field == 'good_for':
-                    field_value = query_fields[field].replace('_', ' ')
-                    others = (others.filter(attraction__good_for=field_value)
-                        | others.filter(food__good_for=field_value)
-                        | others.filter(outdoor__good_for=field_value)
-                        | others.filter(shopping__good_for=field_value))
+            apply_now = {}
+            for f in cat_dependent_filters:
+                if category.lower() in f:
+                    apply_now[f] = cat_dependent_filters[f]
 
-                if field == 'type':
-                    field_value = query_fields[field].replace('_', ' ')
-                    others = (others.filter(attraction__type=field_value)
-                        | others.filter(food__type=field_value)
-                        | others.filter(outdoor__type=field_value)
-                        | others.filter(shopping__type=field_value))
+            if apply_now:
+                query_sets.append(apply_on.filter(**apply_now))
 
-                elif field == 'neighborhood':
-                    others = (others.filter(attraction__neighborhood=query_fields[field])
-                        | others.filter(food__neighborhood=query_fields[field])
-                        | others.filter(outdoor__neighborhood=query_fields[field])
-                        | others.filter(shopping__neighborhood=query_fields[field]))
+            else:
+                query_sets.append(apply_on)
 
-        return tours | others
+        if query_sets:
+            return self.combine(query_sets)
+
+        else:
+            return things
+
+    @staticmethod
+    def get_cat_independent_filters(query_fields: Dict[str, str]) -> Dict[str, Any]:
+        """Returns a dictionary of all the filters in the querystring
+        of the URL that are independent of a Thing's category
+        """
+        
+        cat_independent_filters = {}
+        if 'stars' in query_fields:
+            cat_independent_filters[f'stars__gte'] = float(query_fields['stars'])
+            del query_fields['stars']
+
+        return cat_independent_filters
+
+    @staticmethod
+    def get_cat_dependent_filters(query_fields: Dict[str, str], query_categories: List[str]) -> Dict[str, Any]:
+        """Returns a dictionary of all the filters in the querystring
+        of the URL that depend on a Thing's category
+        """
+
+        cat_dependent_filters = {}
+        for category in query_categories:
+            for field in query_fields:
+                # values in query_fields are strings, but in db are respesctive data types
+                # must filter differently depending on the field
+                if field in [field.name for field in eval(f'{category}._meta.fields')]:
+                    if field == 'price':
+                        cat_dependent_filters[f'{category.lower()}__price__lte'] = float(query_fields[field])
+                    
+                    elif field == 'duration':
+                        cat_dependent_filters[f'{category.lower()}__duration__lte'] = timedelta(hours=float(query_fields[field]))                    
+                    
+                    else:
+                        cat_dependent_filters[f'{category.lower()}__{field}'] = query_fields[field].replace('_', ' ')                  
+
+        return cat_dependent_filters
 
     @staticmethod
     def combine(queryset: List):
@@ -141,7 +143,8 @@ class ThingListView(ListView):
 
         return final_queryset
 
-class PictureCreateView(CreateView):
+class PictureCreateView(LoginRequiredMixin, CreateView):
+    login_url = 'core:user_login'
     fields = ['image']
     model = Picture
 

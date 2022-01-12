@@ -1,0 +1,12 @@
+{% extends 'core/base/base.html' %}
+
+{% block base_body %}
+
+<h1>Delete the comment "{{comment.title}}" on "{{comment.thing.name}}"?</h1>
+<form method="POST">
+    {% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="Delete">
+    <a href="{%url 'core:comment_update' pk=comment.pk%}?thing={{comment.thing.pk}}" class="btn btn-success">Cancel</a>
+</form>
+
+{% endblock base_body %}

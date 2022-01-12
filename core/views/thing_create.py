@@ -1,8 +1,10 @@
 from django.views.generic import CreateView
 
 from core.models import Attraction, Tour, Food, Outdoor, Shopping
+from core.mixins import *
 
-class AttractionCreateView(CreateView):
+class AttractionCreateView(LoginRequiredMixin, CreateView):
+    login_url = 'core:user_login'
     fields = ['name', 'short_description', 'long_description', 'address', 'covid_safe', 'type', 'neighborhood', 'good_for']
     model = Attraction
     template_name = 'core/thing_forms/attraction.html'
@@ -12,7 +14,8 @@ class AttractionCreateView(CreateView):
         form.instance.category = 'Attraction'
         return super().form_valid(form)
 
-class FoodCreateView(CreateView):
+class FoodCreateView(LoginRequiredMixin, CreateView):
+    login_url = 'core:user_login'
     fields = ['name', 'short_description', 'long_description', 'address', 'covid_safe', 'type', 'neighborhood', 'good_for']
     model = Food
     template_name = 'core/thing_forms/food.html'
@@ -21,7 +24,8 @@ class FoodCreateView(CreateView):
         form.instance.category = 'Food'
         return super().form_valid(form)
 
-class OutdoorCreateView(CreateView):
+class OutdoorCreateView(LoginRequiredMixin, CreateView):
+    login_url = 'core:user_login'
     fields = ['name', 'short_description', 'long_description', 'address', 'covid_safe', 'type', 'neighborhood', 'good_for']
     model = Outdoor
     template_name = 'core/thing_forms/outdoor.html'
@@ -30,7 +34,8 @@ class OutdoorCreateView(CreateView):
         form.instance.category = 'Outdoor'
         return super().form_valid(form)
 
-class ShoppingCreateView(CreateView):
+class ShoppingCreateView(LoginRequiredMixin, CreateView):
+    login_url = 'core:user_login'
     fields = ['name', 'short_description', 'long_description', 'address', 'covid_safe', 'type', 'neighborhood', 'good_for']
     model = Shopping
     template_name = 'core/thing_forms/shopping.html'
@@ -39,7 +44,8 @@ class ShoppingCreateView(CreateView):
         form.instance.category = 'Shopping'
         return super().form_valid(form)
 
-class TourCreateView(CreateView):
+class TourCreateView(LoginRequiredMixin, CreateView):
+    login_url = 'core:user_login'
     fields = ['name', 'short_description', 'long_description', 'address', 'covid_safe', 'type', 'price', 'duration']
     model = Tour
     template_name = 'core/thing_forms/tour.html'

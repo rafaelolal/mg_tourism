@@ -1,14 +1,15 @@
 from django.shortcuts import render
-from django import forms
 
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect, HttpResponse
-from django.urls import reverse
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.views.generic import DetailView, UpdateView
+from django.views.generic import DetailView, UpdateView, DeleteView
 
-from core.models import User, UserProfileInfo
-from core.forms import UserForm, UserProfileInfoForm
+from core.models import UserProfile
+from core.forms import UserProfileForm
+from core.mixins import IsTheUser
 
 @login_required
 def user_logout(request):
@@ -19,30 +20,24 @@ def register(request):
     registered = False
 
     if request.method == 'POST':
-        user_form = UserForm(data=request.POST)
-        profile_form = UserProfileInfoForm(data=request.POST)
+        user_form = UserProfileForm(data=request.POST)
 
-        if user_form.is_valid() and profile_form.is_valid():
+        if user_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
-            user.save()
-
-            profile = profile_form.save(commit=False) # avoid collissions with user
-            profile.user = user
-
-            if 'profile_pic' in request.FILES:
-                profile.profile_pic = request.FILES['profile_pic']
             
-            profile.save()
+            if 'profile_pic' in request.FILES:
+                user.profile_pic = request.FILES['profile_pic']
+            
+            user.save()
 
             registered = True
 
         else:
-            print(user_form.errors, profile_form.errors)
+            print(user_form.errors)
 
     else:
-        user_form = UserForm()
-        profile_form = UserProfileInfoForm()
+        user_form = UserProfileForm()
 
     if registered:
         return HttpResponseRedirect(reverse('core:user_login') + '?new_user')
@@ -50,10 +45,13 @@ def register(request):
     else:
         return render(request,
             'core/user/registration.html',
-            {'user_form': user_form,
-             'profile_form': profile_form})
+            {'user_form': user_form,})
 
 def user_login(request):
+    next_page = request.GET.get('next')
+    if next_page:
+        messages.warning(request, 'Login is required for that action')
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -63,26 +61,33 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
+                if next_page:
+                    next_page = next_page.split('?')
+                    if len(next_page) > 1:
+                        view_name = next_page[0][1:-1].replace('/', ':', 1).replace('/', '_')
+                        querystring = '&'.join(next_page[1:])
+                        return HttpResponseRedirect(f"{reverse(view_name)}?{querystring}")
+            
+                    return HttpResponseRedirect(reverse(next_page[1:-1].replace('/', ':', 1).replace('/', '_')))
                 return HttpResponseRedirect(reverse('index'))
 
             else:
-                return HttpResponse('ACCOUNT NOT ACTIVE')
+                messages.error(request,'Account not active')
 
         else:
-            print("FAILED LOGIN")
-            return HttpResponse('INVALID LOGIN DETAILS')
-
-    else:
-        return render(request, 'core/user/login.html')
+            messages.error(request,'Invalid credentials')
+        
+    return render(request, 'core/user/login.html')
 
 class UserDetailView(DetailView):
     context_object_name = "user_detail"
-    model = User
+    model = UserProfile
     template_name = 'core/user/detail.html'
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(IsTheUser, UpdateView):
+    login_url = 'core:user_login'
     fields = ['biography', 'profile_pic']
-    model = UserProfileInfo
+    model = UserProfile
     template_name = 'core/user/form.html'
 
     def form_valid(self, form):
@@ -90,3 +95,9 @@ class UserUpdateView(UpdateView):
             form.instance.profile_pic = 'profile_pics/default.jpg'
         
         return super().form_valid(form)
+
+class UserDeleteView(IsTheUser, DeleteView):
+    login_url = 'core:user_login'
+    model = UserProfile
+    template_name = 'core/user/confirm_delete.html'
+    success_url = reverse_lazy("index")

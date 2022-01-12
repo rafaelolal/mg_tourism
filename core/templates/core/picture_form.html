@@ -1,13 +1,10 @@
-{% extends 'core/base.html' %}
-{% load crispy_forms_tags %}
+{% extends 'core/base/form.html' %}
 {% load thing_filters %}
 
-{% block body_block %}
+{% block form_body %}
+
 {% get_thing request.GET as thing %}
 <h1>Adding a picture for "{{thing.name}}"</h1>
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <input type="submit", class='btn btn-success', value='Add'>
-</form>
-{% endblock body_block %}
+<a href="{%url 'core:thing_detail' pk=thing.pk%}" class="btn btn-warning">Cancel</a>
+
+{% endblock form_body %}

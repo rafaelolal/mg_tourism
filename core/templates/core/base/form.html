@@ -12,7 +12,7 @@
 <form method="post" enctype='multipart/form-data'>
     {% csrf_token %}
     {{form|crispy}}
-    <input type="submit", class='btn btn-success', value='Create'>
+    <input type="submit", class='btn btn-success', value='Submit'>
 </form>
 
 {% endblock base_body %}

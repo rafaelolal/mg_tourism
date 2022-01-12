@@ -1,17 +1,14 @@
 Make the code type hinted
-    structure code
     organize code
     comment code
     add doc strings
     explain why things are done
 
-CSS not working on detail.html
-UPDATE THING RATING AS THE COMMENT IS CREATED, EVEN FAKE
-DO NOT CONVERT RATING TO INT
 Allow filter comments
-ADD Permission required for superuser stuff
-
 Create your own trip plan
+
+Make delete pages to jumbotron
+    Explore jumbotron for styling
 
 Create help page
     https://www.tripadvisorsupport.com/en-US/hc/traveler

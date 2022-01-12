@@ -21,9 +21,10 @@
         <p>{{thing_detail.get_fields.long_description}}</p>
     </div>
     <div class="col-lg-9 col-xs-12">
-    {% if thing_detail.picture_set.all %}
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
+            {% if thing_detail.picture_set.all %}
+
             {% for picture in thing_detail.picture_set.all %}
             {% if forloop.counter == 1 %}
                 <div class="carousel-item active">
@@ -33,6 +34,12 @@
                 <img src="{{picture.image.url}}" class="img-fluid rounded d-block w-100">
             </div>
             {% endfor %}
+            
+            {% else %}
+            <div class="carousel-item active">
+                <img src="{% static 'thing_default.jpg' %}" class="img-fluid rounded d-block w-100">
+            </div>
+            {% endif %}
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -43,16 +50,9 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-    {% else %}
-    <h2>NO IMAGES!</h2>
-    {% endif %}
-    {% if user.is_authenticated %}
-        <a href="{%url "core:picture_create"%}?thing={{thing_detail.id}}" class='btn btn-dark mt-2'>Add Image</a>
-    {% endif %}
+    <a href="{%url "core:picture_create"%}?thing={{thing_detail.id}}" class='btn btn-dark mt-2'>Add Image</a>
     {% if user.is_superuser %}
         <a href="{%url 'core:thing_update' pk=thing_detail.pk%}" class='btn btn-warning mt-2'>Update</a>
-    {% endif %}
-    {% if user.is_superuser %}
         <a href="{%url 'core:thing_delete' pk=thing_detail.pk%}" class='btn btn-danger mt-2'>Delete</a>
     {% endif %}
     </div>
@@ -72,35 +72,34 @@
 
 {% for comment in thing_detail.comment_set.all %}
 <div class="row my-4">
-    <div class="col-lg-2 col-sm-6">
-        <img src={{comment.author.userprofileinfo.profile_pic.url}} class="img-thumbnail">
+    <div class="col col-2">
+        <img src="{{comment.author.profile_pic.url}}" class="img-thumbnail">
     </div>
-    <div class="col">
+    <div class="col col-10">
         <div class="row">
-            <div class="col-auto">
+            <div class="col">
                 <h5>{{comment.author.first_name}} {{comment.author.last_name}}</h5>
-            </div>
-            <div class="col-auto">
                 <a href='{%url 'core:user_detail' pk=comment.author.id%}' type="button" class="btn btn-dark btn-sm">Visit Profile</a>
+                {% if comment.author == user %}
+                <a href='{%url 'core:comment_update' pk=comment.id%}?thing={{thing_detail.id}}' type="button" class="btn btn-warning btn-sm mx-1">Edit</a>
+                {% endif %}
             </div>
-            {% if comment.author == user %}
-                <div class="col-auto">
-                    <a href='{%url 'core:comment_update' pk=comment.id%}?thing={{thing_detail.id}}' type="button" class="btn btn-warning btn-sm">Update</a>
-                </div>
-                <div class="col-auto">
-                    <a href='{%url 'core:comment_delete' pk=comment.id%}?thing={{thing_detail.id}}' type="button" class="btn btn-danger btn-sm">Delete</a>
-                </div>
-            {% endif %}
-
         </div>
-        
-        
+        <div class="row">
+            <div class="col col-auto">
+                {% if comment.is_edited %}
+                <small>{{comment.posted_on}}, Edited</small>
+                {% else %}
+                <small>{{comment.posted_on}}</small>
+                {% endif %}
+            </div>    
+        </div>
         {% for i in '12345'|make_list  %}
-            {% if comment.rating|to_int >= forloop.counter %}
-                <span class="fa fa-star checked-star"></span>
-            {% else %}
-                <span class="fa fa-star"></span>
-            {% endif %}
+        {% if comment.rating|to_int >= forloop.counter %}
+            <span class="fa fa-star checked-star"></span>
+        {% else %}
+            <span class="fa fa-star"></span>
+        {% endif %}
         {% endfor %}
         <div class="accordion mt-2" id="accordion{{forloop.counter}}">
             <div class="accordion-item">

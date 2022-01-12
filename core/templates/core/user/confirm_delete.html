@@ -2,11 +2,11 @@
 
 {% block base_body %}
 
-<h1>Delete "{{thing.name}}"?</h1>
+<h1>Delete your account?</h1>
 <form method="POST">
     {% csrf_token %}
     <input class="btn btn-danger" type="submit" value="Delete">
-    <a href="{%url 'core:thing_detail' pk=thing.pk%}" class="btn btn-success">Cancel</a>
+    <a href="{%url 'index' %}" class="btn btn-success">Cancel</a>
 </form>
 
 {% endblock base_body %}

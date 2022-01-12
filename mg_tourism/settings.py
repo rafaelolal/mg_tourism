@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 from django_archive import archivers
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = BASE_DIR / 'templates'
@@ -27,6 +28,9 @@ SECRET_KEY = 'django-insecure-y%&4gfos-g(1e+)_7et0q0jaw885s+37de%$la7ket5+3--uej
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+LOGIN_URL = 'user/login/'
+
 
 ALLOWED_HOSTS = ['chase-dreams-chaos-bowling.trycloudflare.com',
     'localhost',
