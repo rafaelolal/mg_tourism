@@ -1,2 +1,3 @@
 __pycache__/
-*.jpg
+media/profile_pics/fake_profile_pics/*.jpg
+media/thing_pics/*.jpg
