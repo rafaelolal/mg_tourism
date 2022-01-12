@@ -11,8 +11,7 @@ Make the code type hinted
 Allow filter comments
 Create your own trip plan
 
-Make delete pages to jumbotron
-    Explore jumbotron for styling
+Explore jumbotron for styling
 
 Create help page
     https://www.tripadvisorsupport.com/en-US/hc/traveler

@@ -1,0 +1,20 @@
+{% extends 'core/base/base.html' %}
+
+{% block base_body %}
+
+<div class="p-4 mb-2 bg-light rounded-3">
+{% block delete_body %}
+{% endblock delete_body %}
+</div>    
+
+{% block delete_extra %}
+{% endblock delete_extra %}
+
+<form method="POST">
+    {% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="Delete">
+    {% block cancel_button %}
+    {% endblock cancel_button %}
+</form>
+
+{% endblock base_body %}

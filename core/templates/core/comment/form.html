@@ -2,15 +2,19 @@
 
 {% load thing_filters %}
 
-{% block form_body %}
 
+{% block form_body %}
 {% get_thing request.GET as thing %}
 <h1>Comment on "{{thing.name}}"</h1>
-<a href="{% url 'core:thing_detail' pk=thing.id%}"><button class="btn btn-warning" type="button">Cancel</button></a>
-{% if comment %}
-<a href="{%url 'core:comment_delete' pk=comment.id%}?thing={{thing.id}}" type="button" class="btn btn-danger">Delete</a>
-{% endif %}
 {% endblock form_body %}
+
+{% block form_extra %}
+{% get_thing request.GET as thing %}
+<a href="{% url 'core:thing_detail' pk=thing.id%}"><button class="btn btn-warning mb-2" type="button">Cancel</button></a>
+{% if comment %}
+<a href="{%url 'core:comment_delete' pk=comment.id%}?thing={{thing.id}}" class="btn btn-danger mb-2" type="button">Delete</a>
+{% endif %}
+{% endblock form_extra %}
 
 {% block form_fields %}
 
@@ -32,4 +36,5 @@
     <input type="radio" id="first-rate5" name="rating" value="5" />
     <label for="first-rate5" title="Amazing">5 stars</label>
 </fieldset>
+
 {% endblock form_fields %}
