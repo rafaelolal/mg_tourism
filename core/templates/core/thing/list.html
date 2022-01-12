@@ -48,9 +48,9 @@
                 {% get_types thing_list as types %}
                 {% for type in types %}
                     {% if type_selected == type %}
-                        <option selected value="{{type|remove_spaces}}">{{type}}</option>
+                        <option selected value="{{type}}">{{type}}</option>
                     {% else %}
-                        <option value="{{type|remove_spaces}}">{{type}}</option>
+                        <option value="{{type}}">{{type}}</option>
                     {% endif %}
                 {% endfor %}
                 </select>
@@ -80,9 +80,9 @@
                     {% get_good_fors thing_list as good_fors %}
                     {% for good_for in good_fors %}
                         {% if good_for_selected == good_for %}
-                            <option selected value="{{good_for|remove_spaces}}">{{good_for}}</option>
+                            <option selected value="{{good_for}}">{{good_for}}</option>
                         {% else %}
-                            <option value="{{good_for|remove_spaces}}">{{good_for}}</option>
+                            <option value="{{good_for}}">{{good_for}}</option>
                         {% endif %}
                     {% endfor %}
                     </select>

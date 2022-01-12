@@ -6,12 +6,8 @@ from core.models import Thing, Attraction, Outdoor, Shopping, Food, Tour
 register = template.Library()
 
 @register.filter
-def remove_spaces(value):
-    return value.replace(' ', '_')
-
-@register.filter
-def to_int(value):
-    return int(value)
+def to_int(value: str) -> int:
+    return round(float(value))
 
 @register.filter
 def add_spaces(value): # Only one argument.

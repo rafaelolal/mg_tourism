@@ -9,8 +9,15 @@
 {% endblock form_body %}
 </div>    
 
+{% block form_extra %}
+{% endblock form_extra %}
+
 <form method="post" enctype='multipart/form-data'>
     {% csrf_token %}
+
+    {% block form_fields %}
+    {% endblock form_fields %}
+    
     {{form|crispy}}
     <input type="submit", class='btn btn-success', value='Submit'>
 </form>

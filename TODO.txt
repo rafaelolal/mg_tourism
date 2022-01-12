@@ -4,6 +4,10 @@ Make the code type hinted
     add doc strings
     explain why things are done
 
+    Checked
+        models
+        templatetags
+
 Allow filter comments
 Create your own trip plan
 
@@ -17,3 +21,12 @@ Fill out homepage
 Search bar functionality?
 
 Azure bot?
+
+Give Credit to
+Bootstrap
+Django
+Sqlite
+https://github.com/LunarLogic/starability
+https://django-archive.readthedocs.io/en/latest/
+https://django-crispy-forms.readthedocs.io/en/latest/
+https://www.w3.org/Graphics/SVG/

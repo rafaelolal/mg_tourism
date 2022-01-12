@@ -2,11 +2,11 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView
 
 from core.models import Thing, UserProfile, Comment
-from core.mixins import LoginRequiredMixin, IsTheUser
+from core.mixins import LoginRequiredMixin, IsTheUser, IsTheCommentAuthor
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
     login_url = 'core:user_login'
-    fields = ['rating', 'title', 'content']
+    fields = ['title', 'content']
     model = Comment
     template_name = 'core/comment/form.html'
 
@@ -18,20 +18,23 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         form.instance.thing = thing
         form.instance.author = UserProfile.objects.get(id=self.request.user.id)
         
+        form.instance.rating = int(self.request.POST.get('rating'))
+
         return super().form_valid(form)
 
-class CommentUpdateView(IsTheUser, UpdateView):
+class CommentUpdateView(IsTheCommentAuthor, UpdateView):
     login_url = 'core:user_login'
-    fields = ['rating', 'title', 'content']
+    fields = ['title', 'content']
     model = Comment
     template_name = 'core/comment/form.html'
 
     def form_valid(self, form):
-        form.instance.is_edited = True
-        
+        form.instance.is_edited = True    
+        form.instance.rating = int(self.request.POST.get('rating'))
+    
         return super().form_valid(form)
 
-class CommentDeleteView(IsTheUser, DeleteView):
+class CommentDeleteView(IsTheCommentAuthor, DeleteView):
     login_url = 'core:user_login'
     model = Comment
     template_name = 'core/comment/confirm_delete.html'
