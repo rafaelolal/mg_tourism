@@ -70,11 +70,16 @@
                     <h5 class="mb-1">{{field|add_spaces}}</h5>
                 
                 {% if field == 'stars' %}
+                    {% if value != 'None' %}
                     <small>{{value}}</small>
                     </div>
                     <p class="starability-result mb-1" data-rating="{{value|to_int}}">
                     Rated: {{value|to_int}} stars
                     </p>
+                    {% else %}
+                    </div>
+                    <p>No rating</p>
+                    {% endif %}
                 
                 {% elif field == 'covid_safe' %}
                     </div>

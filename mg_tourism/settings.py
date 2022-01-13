@@ -32,11 +32,11 @@ DEBUG = True
 LOGIN_URL = 'user/login/'
 
 
-ALLOWED_HOSTS = ['chase-dreams-chaos-bowling.trycloudflare.com',
+ALLOWED_HOSTS = ['feature-estimates-intel-progressive.trycloudflare.com',
     'localhost',
     '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://chase-dreams-chaos-bowling.trycloudflare.com']
+CSRF_TRUSTED_ORIGINS = ['https://feature-estimates-intel-progressive.trycloudflare.com']
 
 # Application definition
 
