@@ -24,7 +24,7 @@
                     <label class="form-check-label" for="switch{{forloop.counter}}">{{category}}</label>
                 </div>
             {% endfor %}
-            
+
             <div class="form-floating my-2">
                 {% get_param_value 'stars' request.GET as stars_selected%}
                 {% if stars_selected %}
@@ -113,6 +113,14 @@
                 </div>
             {% endif %}
 
+            <div class="form-check mb-2">
+                {% get_param_value 'covid_safe' request.GET as covid_safe_selected%}
+                <input {% is_checked 'covid_safe' request.GET %} name='covid_safe' class="form-check-input" type="checkbox" id="covid_safe">
+                <label class="form-check-label" for="covid_safe">
+                  Covid Safe
+                </label>
+            </div>
+
             <button type="submit" class="btn btn-dark mb-2">Apply Filters</button>
         </form>
     </div>
@@ -132,32 +140,45 @@
                             <div class="card-img-overlay">
                                 <h5 class="card-title">{{thing.name}}</h5>
                                 <p class="card-text">{{thing.short_description}}</p>
+                                <a href="{% url "core:thing_detail" pk=thing.pk%}" class='btn btn-outline-light'>Visit</a>
                             </div>
         
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Stars: {{thing.stars}}</li>
-                                <li class="list-group-item">Address: {{thing.address}}</li>
-                                <li class="list-group-item">Category: {{thing.category}}</li>
-        
-                            {% if thing.category in 'Attraction Food Outdoor Shopping' %}
-                                {% my_get_field 'neighborhood' thing as neighborhood %}
-                                {% my_get_field 'type' thing as type %}
-                                {% my_get_field 'good_for' thing as good_for %}
-        
-                                <li class="list-group-item">Neighborhood: {{neighborhood}}</li>
-                                <li class="list-group-item">Type: {{type}}</li>
-                                <li class="list-group-item">Good for {{good_for}}</li>
-        
-                            {% elif thing.category == 'Tour' %}
-                                <li class="list-group-item">Type: {{thing.tour.type}}</li>
-                                <li class="list-group-item">Price: {{thing.tour.price}}</li>
-                                <li class="list-group-item">Duration: {{thing.tour.duration}}</li>
-        
-                            {% endif %}
-        
-                            <a href="{% url "core:thing_detail" pk=thing.pk%}" class='btn btn-dark'><li class='list-group-item'>Visit</li></a>
+                            <ul class="list-group">
+                            {% for field, value in thing.get_fields.items %}
+                                {% if field != 'long_description' %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">{{field|add_spaces}}</div>
+                                            {% if field == 'covid_safe' %}
+                                                {% if value == 'True' %}
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgb(15,81,50)" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                                </svg>
+                                                {% else %}
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgb(132,32,41)" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                                                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                                </svg>
+                                                {% endif %}
+                                            {% elif field == 'stars' %}
+                                                {% if value != 'None' %}
+                                                <p class="starability-result mb-1" data-rating="{{value|to_int}}">
+                                                Rated: {{value|to_int}} stars
+                                                </p>
+                                                {% endif %}
+                                            {% else %}
+                                                {% if field == 'address' %}<small>{% get_field_value field thing %}</small>
+                                                {% else %}
+                                                {% if field == 'price' %}${% endif %}{% get_field_value field thing %}
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
                             </ul>
-                        </div>           
+                        </div>    
+
                     </div>
                 {% endfor %}
                 {% else %}

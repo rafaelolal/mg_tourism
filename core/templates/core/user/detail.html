@@ -1,7 +1,14 @@
 {% extends 'core/base/base.html' %}
 {% load thing_filters %}
+{% load static %}
 
 {% block base_body %}
+
+<style>
+    .card-img {
+        filter: brightness(50%)
+    }
+</style>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -37,21 +44,47 @@
                             {% if comment.thing.get_picture.image.url %}
                                 <img src={{comment.thing.get_picture.image.url}} class="card-img img-fluid height-25%">
                             {% else %}
-                                <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" class="card-img img-fluid">
+                                <img src="{% static 'thing_default.jpg' %}" class="card-img img-fluid">
                             {% endif %}
                             
                             <div class="card-img-overlay">
                                 <h5 class="card-title">{{comment.thing.name}}</h5>
                                 <p class="card-text">{{comment.thing.short_description}}</p>
+                                <a href="{% url 'core:thing_detail' pk=comment.thing.id %}" class='btn btn-outline-light'>Visit</a>
+                            
                             </div>
         
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Stars: {{comment.thing.stars}}</li>
-                                <li class="list-group-item">Category: {{comment.thing.category}}</li>
-                                <li class="list-group-item">{{user_detail.first_name}}'s rating: {{comment.rating}}</li>
-                            <a href="{% url 'core:thing_detail' pk=comment.thing.id %}" class='btn btn-dark'><li class='list-group-item'>Visit</li></a>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                      <div class="fw-bold">Stars</div>
+                                      {% if comment.thing.stars != 'None' %}
+                                      <p class="starability-result mb-1" data-rating="{{comment.thing.stars|to_int}}">
+                                      Rated: {{comment.thing.stars|to_int}} stars
+                                      </p>
+                                      {% endif %}
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">{{user_detail.first_name}}'s rating</div>
+                                        <p class="starability-result mb-1" data-rating="{{comment.rating|to_int}}">
+                                            Rated: {{comment.rating|to_int}} stars
+                                        </p>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                      <div class="fw-bold">Category</div>
+                                      {{comment.thing.category}}
+                                    </div>
+                                </li>     
                             </ul>
-                        </div>           
+
+                        </div>
+
                     </div>
                 {% endfor %}
                 {% else %}

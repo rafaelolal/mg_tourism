@@ -95,7 +95,7 @@ class Food(Thing):
     good_for = CharField(max_length=64, choices=tuple_choices)
 
 class Outdoor(Thing):
-    types = ['Wildlife Exploration', 'Hiking', 'Biking', 'Zoos', 'River Rafting']
+    types = ['Wildlife Exploration', 'Hiking', 'Biking', 'Zoo', 'River Rafting']
     tuple_types = [(t, t) for t in types]
     type = CharField(max_length=64, choices=tuple_types)
 

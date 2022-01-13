@@ -1,3 +1,5 @@
+from typing import Any
+
 from django import template
 from django.forms.models import model_to_dict
 
@@ -8,6 +10,10 @@ register = template.Library()
 @register.filter
 def to_int(value: str) -> int:
     return round(float(value))
+
+@register.filter
+def to_str(value: Any) -> str:
+    return str(value)
 
 @register.filter
 def add_spaces(value): # Only one argument.
@@ -40,6 +46,10 @@ def is_in_query(categories, query):
 def my_get_field(field, thing):
     category = thing.category
     return eval(f'thing.{category}.{field}'.lower())
+
+@register.simple_tag
+def get_field_value(field, thing):
+    return getattr(eval(f'thing.{str(thing.category).lower()}'), field)
 
 @register.simple_tag
 def get_good_fors(things):

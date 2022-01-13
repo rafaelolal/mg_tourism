@@ -105,6 +105,10 @@ class ThingListView(ListView):
         """
         
         cat_independent_filters = {}
+        if 'covid_safe' in query_fields:
+            cat_independent_filters[f'covid_safe'] = True if query_fields['covid_safe'] == 'on' else False
+            del query_fields['covid_safe']
+        
         if 'stars' in query_fields:
             cat_independent_filters[f'stars__gte'] = float(query_fields['stars'])
             del query_fields['stars']
