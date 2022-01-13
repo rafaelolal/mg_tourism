@@ -1,4 +1,5 @@
-from django.db.models import F
+# source: https://stackoverflow.com/questions/44896618/django-run-a-function-every-x-seconds/44897678
+
 from schedule import Scheduler
 import threading
 import time
