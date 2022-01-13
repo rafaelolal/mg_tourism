@@ -1,14 +1,3 @@
-Make the code type hinted
-    organize code
-    comment code
-    add doc strings
-    explain why things are done
-
-    Checked
-        models
-        templatetags
-        static
-Allow filter comments
 Create your own trip plan
 
 Explore jumbotron for styling

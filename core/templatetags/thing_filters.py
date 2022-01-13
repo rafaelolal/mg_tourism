@@ -19,6 +19,10 @@ def to_str(value: Any) -> str:
 def add_spaces(value: str) -> str:
     return value.replace('_', ' ').title()
 
+@register.filter
+def make_possessive(name: str) -> str:
+    return name + ("'" if name[-1] == 's' else "'s")
+
 @register.simple_tag
 def is_checked(select_filter, checked):
     if select_filter in checked:

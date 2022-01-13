@@ -4,9 +4,8 @@ from typing import Dict, Any
 
 from django.db import models
 from django.urls import reverse
-from django.core.validators import MaxValueValidator, MinValueValidator
 
-from django.db.models.fields import BooleanField, CharField, DurationField, PositiveSmallIntegerField, SmallIntegerField, DecimalField, TextField
+from django.db.models.fields import BooleanField, CharField, DurationField, DecimalField, TextField
 from django.db.models.fields.files import ImageField
 from django.db.models.fields.related import ForeignKey
 
@@ -108,7 +107,7 @@ class Outdoor(Thing):
     good_for = CharField(max_length=64, choices=tuple_choices)
 
 class Shopping(Thing):
-    types = ['Gift Shops', 'Shopping Malls', 'Antique Stores', 'Department Stores', 'Factory Outlets']
+    types = ['Gift Shop', 'Shopping Mall', 'Antique Store', 'Department Store', 'Factory Outlet']
     tuple_types = [(t, t) for t in types]
     type = CharField(max_length=64, choices=tuple_types)
 

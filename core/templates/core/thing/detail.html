@@ -107,7 +107,7 @@
 
 <a href="{% url 'core:comment_create'%}?thing={{thing_detail.pk}}" class='btn btn-dark'>Add Comment</a>
 
-{% for comment in thing_detail.comment_set.all %}
+{% for comment in thing_detail.comment_set.all|dictsortreversed:"posted_on" %}
 <div class="row my-4">
     <div class="col col-3 col-md-2">
         <img src="{{comment.author.profile_pic.url}}" class="img-thumbnail">
