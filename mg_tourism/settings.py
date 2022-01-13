@@ -32,11 +32,11 @@ DEBUG = True
 LOGIN_URL = 'user/login/'
 
 
-ALLOWED_HOSTS = ['feature-estimates-intel-progressive.trycloudflare.com',
+ALLOWED_HOSTS = ['continuous-resolutions-freedom-slim.trycloudflare.com',
     'localhost',
     '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://feature-estimates-intel-progressive.trycloudflare.com']
+CSRF_TRUSTED_ORIGINS = ['https://continuous-resolutions-freedom-slim.trycloudflare.com']
 
 # Application definition
 

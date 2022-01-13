@@ -12,4 +12,4 @@ class UserProfile(User):
         return self.username
 
     def get_absolute_url(self):
-        return reverse(f"core:user_detail", kwargs={"pk": self.user.pk})
+        return reverse(f"core:user_detail", kwargs={"pk": self.pk})
