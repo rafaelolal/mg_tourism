@@ -1,13 +1,12 @@
 from datetime import timedelta
 
-from typing import Dict, List
+from typing import Any, Dict, List
 
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView
-from django.core.exceptions import FieldError
 
-from core.models import *
-from core.mixins import *
+from core.models import Thing, Picture, Tour, Attraction, Food, Shopping, Outdoor
+from core.mixins import SuperUserRequiredMixin, LoginRequiredMixin
 
 class ThingDetailView(DetailView):
     # returns model name in lowercase

@@ -1,7 +1,7 @@
 from django.views.generic import CreateView
 
 from core.models import Attraction, Tour, Food, Outdoor, Shopping
-from core.mixins import *
+from core.mixins import LoginRequiredMixin
 
 class AttractionCreateView(LoginRequiredMixin, CreateView):
     login_url = 'core:user_login'

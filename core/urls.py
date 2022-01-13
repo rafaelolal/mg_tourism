@@ -29,5 +29,3 @@ urlpatterns = [
 
     path('picture/create', views.PictureCreateView.as_view(), name='picture_create'),
 ]
-
-# http://127.0.0.1:8000/core/things/?attractions=on

@@ -63,12 +63,14 @@ def user_login(request):
                 login(request, user)
                 if next_page:
                     next_page = next_page.split('?')
+                    print(next_page, 'next_page')
                     if len(next_page) > 1:
                         view_name = next_page[0][1:-1].replace('/', ':', 1).replace('/', '_')
                         querystring = '&'.join(next_page[1:])
                         return HttpResponseRedirect(f"{reverse(view_name)}?{querystring}")
             
-                    return HttpResponseRedirect(reverse(next_page[1:-1].replace('/', ':', 1).replace('/', '_')))
+                    return HttpResponseRedirect(reverse(next_page[0][1:-1].replace('/', ':', 1).replace('/', '_')))
+
                 return HttpResponseRedirect(reverse('index'))
 
             else:

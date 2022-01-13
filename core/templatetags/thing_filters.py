@@ -16,13 +16,13 @@ def to_str(value: Any) -> str:
     return str(value)
 
 @register.filter
-def add_spaces(value): # Only one argument.
+def add_spaces(value: str) -> str:
     return value.replace('_', ' ').title()
 
 @register.simple_tag
-def is_checked(category, checked):
-    if category in checked:
-        if checked[category] == 'on':
+def is_checked(select_filter, checked):
+    if select_filter in checked:
+        if checked[select_filter] == 'on':
             return 'checked'
 
 @register.simple_tag

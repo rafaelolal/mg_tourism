@@ -7,7 +7,7 @@ Make the code type hinted
     Checked
         models
         templatetags
-
+        static
 Allow filter comments
 Create your own trip plan
 

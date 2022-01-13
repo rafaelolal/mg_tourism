@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView
 
 from core.models import Thing, UserProfile, Comment
-from core.mixins import LoginRequiredMixin, IsTheUser, IsTheCommentAuthor
+from core.mixins import LoginRequiredMixin, IsTheCommentAuthor
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
     login_url = 'core:user_login'
