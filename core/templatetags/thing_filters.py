@@ -3,7 +3,7 @@ from typing import Any
 from django import template
 from django.forms.models import model_to_dict
 
-from core.models import Thing, Attraction, Outdoor, Shopping, Food, Tour
+from core.models import Thing, Attraction, Outdoor, Shopping, Food, Tour, UserProfile
 
 register = template.Library()
 
@@ -85,3 +85,10 @@ def get_types(things):
 def get_thing(query):
     id = int(query['thing'])
     return Thing.objects.get(id=id)
+
+@register.simple_tag
+def user_commented(user_pk, thing_pk):
+    if UserProfile.objects.get(id=user_pk).comment_set.filter(thing__id=thing_pk).exists():
+        return True
+
+    return False

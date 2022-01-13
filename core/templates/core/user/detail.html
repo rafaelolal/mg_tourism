@@ -14,7 +14,7 @@
 </svg>
 
 <div class="row">
-    <div class="col-md-4 col-xs-6">
+    <div class="col-lg-3 col-xs-12">
         <div class="card mb-4" style="">
             <img src="{{user_detail.profile_pic.url}}" class="card-img-top">
             <div class="card-body">
@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div class="col-md-8 col-xs-6">
+    <div class="col-lg-9 col-xs-12">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="visited-tab" data-bs-toggle="tab" data-bs-target="#visited" type="button" role="tab" aria-controls="visited" aria-selected="true">Visited</button>
@@ -42,8 +42,8 @@
                     <div class="row">
                         {% if user_detail.comment_set.all %}
                         <h1>Places Visited</h1>
-                        {% for comment in user_detail.comment_set.all %}
-                            <div class="col-md-6 col-sm-12 pb-2">
+                        {% for comment in user_detail.comment_set.all|dictsortreversed:'posted_on' %}
+                            <div class="col-lg-6 col-xs-12 pb-2">
                                 <div class="card bg-dark text-white">
                                     {% if comment.thing.get_picture.image.url %}
                                         <img src={{comment.thing.get_picture.image.url}} class="card-img img-fluid height-25%">
@@ -54,7 +54,7 @@
                                     <div class="card-img-overlay">
                                         <h5 class="card-title">{{comment.thing.name}}</h5>
                                         <p class="card-text">{{comment.thing.short_description}}</p>
-                                        <a href="{% url 'core:thing_detail' pk=comment.thing.id %}" class='btn btn-outline-light'>Visit</a>
+                                        <a href="{% url 'core:thing_detail' pk=comment.thing.id %}" class='btn btn-outline-light m-1'>Visit</a>
                                     
                                     </div>
                 

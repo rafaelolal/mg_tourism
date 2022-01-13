@@ -105,7 +105,16 @@
     {% endfor %}
 </div>
 
+{% if user.is_authenticated %}
+    {% user_commented user.pk thing_detail.pk as commented %}
+    {% if commented %}
+    <button type="button" class="btn btn-dark" data-bs-toggle="popover"  data-bs-trigger="focus" title="Not Allowed" data-bs-content="Edit your first comment instead.">Add Comment</button>
+    {% else %}
+    <a href="{% url 'core:comment_create'%}?thing={{thing_detail.pk}}" class='btn btn-dark'>Add Comment</a>
+    {% endif %}
+{% else %}
 <a href="{% url 'core:comment_create'%}?thing={{thing_detail.pk}}" class='btn btn-dark'>Add Comment</a>
+{% endif %}
 
 {% for comment in thing_detail.comment_set.all|dictsortreversed:"posted_on" %}
 <div class="row my-4">
