@@ -50,7 +50,9 @@
                     <div class="modal-body">
                     {% if plans %}
                         {% for plan in plans %}
-                            <a href="{% url "core:plan_add" plan_pk=plan.pk thing_pk=thing_detail.pk %}" class='btn btn-dark'>{{plan.name}}</a>
+                            <div class="row">
+                                <a href="{% url "core:plan_add" plan_pk=plan.pk thing_pk=thing_detail.pk %}" class='btn btn-dark'>{{plan.name}}</a>
+                            </div>
                         {% endfor %}
                     
                     {% else %}
