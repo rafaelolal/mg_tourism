@@ -4,15 +4,15 @@
 
 
 {% block form_body %}
-{% get_thing request.GET as thing %}
+{% get_thing view.kwargs.thing_pk as thing %}
 <h1>Comment on "{{thing.name}}"</h1>
 {% endblock form_body %}
 
 {% block form_extra %}
-{% get_thing request.GET as thing %}
+{% get_thing view.kwargs.thing_pk as thing %}
 <a href="{% url 'core:thing_detail' pk=thing.id%}"><button class="btn btn-warning mb-2" type="button">Cancel</button></a>
 {% if comment %}
-<a href="{%url 'core:comment_delete' pk=comment.id%}?thing={{thing.id}}" class="btn btn-danger mb-2" type="button">Delete</a>
+<a href="{%url 'core:comment_delete' pk=comment.id%}" class="btn btn-danger mb-2" type="button">Delete</a>
 {% endif %}
 
 {% endblock form_extra %}

@@ -29,6 +29,12 @@ def register(request):
             if 'profile_pic' in request.FILES:
                 user.profile_pic = request.FILES['profile_pic']
             
+            if not user.first_name:
+                user.first_name = user.username.capitalize()
+
+            if not user.last_name:
+                user.last_name = 'User'
+
             user.save()
 
             registered = True
@@ -40,6 +46,10 @@ def register(request):
         user_form = UserProfileForm()
 
     if registered:
+        next_page = request.GET.get('next')
+        if next_page:
+            return HttpResponseRedirect(reverse('core:user_login') + f'?next={next_page}' + '&new_user')
+
         return HttpResponseRedirect(reverse('core:user_login') + '?new_user')
 
     else:
@@ -49,8 +59,6 @@ def register(request):
 
 def user_login(request):
     next_page = request.GET.get('next')
-    if next_page:
-        messages.warning(request, 'Login is required for that action')
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -62,15 +70,8 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
                 if next_page:
-                    next_page = next_page.split('?')
-                    print(next_page, 'next_page')
-                    if len(next_page) > 1:
-                        view_name = next_page[0][1:-1].replace('/', ':', 1).replace('/', '_')
-                        querystring = '&'.join(next_page[1:])
-                        return HttpResponseRedirect(f"{reverse(view_name)}?{querystring}")
+                    return HttpResponseRedirect(next_page)
             
-                    return HttpResponseRedirect(reverse(next_page[0][1:-1].replace('/', ':', 1).replace('/', '_')))
-
                 return HttpResponseRedirect(reverse('index'))
 
             else:
@@ -79,6 +80,10 @@ def user_login(request):
         else:
             messages.error(request,'Invalid credentials')
         
+    else:
+        if next_page:
+            messages.warning(request, 'Login is required for that action')
+
     return render(request, 'core/user/login.html')
 
 class UserDetailView(DetailView):

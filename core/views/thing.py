@@ -152,7 +152,6 @@ class PictureCreateView(LoginRequiredMixin, CreateView):
     model = Picture
 
     def form_valid(self, form):
-        t = self.request.GET['thing']
-        thing = Thing.objects.get(id=t)
+        thing = Thing.objects.get(id=int(self.kwargs['thing_pk']))
         form.instance.thing = thing
         return super().form_valid(form)

@@ -3,7 +3,7 @@
 
 {% block form_body %}
 
-{% get_thing request.GET as thing %}
+{% get_thing view.kwargs.thing_pk as thing %}
 <h1>Adding a picture for "{{thing.name}}"</h1>
 <a href="{%url 'core:thing_detail' pk=thing.pk%}" class="btn btn-warning">Cancel</a>
 

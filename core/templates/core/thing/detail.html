@@ -14,6 +14,72 @@
     <div class="col-lg-3 col-xs-12">
         <h3>Description</h3>
         <p>{{thing_detail.get_fields.long_description}}</p>
+        {% for message in messages %}
+            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                <div class="toast {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}text-white bg-success{% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}bg-warning{% endif %}"
+                    id="liveToast"
+                    role="alert"aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">MG Tourism</strong>
+                        <small>Just Now</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    
+                    <div class="toast-body">
+                        {{message}}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-dark mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Add to Plan
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    {% if user.is_authenticated %}
+                    {% get_plans user.pk as plans%}
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{% if plans %}Pick a Plan{% else %}Create a Plan{% endif %}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    
+                    <div class="modal-body">
+                    {% if plans %}
+                        {% for plan in plans %}
+                            <a href="{% url "core:plan_add" plan_pk=plan.pk thing_pk=thing_detail.pk %}" class='btn btn-dark'>{{plan.name}}</a>
+                        {% endfor %}
+                    
+                    {% else %}
+                    You don't have plans
+                    {% endif %}
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="{% url "core:plan_create" owner_pk=user.pk %}?thing={{thing_detail.pk}}" class='btn btn-dark'>Create a Plan</a>
+                    </div>
+
+                    {% else %}
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Register or Login</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        To add a thing to a plan you must be logged in.
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="{% url 'core:register' %}?next=/core/thing/5/" class="btn btn-success">Register</a>
+                        <a href="{% url 'core:user_login' %}?next=/core/thing/5/" class="btn btn-secondary">Login</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
     
     <div class="col-lg-9 col-xs-12">
@@ -23,9 +89,9 @@
 
                 {% for picture in thing_detail.picture_set.all %}
                 {% if forloop.counter == 1 %}
-                    <div class="carousel-item active">
+                <div class="carousel-item active">
                 {% else %}
-                    <div class="carousel-item">
+                <div class="carousel-item">
                 {% endif %}
                     <img src="{{picture.image.url}}" class="img-fluid rounded d-block w-100">
                 </div>
@@ -41,64 +107,59 @@
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
             </a>
+
             <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
         </div>
     
-        <a href="{%url "core:picture_create"%}?thing={{thing_detail.id}}" class='btn btn-dark mt-2'>Add Image</a>
+        <a href=" {% url "core:picture_create" thing_pk=thing_detail.id %}" class='btn btn-dark mt-2'>Add Image</a>
         {% if user.is_superuser %}
-            <a href="{%url 'core:thing_update' pk=thing_detail.pk%}" class='btn btn-warning mt-2'>Update</a>
-            <a href="{%url 'core:thing_delete' pk=thing_detail.pk%}" class='btn btn-danger mt-2'>Delete</a>
+        <a href="{% url 'core:thing_update' pk=thing_detail.pk%}" class='btn btn-warning mt-2'>Update</a>
+        <a href="{% url 'core:thing_delete' pk=thing_detail.pk%}" class='btn btn-danger mt-2'>Delete</a>
         {% endif %}
     </div>
 </div>
 
 <div class="row my-4">
     {% for field, value in thing_detail.get_fields.items %}
-        {% if field != 'long_description' %}
+        {% if field != 'long_description' and value != 'None' %}
             <div class="col-lg-4 col-6">
                 <a class="list-group-item mb-2" aria-current="true">
                     <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{field|add_spaces}}</h5>
-                
-                {% if field == 'stars' %}
-                    {% if value != 'None' %}
-                    <small>{{value}}</small>
+                        <h5 class="mb-1">{{field|add_spaces}}</h5>
+                        {% if field == 'stars' %}
+                        <small>{{value}} • {{thing_detail.comment_set.count}}</small>
+                        {% endif %}
                     </div>
+
+                    {% if field == 'address' %}
+                    <small>{{value}}</small>
+                    
+                    {% elif field == 'stars' %}
                     <p class="starability-result mb-1" data-rating="{{value|to_int}}">
                     Rated: {{value|to_int}} stars
                     </p>
-                    {% else %}
-                    </div>
-                    <p>No rating</p>
-                    {% endif %}
-                
-                {% elif field == 'covid_safe' %}
-                    </div>
                     
-                    {% if value == 'True' %}
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgb(15,81,50)" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                    </svg>
-                    {% else %}
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgb(132,32,41)" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                    </svg>
-                    {% endif %}
+                    {% elif field == 'covid_safe' %}
+                        {% if value == 'True' %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgb(15,81,50)" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                        </svg>
+                        
+                        {% else %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgb(132,32,41)" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                        </svg>
+                        {% endif %}
 
-
-                {% else %}
-                    </div>
-                    {% if field == 'address' %}
-                    <small class="mb-1">{{value}}</small>
                     {% elif field == 'price' %}
                     <p class="mb-1">${{value}}</p>
+                    
                     {% else %}
                     <p class="mb-1">{% get_field_value field thing_detail %}</p>
                     {% endif %}
-                {% endif %}
                 </a>
             </div>
         {% endif %}
@@ -110,32 +171,31 @@
     {% if commented %}
     <button type="button" class="btn btn-dark" data-bs-toggle="popover"  data-bs-trigger="focus" title="Not Allowed" data-bs-content="Edit your first comment instead.">Add Comment</button>
     {% else %}
-    <a href="{% url 'core:comment_create'%}?thing={{thing_detail.pk}}" class='btn btn-dark'>Add Comment</a>
+    <a href="{% url 'core:comment_create' thing_pk=thing_detail.pk %}" class='btn btn-dark'>Add Comment</a>
     {% endif %}
+
 {% else %}
-<a href="{% url 'core:comment_create'%}?thing={{thing_detail.pk}}" class='btn btn-dark'>Add Comment</a>
+<a href="{% url 'core:comment_create' thing_pk=thing_detail.pk %}" class='btn btn-dark'>Add Comment</a>
 {% endif %}
 
 {% for comment in thing_detail.comment_set.all|dictsortreversed:"posted_on" %}
-<div class="row my-4">
+<div class="row my-4 rows-cols-4">
     <div class="col col-3 col-md-2">
         <img src="{{comment.author.profile_pic.url}}" class="img-thumbnail">
     </div>
 
     <div class="col col-9 col-md-10">
         <h5>{{comment.author.first_name}} {{comment.author.last_name}} <small> {{comment.posted_on}}{% if comment.is_edited %}, Edited{% endif %}</small></h5>
-        <a href='{%url 'core:user_detail' pk=comment.author.id%}' type="button" class="btn btn-dark btn-sm">Visit Profile</a>
+        <a href='{% url 'core:user_detail' pk=comment.author.id%}' type="button" class="btn btn-dark btn-sm">Visit Profile</a>
+        <small>{{comment.author.comment_set.count}} comments</small>
         {% if comment.author.pk == user.pk %}
-        <a href='{%url 'core:comment_update' pk=comment.id%}?thing={{thing_detail.id}}' type="button" class="btn btn-warning btn-sm mx-1">Edit</a>
+        <a href='{% url 'core:comment_update' pk=comment.id thing_pk=thing_detail.id %}' type="button" class="btn btn-warning btn-sm mx-1">Edit</a>
         {% endif %}
+        
         <p class="starability-result mt-2" data-rating="{{comment.rating|to_int}}">
             Rated: {{comment.rating|to_int}} stars
         </p>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col">
         <div class="accordion" id="accordion{{forloop.counter}}">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="heading{{forloop.counter}}">

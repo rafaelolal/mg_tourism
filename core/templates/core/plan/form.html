@@ -1,0 +1,24 @@
+{% extends 'core/base/form.html' %}
+
+{% load thing_filters %}
+
+
+{% block form_body %}
+<h1>Plan</h1>
+{% endblock form_body %}
+
+{% block form_extra %}
+
+{% if request.GET.thing %}
+<a href="{% url 'core:thing_detail' pk=request.GET.thing %}" class="btn btn-warning mb-2" type="button">Cancel</a>
+
+{% else %}
+{% get_owner view.kwargs.owner_pk as owner %}
+<a href="{% url 'core:user_detail' pk=owner.id%}?my_plans" class="btn btn-warning mb-2" type="button">Cancel</a>
+{% endif %}
+
+{% if plan %}
+<a href="{% url 'core:plan_delete' pk=plan.id %}" class="btn btn-danger mb-2" type="button">Delete</a>
+{% endif %}
+
+{% endblock form_extra %}

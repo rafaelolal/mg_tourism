@@ -12,8 +12,7 @@ class CommentCreateView(IsFirstComment, CreateView):
 
     # manually change some things on the form before submitting it
     def form_valid(self, form):
-        t_id = self.request.GET['thing']
-        thing = Thing.objects.get(id=t_id)
+        thing = Thing.objects.get(id=int(self.kwargs['thing_pk']))
         
         form.instance.thing = thing
         form.instance.author = UserProfile.objects.get(id=self.request.user.id)

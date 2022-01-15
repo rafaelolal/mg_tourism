@@ -13,6 +13,24 @@
     </symbol>
 </svg>
 
+{% for message in messages %}
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div class="toast {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}text-white bg-success{% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}bg-danger{% endif %}"
+        id="liveToast"
+        role="alert"aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">MG Tourism</strong>
+            <small>Just Now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        
+        <div class="toast-body">
+            {{message}}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
 <div class="row">
     <div class="col-lg-3 col-xs-12">
         <div class="card mb-4" style="">
@@ -21,113 +39,270 @@
                 <h5 class="card-title">{{user_detail.first_name}} {{user_detail.last_name}}</h5>
                 <p class="card-text">{{user_detail.biography}}</p>
                 {% if user.pk == user_detail.pk %}
-                    <a href="{% url 'core:user_update' pk=user_detail.pk%}" class="btn btn-dark">Edit</a>              
+                    <a href="{% url 'core:user_update' pk=user_detail.pk%}" class="btn btn-dark">Edit</a>
+                    <a class='btn btn-dark' href="{% url 'core:plan_create' owner_pk=user_detail.pk %}">Create a Plan</a>
                 {% endif %}
             </div>
         </div>
     </div>
 
     <div class="col-lg-9 col-xs-12">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="visited-tab" data-bs-toggle="tab" data-bs-target="#visited" type="button" role="tab" aria-controls="visited" aria-selected="true">Visited</button>
+                {% any_tab_selected request.GET as tab_selected %}
+                <button class="nav-link {{tab_selected}}" id="pills-visited-tab" data-bs-toggle="pill" data-bs-target="#pills-visited" type="button" role="tab" aria-controls="pills-visited">Visited</button>
             </li>
+            
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="plans-tab" data-bs-toggle="tab" data-bs-target="#plans" type="button" role="tab" aria-controls="plans" aria-selected="false">Plans</button>
+                {% is_tab_selected "my_plans" request.GET as my_is_selected %}
+                <button class="nav-link {{my_is_selected}}" id="pills-my-plans-tab" data-bs-toggle="pill" data-bs-target="#pills-my-plans" type="button" role="tab" aria-controls="pills-my-plans">
+                    {% if user.pk == user_detail.pk %}My Plans{% else %}{{user_detail.first_name|make_possessive}} plans{% endif %}
+                </button>
+            </li>
+            
+            <li class="nav-item" role="presentation">
+                {% is_tab_selected "liked_plans" request.GET as liked_is_selected %}
+                <button class="nav-link {{liked_is_selected}}" id="pills-liked-plans-tab" data-bs-toggle="pill" data-bs-target="#pills-liked-plans" type="button" role="tab" aria-controls="pills-liked-plans">Liked Plans</button>
             </li>
         </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="visited" role="tabpanel" aria-labelledby="visited-tab">
+            
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade {{tab_selected}}" id="pills-visited" role="tabpanel" aria-labelledby="pills-visited-tab">
                 <div class="p-4 bg-light rounded-3">
+                    {% if user_detail.comment_set.all %}
+                    <h1>Places Visited</h1>
                     <div class="row">
-                        {% if user_detail.comment_set.all %}
-                        <h1>Places Visited</h1>
-                        {% for comment in user_detail.comment_set.all|dictsortreversed:'posted_on' %}
-                            <div class="col-lg-6 col-xs-12 pb-2">
-                                <div class="card bg-dark text-white">
-                                    {% if comment.thing.get_picture.image.url %}
-                                        <img src={{comment.thing.get_picture.image.url}} class="card-img img-fluid height-25%">
-                                    {% else %}
-                                        <img src="{% static 'thing_default.jpg' %}" class="card-img img-fluid">
-                                    {% endif %}
+                    {% for comment in user_detail.comment_set.all|dictsortreversed:'posted_on' %}
+                        <div class="col-xl-6 col-lg-12 pb-2">
+                            <div class="card bg-dark text-white">
+                                {% if comment.thing.get_picture.image.url %}
+                                    <img src={{comment.thing.get_picture.image.url}} class="card-img img-fluid height-25%">
+                                {% else %}
+                                    <img src="{% static 'thing_default.jpg' %}" class="card-img img-fluid">
+                                {% endif %}
+                                
+                                <div class="card-img-overlay">
+                                    <h5 class="card-title">{{comment.thing.name}}</h5>
+                                    <p class="card-text">{{comment.thing.short_description}}</p>
+                                    <a href="{% url 'core:thing_detail' pk=comment.thing.id %}" class='btn btn-outline-light m-1'>Visit</a>                                        
+                                </div>
+            
+                                <ul class="list-group text-dark">
+                                    <a class="list-group-item" aria-current="true">
+                                        <div class="d-flex w-100 justify-content-between">
+                                          <h5 class="mb-1">Stars</h5>
+                                          <small>{{comment.thing.stars}} • {{comment.thing.comment_set.count}}</small>
+                                        </div>
+
+                                        <p class="starability-result mb-1" data-rating="{{comment.thing.stars|to_int}}">
+                                        Rated: {{comment.thing.stars|to_int}} stars
+                                        </p>
+                                    </a>
                                     
-                                    <div class="card-img-overlay">
-                                        <h5 class="card-title">{{comment.thing.name}}</h5>
-                                        <p class="card-text">{{comment.thing.short_description}}</p>
-                                        <a href="{% url 'core:thing_detail' pk=comment.thing.id %}" class='btn btn-outline-light m-1'>Visit</a>
-                                    
-                                    </div>
-                
-                                    <ul class="list-group">
-                                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                                            <div class="ms-2 me-auto">
-                                              <div class="fw-bold">Stars</div>
-                                              {% if comment.thing.stars != 'None' %}
-                                              <p class="starability-result mb-1" data-rating="{{comment.thing.stars|to_int}}">
-                                              Rated: {{comment.thing.stars|to_int}} stars
-                                              </p>
-                                              {% endif %}
-                                            </div>
-                                        </li>
-        
-                                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                                            <div class="ms-2 me-auto">
-                                                <div class="fw-bold">{{ user_detail.first_name|make_possessive }} rating</div>
-                                                <p class="starability-result mb-1" data-rating="{{comment.rating|to_int}}">
-                                                    Rated: {{comment.rating|to_int}} stars
-                                                </p>
-                                            </div>
-                                        </li>
-        
-                                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                                            <div class="ms-2 me-auto">
-                                              <div class="fw-bold">Category</div>
-                                              {{comment.thing.category}}
-                                            </div>
-                                        </li>     
-                                    </ul>
-        
-                                </div>
-        
+                                    <a class="list-group-item" aria-current="true">
+                                        <div class="d-flex w-100 justify-content-between">
+                                          <h5 class="mb-1">{{ user_detail.first_name|make_possessive }} rating</h5>
+                                        </div>
+
+                                        <p class="starability-result mb-1" data-rating="{{comment.rating|to_int}}">
+                                        Rated: {{comment.rating|to_int}} stars
+                                        </p>
+                                    </a>
+    
+                                    <a class="list-group-item" aria-current="true">
+                                        <div class="d-flex w-100 justify-content-between">
+                                          <h5 class="mb-1">Category</h5>
+                                        </div>
+
+                                        <p>{{comment.thing.category}}</p>
+                                    </a>
+                                </ul>
                             </div>
-                        {% endfor %}
-                        {% else %}
-                            {% if user.pk == user_detail.pk %}                      
-                            <div class="alert alert-warning d-flex align-items-center" role="alert">
-                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                                <div>
-                                    You haven't left a review on anything.
-                                </div>
-                            </div>
-                              
-                            <div class="alert alert-primary d-flex align-items-center" role="alert">
-                                <a href="{% url 'core:thing_list' %}">
-                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-                                </a>
-                                <div>
-                                    Cick the icon to see things to do!
-                                </div>
-                            </div>
-                            {% else %}
-                            <div class="alert alert-warning d-flex align-items-center" role="alert">
-                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                                <div>
-                                    {{user_detail.first_name}} has not left a review on anything.
-                                </div>
-                            </div>
-                            {% endif %}
-                        {% endif %}
+                        </div>
+                    {% endfor %}
                     </div>
+                    {% else %}
+                        {% if user.pk == user_detail.pk %}                      
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <div>
+                                You haven't left a review on anything
+                            </div>
+                        </div>
+                            
+                        <div class="alert alert-primary d-flex align-items-center" role="alert">
+                            <a href="{% url 'core:thing_list' %}">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                            </a>
+                            <div>
+                                Cick the icon to see things to do!
+                            </div>
+                        </div>
+                        
+                        {% else %}
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <div>
+                                {{user_detail.first_name}} has not left a review on anything
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endif %}
                 </div>
             </div>
-            
-            <div class="tab-pane fade" id="plans" role="tabpanel" aria-labelledby="plans-tab">...</div>
+
+            <div class="tab-pane fade {{my_is_selected}}" id="pills-my-plans" role="tabpanel" aria-labelledby="pills-my-plans-tab">
+                {% get_visible_plans user_detail.plans.all user.pk user_detail.pk as visible_plans %}
+                {% if visible_plans %}
+                    {% for plan in visible_plans %}
+                    <div class="p-4 bg-light rounded-3 mb-4">
+                        <div class="card text-center mb-4">
+                            <div class="card-header">
+                                {% if plan.is_public %}
+                                Public
+                                {% else %}
+                                Private
+                                {% endif %}
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">{{plan.name}}</h5>
+                                <p class="card-text">{{plan.description}}</p>
+                                {% if user.pk != user_detail.pk %}
+                                    {% if user.is_authenticated %}
+                                        {% user_liked user.pk plan.pk as user_liked %}
+                                        {% if user_liked %}
+                                        <a class="btn btn-danger" href="{% url 'core:plan_like' user_pk=user.pk plan_pk=plan.pk liking="false"%}">Dislike</a>
+                                        {% else %}
+                                        <a class="btn btn-success" href="{% url 'core:plan_like' user_pk=user.pk plan_pk=plan.pk liking="true"%}">Like</a>
+                                        {% endif %}
+                                    {% else %}
+                                    <a class="btn btn-success" href="{% url 'core:plan_like' user_pk=user.pk plan_pk=plan.pk liking="true"%}">Like</a>
+                                    {% endif %}
+
+                                {% else %}
+                                    <a class="btn btn-dark" href="{% url 'core:plan_update' owner_pk=user.pk pk=plan.pk %}">Edit</a>
+                                {% endif %}
+                            </div>
+
+                            <div class="card-footer text-muted">
+                                {{plan.liked_by.all.count}} people liked this plan
+                            </div>
+                        </div>
+
+                        {% if plan.things.all %}
+                            <div class="row">
+                                {% for thing in plan.things.all %}
+                                <div class="col-lg-6 col-xs-12 pb-2">
+                                    <div class="card bg-dark text-white">
+                                        {% if thing.get_picture.image.url %}
+                                            <img src={{thing.get_picture.image.url}} class="card-img img-fluid height-25%">
+                                        {% else %}
+                                            <img src="{% static 'thing_default.jpg' %}" class="card-img img-fluid">
+                                        {% endif %}
+                                        
+                                        <div class="card-img-overlay">
+                                            <h5 class="card-title">{{thing.name}}</h5>
+                                            <p class="card-text">{{thing.short_description}}</p>
+                                            <a href="{% url 'core:thing_detail' pk=thing.id %}" class='btn btn-outline-light m-1'>Visit</a>
+                                            <a class="btn btn-outline-danger" href="{% url 'core:plan_remove' plan_pk=plan.pk thing_pk=thing.pk %}">Remove</a>
+                                        </div>
+                    
+                                        <ul class="list-group text-dark">
+                                            <a class="list-group-item" aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1">Stars</h5>
+                                                    <small>{{thing.stars}} • {{thing.comment_set.count}}</small>
+                                                </div>
+
+                                                {% if thing.stars != 'None' %}
+                                                <p class="starability-result mb-1" data-rating="{{thing.stars|to_int}}">
+                                                Rated: {{thing.stars|to_int}} stars
+                                                </p>
+                                                {% endif %}
+                                            </a>
+                                            
+                                            <a class="list-group-item" aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1">Category</h5>
+                                                </div>
+
+                                                <p>{{thing.category}}</p>
+                                            </a>
+                                        </ul>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        
+                        {% else %}
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <div>
+                                This plan is empty
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+        
+                {% else %}
+                    <div class="p-4 bg-light rounded-3 mb-4">
+                        {% if user.pk == user_detail.pk %}
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <div>
+                                You have no plans
+                            </div>
+                        </div>
+
+                        {% else %}
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <div>
+                                {{user_detail.first_name}} has no plans
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="tab-pane fade {{liked_is_selected}}" id="pills-liked-plans" role="tabpanel" aria-labelledby="pills-liked-plans-tab">
+                <div class="p-4 bg-light rounded-3">
+                    {% if user_detail.likes.all %}
+
+                    {% else %}
+                        {% if user.pk == user_detail.pk %}
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <div>
+                                You haven't liked any plans
+                            </div>
+                        </div>
+    
+                        <div class="alert alert-primary d-flex align-items-center" role="alert">
+                            <a href="{% url 'core:thing_list' %}">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                            </a>
+                            <div>
+                                Cick the icon to see things to do and explore others' plans
+                            </div>
+                        </div>
+    
+                        {% else %}
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <div>
+                                {{user_detail.first_name}} hasn't liked any plans
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-
-
-
 
 {% endblock base_body %}

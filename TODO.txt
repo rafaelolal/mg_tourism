@@ -1,4 +1,7 @@
-Create your own trip plan
+Randomly pick how mnay reviews a person will make
+500 error when deleting comment and going back on page, trying to delete comment again
+403 custom page
+Plan buttons look weird when adding to plan
 
 Explore jumbotron for styling
 
@@ -14,6 +17,8 @@ Give Credit to
 Bootstrap
 Django
 Sqlite
+Fake Py
+Generated Photos
 https://github.com/LunarLogic/starability
 https://django-archive.readthedocs.io/en/latest/
 https://django-crispy-forms.readthedocs.io/en/latest/

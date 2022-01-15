@@ -8,7 +8,7 @@
 <a id="#top"></a>
 
 <div class="row">
-    <div class="col-lg-3 col-xs-12">
+    <div class="col-xl-3 col-lg-12">
         <form class='pb-4 p-2'>
             <h1>Categories</h1>
             <p>Remember to apply filters.</p>
@@ -118,7 +118,7 @@
             <button type="submit" class="btn btn-dark mb-2">Apply Filters</button>
         </form>
     </div>
-    <div class="col-lg-9 col-xs-12" id="main">
+    <div class="col-xl-9 col-lg-12" id="main">
         <div class="p-4 bg-light rounded-3">
             <div class="row">
                 {% if thing_list %}
@@ -139,40 +139,45 @@
         
                             <ul class="list-group">
                             {% for field, value in thing.get_fields.items %}
-                                {% if field != 'long_description' %}
-                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                        <div class="ms-2 me-auto">
-                                            <div class="fw-bold">{{field|add_spaces}}</div>
-                                            {% if field == 'covid_safe' %}
-                                                {% if value == 'True' %}
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgb(15,81,50)" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                                </svg>
-                                                {% else %}
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgb(132,32,41)" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                                                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                                                </svg>
-                                                {% endif %}
-                                            {% elif field == 'stars' %}
-                                                {% if value != 'None' %}
-                                                <p class="starability-result mb-1" data-rating="{{value|to_int}}">
-                                                Rated: {{value|to_int}} stars
-                                                </p>
-                                                {% endif %}
-                                            {% else %}
-                                                {% if field == 'address' %}<small>{% get_field_value field thing %}</small>
-                                                {% else %}
-                                                {% if field == 'price' %}${% endif %}{% get_field_value field thing %}
-                                                {% endif %}
-                                            {% endif %}
-                                        </div>
-                                    </li>
+                                {% if field != 'long_description' and value != 'None' %}
+                                <a class="list-group-item text-dark" aria-current="true">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{field|add_spaces}}</h5>
+                                        {% if field == 'stars' %}
+                                        <small>{{value}} • {{thing.comment_set.count}}</small>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    {% if field == 'address' %}
+                                    <small>{{value}}</small>
+                                    
+                                    {% elif field == 'stars' %}
+                                    <p class="starability-result mb-1" data-rating="{{value|to_int}}">
+                                        Rated: {{value|to_int}} stars
+                                    </p>
+                                    
+                                    {% elif field == 'price' %}
+                                    <p>${{value}}</p>
+                                    
+                                    {% elif field == 'covid_safe' %}
+                                        {% if value %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgb(15,81,50)" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                        </svg>
+                                        {% else %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgb(132,32,41)" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                        </svg>
+                                        {% endif %}
+                                    
+                                    {% else %}
+                                    <p class="mb-1">{{value}}</p>
+                                    {% endif %}
                                 {% endif %}
+                                </a>
                             {% endfor %}
-
                             </ul>
-                        </div>    
-
+                        </div>
                     </div>
                 {% endfor %}
                 {% else %}

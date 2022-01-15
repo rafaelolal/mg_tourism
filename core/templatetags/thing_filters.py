@@ -3,7 +3,7 @@ from typing import Any
 from django import template
 from django.forms.models import model_to_dict
 
-from core.models import Thing, Attraction, Outdoor, Shopping, Food, Tour, UserProfile
+from core.models import Thing, Attraction, Outdoor, Shopping, Food, Tour, UserProfile, Plan
 
 register = template.Library()
 
@@ -82,9 +82,12 @@ def get_types(things):
     return types
 
 @register.simple_tag
-def get_thing(query):
-    id = int(query['thing'])
+def get_thing(id):
     return Thing.objects.get(id=id)
+
+@register.simple_tag
+def get_owner(id):
+    return UserProfile.objects.get(id=id)
 
 @register.simple_tag
 def user_commented(user_pk, thing_pk):
@@ -92,3 +95,36 @@ def user_commented(user_pk, thing_pk):
         return True
 
     return False
+
+@register.simple_tag
+def user_liked(user_pk, plan_pk):
+    if Plan.objects.get(pk=plan_pk) in UserProfile.objects.get(pk=user_pk).likes.all():
+        return True
+
+    return False
+
+@register.simple_tag
+def get_plans(user_pk):
+    return UserProfile.objects.get(id=int(user_pk)).plans.all
+
+@register.simple_tag
+def any_tab_selected(query):
+    if 'my_plans' in query or 'liked_plans' in query:
+        return ""
+    
+    return 'show active'
+
+@register.simple_tag
+def is_tab_selected(tab, query):
+    if tab in query:
+        return "show active"
+
+    return ""
+
+@register.simple_tag
+def get_visible_plans(plans, user_viewing_pk, user_detail_pk):
+    if user_viewing_pk == user_detail_pk:
+        return plans
+    
+    else:
+        return plans.exclude(is_public=False)
