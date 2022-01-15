@@ -2,7 +2,9 @@ from datetime import timedelta
 
 from typing import Any, Dict, List
 
-from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
+from django.contrib import messages
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView
 
 from core.models import Thing, Picture, Tour, Attraction, Food, Shopping, Outdoor
@@ -31,6 +33,15 @@ class ThingListView(ListView):
     model = Thing
     template_name = 'core/thing/list.html'
 
+    def get(self, request, *args, **kwargs):
+        query_set = self.get_queryset()
+        if query_set:
+            if len(query_set) == 1:
+                messages.warning(request, 'This is the only thing that matches your search.')
+                return HttpResponseRedirect(reverse('core:thing_detail', kwargs={'pk': query_set.first().pk}))
+
+        return super().get(request, *args, **kwargs)
+
     # manually changing data that is sent to the django template
     def get_context_data(self, **kwargs):
         # categories is used to create the switches
@@ -40,7 +51,9 @@ class ThingListView(ListView):
     def get_queryset(self):
         query_categories = self.get_query_categories()
         query_fields = self.get_query_fields()
-        return self.query_filter_fields(query_fields, query_categories)
+        query_set = self.query_filter_fields(query_fields, query_categories)
+
+        return query_set
 
     def get_query_categories(self) -> List[str]:
         """Returns a list of all categories in the querystring of the URL"""
@@ -111,6 +124,10 @@ class ThingListView(ListView):
         if 'stars' in query_fields:
             cat_independent_filters[f'stars__gte'] = float(query_fields['stars'])
             del query_fields['stars']
+
+        if 'name' in query_fields:
+            cat_independent_filters[f'name__contains'] = query_fields['name']
+            del query_fields['name']
 
         return cat_independent_filters
 

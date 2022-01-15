@@ -12,6 +12,16 @@
         <form class='pb-4 p-2'>
             <h1>Categories</h1>
             <p>Remember to apply filters.</p>
+            <div class="form-floating mb-2">
+                {% get_param_value 'name' request.GET as name_selected %}
+                {% if name_selected %}
+                    <input value="{{name_selected}}" name="name" type="text" class="form-control" id="name_text">
+                {% else %}
+                    <input name="name" type="text" class="form-control" id="name_text">
+                {% endif %}
+                <label for="name_text">Name</label>
+            </div>
+
             {% for category in categories %}
                 <div class="form-check form-switch">
                     <input {% is_checked category request.GET %} name="{{category}}" id="switch{{forloop.counter}}" class="form-check-input" type="checkbox" role="switch">
@@ -123,7 +133,7 @@
             <div class="row">
                 {% if thing_list %}
                 {% for thing in thing_list|dictsort:"name" %}
-                    <div class="col-lg-6 col-xs-12 pb-2">
+                    <div class="col-lg-6 col-12 pb-2">
                         <div class="card bg-dark text-white">
                             {% if thing.get_picture.image.url %}
                                 <img src="{{thing.get_picture.image.url}}" class="card-img img-fluid height-25%">
@@ -139,7 +149,7 @@
         
                             <ul class="list-group">
                             {% for field, value in thing.get_fields.items %}
-                                {% if field != 'long_description' and value != 'None' %}
+                                {% if value != 'None' %}
                                 <a class="list-group-item text-dark" aria-current="true">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1">{{field|add_spaces}}</h5>

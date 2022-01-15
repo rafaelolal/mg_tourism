@@ -41,7 +41,7 @@ class Thing(models.Model):
 
     def remove_unwanted_keys(self, fields: Dict[str, Any]) -> Dict[str, Any]:
         """Removed unwanted values from fields"""
-        unwanted = 'id name short_description category thing_ptr'.split(' ')
+        unwanted = 'id name short_description long_description thing_ptr'.split(' ')
         for key in unwanted:
             del fields[key]
 

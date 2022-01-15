@@ -11,9 +11,9 @@
 <h1>{{thing_detail.name}}</h1>
 
 <div class="row my-4">
-    <div class="col-lg-3 col-xs-12">
+    <div class="col-lg-3 col-12">
         <h3>Description</h3>
-        <p>{{thing_detail.get_fields.long_description}}</p>
+        <p>{{thing_detail.long_description}}</p>
         {% for message in messages %}
             <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                 <div class="toast {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}text-white bg-success{% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}bg-warning{% endif %}"
@@ -50,7 +50,7 @@
                     <div class="modal-body">
                     {% if plans %}
                         {% for plan in plans %}
-                            <div class="row">
+                            <div class="row m-2">
                                 <a href="{% url "core:plan_add" plan_pk=plan.pk thing_pk=thing_detail.pk %}" class='btn btn-dark'>{{plan.name}}</a>
                             </div>
                         {% endfor %}
@@ -84,7 +84,7 @@
         </div>
     </div>
     
-    <div class="col-lg-9 col-xs-12">
+    <div class="col-lg-9 col-12">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 {% if thing_detail.picture_set.all %}
@@ -126,7 +126,7 @@
 
 <div class="row my-4">
     {% for field, value in thing_detail.get_fields.items %}
-        {% if field != 'long_description' and value != 'None' %}
+        {% if field != 'category' and value != 'None' %}
             <div class="col-lg-4 col-6">
                 <a class="list-group-item mb-2" aria-current="true">
                     <div class="d-flex w-100 justify-content-between">
@@ -189,10 +189,10 @@
     <div class="col col-9 col-md-10">
         <h5>{{comment.author.first_name}} {{comment.author.last_name}} <small> {{comment.posted_on}}{% if comment.is_edited %}, Edited{% endif %}</small></h5>
         <a href='{% url 'core:user_detail' pk=comment.author.id%}' type="button" class="btn btn-dark btn-sm">Visit Profile</a>
-        <small>{{comment.author.comment_set.count}} comments</small>
         {% if comment.author.pk == user.pk %}
         <a href='{% url 'core:comment_update' pk=comment.id thing_pk=thing_detail.id %}' type="button" class="btn btn-warning btn-sm mx-1">Edit</a>
         {% endif %}
+        <small>{{comment.author.comment_set.count}} comments</small>
         
         <p class="starability-result mt-2" data-rating="{{comment.rating|to_int}}">
             Rated: {{comment.rating|to_int}} stars

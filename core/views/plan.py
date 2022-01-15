@@ -44,7 +44,7 @@ def plan_like(request, user_pk, plan_pk, liking):
     
     else:
         user.likes.remove(plan)
-        messages.error(request, f'Successfully disliked plan "{plan.name}"')
+        messages.success(request, f'Successfully disliked plan "{plan.name}"')
 
     return HttpResponseRedirect(reverse('core:user_detail', kwargs={'pk': plan.owner.pk}) + "?my_plans")
 
@@ -74,6 +74,9 @@ class PlanUpdateView(IsThePlanOwner, UpdateView):
     template_name = 'core/plan/form.html'
 
     def form_valid(self, form):
+        if not form.instance.is_public:
+            form.instance.liked_by.clear()
+
         return super().form_valid(form)
 
 class PlanDeleteView(IsThePlanOwner, DeleteView):

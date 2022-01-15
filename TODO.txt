@@ -1,7 +1,7 @@
 Randomly pick how mnay reviews a person will make
 500 error when deleting comment and going back on page, trying to delete comment again
 403 custom page
-Plan buttons look weird when adding to plan
+user dislikes other's plan but in their own page, still sends them to their plan
 
 Explore jumbotron for styling
 
@@ -9,7 +9,8 @@ Create help page
     https://www.tripadvisorsupport.com/en-US/hc/traveler
 
 Fill out homepage
-Search bar functionality?
+
+Allow to create copy of plan
 
 Azure bot?
 

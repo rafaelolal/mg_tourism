@@ -32,7 +32,7 @@
 {% endfor %}
 
 <div class="row">
-    <div class="col-lg-3 col-xs-12">
+    <div class="col-lg-3 col-12">
         <div class="card mb-4" style="">
             <img src="{{user_detail.profile_pic.url}}" class="card-img-top">
             <div class="card-body">
@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <div class="col-lg-9 col-xs-12">
+    <div class="col-lg-9 col-12">
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
                 {% any_tab_selected request.GET as tab_selected %}
@@ -73,7 +73,7 @@
                     <h1>Places Visited</h1>
                     <div class="row">
                     {% for comment in user_detail.comment_set.all|dictsortreversed:'posted_on' %}
-                        <div class="col-xl-6 col-lg-12 pb-2">
+                        <div class="col-xl-6 col-12 pb-2">
                             <div class="card bg-dark text-white">
                                 {% if comment.thing.get_picture.image.url %}
                                     <img src={{comment.thing.get_picture.image.url}} class="card-img img-fluid height-25%">
@@ -135,7 +135,7 @@
                                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
                             </a>
                             <div>
-                                Cick the icon to see things to do!
+                                Click the icon to see things to do!
                             </div>
                         </div>
                         
@@ -193,7 +193,7 @@
                         {% if plan.things.all %}
                             <div class="row">
                                 {% for thing in plan.things.all %}
-                                <div class="col-lg-6 col-xs-12 pb-2">
+                                <div class="col-xl-6 col-12 pb-2">
                                     <div class="card bg-dark text-white">
                                         {% if thing.get_picture.image.url %}
                                             <img src={{thing.get_picture.image.url}} class="card-img img-fluid height-25%">
@@ -256,6 +256,15 @@
                             </div>
                         </div>
 
+                        <div class="alert alert-primary d-flex align-items-center" role="alert">
+                            <a href="{% url 'core:thing_list' %}">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                            </a>
+                            <div>
+                                Create a plan then click on the icon to add things to it!
+                            </div>
+                        </div>
+
                         {% else %}
                         <div class="alert alert-warning d-flex align-items-center" role="alert">
                             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
@@ -269,10 +278,34 @@
             </div>
 
             <div class="tab-pane fade {{liked_is_selected}}" id="pills-liked-plans" role="tabpanel" aria-labelledby="pills-liked-plans-tab">
-                <div class="p-4 bg-light rounded-3">
-                    {% if user_detail.likes.all %}
+                {% if user_detail.likes.all %}
+                    {% for plan in user_detail.likes.all %}
+                    <div class="p-4 bg-light rounded-3 mb-4">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                By {{plan.owner.first_name}} {{plan.owner.last_name}}
+                            </div>
 
-                    {% else %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{plan.name}}</h5>
+                                <p class="card-text">{{plan.description}}</p>
+                                {% if user.is_authenticated %}
+                                    {% user_liked user.pk plan.pk as user_liked %}
+                                    {% if user_liked %}
+                                    <a class="btn btn-danger" href="{% url 'core:plan_like' user_pk=user.pk plan_pk=plan.pk liking="false"%}">Dislike</a>
+                                    {% endif %}
+                                {% endif %}
+                                <a class="btn btn-dark" href="{% url 'core:user_detail' pk=plan.owner.pk %}?my_plans">Visit</a>
+                            </div>
+
+                            <div class="card-footer text-muted">
+                                {{plan.liked_by.all.count}} people liked this plan
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="p-4 bg-light rounded-3 mb-4">
                         {% if user.pk == user_detail.pk %}
                         <div class="alert alert-warning d-flex align-items-center" role="alert">
                             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
@@ -280,16 +313,16 @@
                                 You haven't liked any plans
                             </div>
                         </div>
-    
+
                         <div class="alert alert-primary d-flex align-items-center" role="alert">
                             <a href="{% url 'core:thing_list' %}">
                                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
                             </a>
                             <div>
-                                Cick the icon to see things to do and explore others' plans
+                                Click the icon to see things to do and explore others' plans!
                             </div>
                         </div>
-    
+
                         {% else %}
                         <div class="alert alert-warning d-flex align-items-center" role="alert">
                             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
@@ -297,9 +330,9 @@
                                 {{user_detail.first_name}} hasn't liked any plans
                             </div>
                         </div>
-                        {% endif %}
+                    </div>
                     {% endif %}
-                </div>
+                {% endif %}
             </div>
         </div>
     </div>
