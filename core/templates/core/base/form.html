@@ -9,17 +9,16 @@
 {% endblock form_body %}
 </div>    
 
-{% block form_extra %}
-{% endblock form_extra %}
+<div class="p-4 bg-light rounded-3 mb-4">
+    <form method="post" enctype='multipart/form-data'>
+        {% csrf_token %}
 
-<form method="post" enctype='multipart/form-data'>
-    {% csrf_token %}
-
-    {% block form_fields %}
-    {% endblock form_fields %}
-    
-    {{form|crispy}}
-    <input type="submit", class='btn btn-success', value='Submit'>
-</form>
+        {% block form_fields %}
+        {% endblock form_fields %}
+        
+        {{form|crispy}}
+        <input type="submit", class='btn btn-success', value='Submit'>
+    </form>
+</div>    
 
 {% endblock base_body %}
