@@ -5,8 +5,6 @@ from core import views
 app_name = 'core'
 
 urlpatterns = [
-    path('features/', views.FeaturesView.as_view(), name='features'),
-
     path('register/', views.register, name='register'),
     
     path('login/user/', views.user_login, name='user_login'),

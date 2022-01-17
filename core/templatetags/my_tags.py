@@ -2,11 +2,12 @@
 Tags are functions that can be used within a template
 """
 
-from typing import Any, Dict, List, Union
+from typing import Dict, List, Union
 from django.db.models.query import QuerySet
 
 from django import template
 from django.forms.models import model_to_dict
+from django.db.models import Count
 
 from core.models import (Thing, Attraction, Outdoor, Shopping, Food, Tour,
     UserProfile, Plan)
@@ -18,6 +19,12 @@ def get_all_things() -> QuerySet:
     """Returns a QuerySet object with all Thing objects"""
 
     return Thing.objects.all()
+
+@register.simple_tag
+def get_top_things() -> QuerySet:
+    """Returns a QuerySet object with the top 3 things by comment count"""
+
+    return Thing.objects.annotate(comment_count=Count('comments')).order_by('-comment_count')[:3]
 
 @register.simple_tag
 def is_checked(select_filter: str, checked: Dict[str, str]) -> Union[None, str]:
@@ -120,6 +127,12 @@ def get_plans(user_pk: int) -> QuerySet:
     """Returns all the plans a UserProfile object with the given pk has associated with it"""
 
     return UserProfile.objects.get(pk=int(user_pk)).plans.all
+
+@register.simple_tag
+def get_top_plans() -> QuerySet:
+    """Returns a queryset of the top 4 plans by likes"""
+
+    return Plan.objects.annotate(liked_count=Count('liked_by')).order_by('-liked_count')[:4]
 
 @register.simple_tag
 def any_tab_selected(query: Dict[str, str]) -> str:

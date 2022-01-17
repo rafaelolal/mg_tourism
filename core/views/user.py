@@ -11,7 +11,7 @@ from django.views.generic import DetailView, UpdateView, DeleteView
 
 from core.models import UserProfile
 from core.forms import UserProfileForm
-from core.mixins import IsTheUser
+from core.mixins import LoginRequiredMixin, IsTheUserMixin
 
 @login_required
 def user_logout(request: HttpResponse) -> HttpResponse:
@@ -101,18 +101,19 @@ def user_login(request: HttpResponse) -> HttpResponse:
 
     return render(request, 'core/user/login.html')
 
-class UserDetailView(DetailView):
+class UserDetailView(LoginRequiredMixin, DetailView):
     """View to see a user's profile"""
     
+    login_url = 'core:user_login'
     context_object_name = "user_detail"
     model = UserProfile
     template_name = 'core/user/detail.html'
 
-class UserUpdateView(IsTheUser, UpdateView):
+class UserUpdateView(IsTheUserMixin, UpdateView):
     """View to update a UserProfile object"""
     
     login_url = 'core:user_login'
-    fields = ['biography', 'profile_pic']
+    fields = ['first_name', 'last_name', 'username', 'email', 'biography', 'profile_pic']
     model = UserProfile
     template_name = 'core/user/form.html'
 
@@ -122,7 +123,7 @@ class UserUpdateView(IsTheUser, UpdateView):
         
         return super().form_valid(form)
 
-class UserDeleteView(IsTheUser, DeleteView):
+class UserDeleteView(IsTheUserMixin, DeleteView):
     """View to delete a UserProfile object"""
 
     login_url = 'core:user_login'

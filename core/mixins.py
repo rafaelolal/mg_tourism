@@ -15,7 +15,7 @@ class IsSuperuserMixin(LoginRequiredMixin, UserPassesTestMixin):
     def test_func(self) -> bool:
         return self.request.user.is_superuser
 
-class IsTheUser(LoginRequiredMixin, UserPassesTestMixin):
+class IsTheUserMixin(LoginRequiredMixin, UserPassesTestMixin):
     """Checks if a user is logged in and is associated with the view
     Will redirect the user to a view's login_url attribute if they are not logged in
     """

@@ -1,0 +1,221 @@
+{% extends 'core/base/base.html' %}
+
+{% block base_body %}
+
+<div class="container py-4">
+    <div class="p-5 mb-4 bg-dark text-light rounded-3">
+          <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Features and Help Menu</h1>
+            <p class="col-md-8 fs-4">This is an interactive help menu to aid you in your navigation.</p>
+        </div>
+    </div>
+
+    <div class="row align-items-md-stretch">  
+        <div class="col-xl-3 col-lg-6 col-12 mb-4">
+            <div class="h-100 p-4 bg-light border rounded-3">
+            <h2>First Steps</h2>
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                                Registering
+                            </button>
+                        </h2>
+                        
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                            <div class="accordion-body">
+                                Click <a href="{% url 'core:register' %}">here</a> to register. We guarantee you that your data will never be misused and is securely stored.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                Logging In
+                            </button>
+                        </h2>
+                        
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                            <div class="accordion-body">
+                                Click <a href="{% url 'core:user_login' %}">here</a> to login. After logging in, you can access your <a href="{% url 'core:user_detail' pk=user.pk %}">profile</a>.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                Editing Profile
+                            </button>
+                        </h2>
+                        
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body">
+                                You can edit your profile by clicking <a href="{% url 'core:user_update' pk=user.pk %}">here</a>. 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-6 col-12 mb-4">
+            <div class="h-100 p-4 bg-light border rounded-3">
+            <h2>Things</h2>
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+                                Visiting Thigns
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                            <div class="accordion-body">
+                                You can see all the things <a href="{% url 'core:thing_list' %}">here</a>. There, you can filter by many attributes, but if you are looking for a specific thing simply use the search functionality in the navigation bar.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
+                                Creating Things
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                            <div class="accordion-body">
+                                After logging in, you can contribute to MG Tourism by adding your own things. Click on "Create a Thing" on the navigation bar to begin.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
+                                Editing and Deleting
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body">
+                                With the right permissions, you can edit and delete already existing things.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-6 col-12 mb-4">
+            <div class="h-100 p-4 bg-light border rounded-3">
+            <h2>Comments</h2>
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="false" aria-controls="panelsStayOpen-collapseSeven">
+                                Adding a Comment
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                            <div class="accordion-body">
+                                After logging in, you can go on the detail page of a thing and leave a comment. You can only leave one comment per thing. After leaving a comment, the thing you commented on will be visible under the <a href="{% url 'core:user_detail' pk=user.pk %}">"Visited" tab</a> in your profile.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseEight" aria-expanded="false" aria-controls="panelsStayOpen-collapseEight">
+                                Editing a Comment
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseEight" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                            <div class="accordion-body">
+                                Remember that you cannot comment twice on the same thing, instead edit your comment. To edit your comment, visit the detail page of the thing you changed your mind about or go to your profile under the <a href="{% url 'core:user_detail' pk=user.pk %}">"Visited" tab</a> and find it there. Locate your comment and click the "Edit" button.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseNine" aria-expanded="false" aria-controls="panelsStayOpen-collapseNine">
+                                Deleting a Comment
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseNine" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body">
+                                Follow the instructions for editing a comment. In the editing page you will see an option to delete the comment. Confirm the deletion before the action is completed.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-6 col-12 mb-4">
+            <div class="h-100 p-4 bg-light border rounded-3">
+            <h2>Plans</h2>
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTen" aria-expanded="false" aria-controls="panelsStayOpen-collapseTen">
+                                Creating a Plan
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTen" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                            <div class="accordion-body">
+                                After logging in, you can <a href="{% url 'core:plan_create' %}">create a plan</a>. You can create a plan within your profile or in the detail page of a thing by pressing the "Add to Plan" button.
+                                Plans can be public or private. Public plans are visible to all other users and can be liked by them.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseEleven" aria-expanded="false" aria-controls="panelsStayOpen-collapseEleven">
+                                Adding a Thing to a Plan
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseEleven" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                            <div class="accordion-body">
+                                After creating a plan, visit the detail page of a thing, click the "Add to Plan" button, and select a plan. The things of a plan are visible under the <a href="{% url 'core:user_detail' pk=user.pk %}?my_plans">"My Plans" tab</a> in your profile.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwelve" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwelve">
+                                Removing a Thing from a Plan
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTwelve" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body">
+                                If you decided something should not be in your plan anymore, go to the <a href="{% url 'core:user_detail' pk=user.pk %}?my_plans">"My Plans" tab</a> in your profile, find the respective plan and remove the unwanted thing.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThirteen" aria-expanded="false" aria-controls="panelsStayOpen-collapseThirteen">
+                                Liking a Plan
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseThirteen" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body">
+                                To like a plan, visit someone's profile, go under their plans tab and click the like button. You can only see and like plans that are public, and after liking a plan, it will be visible under your <a href="{% url 'core:user_detail' pk=user.pk %}?my_plans">"Liked Plans" tab</a> in your profile.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFourteen" aria-expanded="false" aria-controls="panelsStayOpen-collapseFourteen">
+                                Disliking a Plan
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseFourteen" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body">
+                                You can dislike a plan by going to the <a href="{% url 'core:user_detail' pk=user.pk %}?my_plans">"Liked Plans" tab</a> of your profile and pressing the "Dislike" button.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock base_body %}

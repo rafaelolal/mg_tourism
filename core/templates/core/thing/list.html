@@ -10,125 +10,128 @@
 
 <div class="row">
     <div class="col-xl-3 col-lg-12">
-        <form class='pb-4 p-2'>
-            <h1>Categories</h1>
-            <p>Remember to apply filters.</p>
-            <div class="form-floating mb-2">
-                {% get_param_value 'name' request.GET as name_selected %}
-                {% if name_selected %}
-                    <input value="{{name_selected}}" name="name" type="text" class="form-control" id="name_text">
-                {% else %}
-                    <input name="name" type="text" class="form-control" id="name_text">
-                {% endif %}
-                <label for="name_text">Name</label>
-            </div>
-
-            {% for category in categories %}
-                <div class="form-check form-switch">
-                    <input {% is_checked category request.GET %} name="{{category}}" id="switch{{forloop.counter}}" class="form-check-input" type="checkbox" role="switch">
-                    <label class="form-check-label" for="switch{{forloop.counter}}">{{category}}</label>
-                </div>
-            {% endfor %}
-
-            <div class="form-floating my-2">
-                {% get_param_value 'stars' request.GET as stars_selected%}
-                {% if stars_selected %}
-                <input value="{{stars_selected}}" name="stars" id="stars" type="number" class="form-control">
-                {% else %}
-                <input name="stars" id="stars" type="number" class="form-control">
-                {% endif %}
-                <label for="stars">Min Stars</label>
-            </div>
-        
-            
-            <div class="form-floating">
-                <select name="type" class="form-select mb-2" id="type_select">
-                {% get_param_value 'type' request.GET as type_selected %}
-                {% if type_selected %}
-                    <option>Any</option>
-                {% else %}
-                    <option selected>Any</option>
-                {% endif %}
-
-                {% get_types thing_list as types %}
-                {% for type in types %}
-                    {% if type_selected == type %}
-                        <option selected value="{{type}}">{{type}}</option>
-                    {% else %}
-                        <option value="{{type}}">{{type}}</option>
-                    {% endif %}
-                {% endfor %}
-                </select>
-                <label for="type_select">Type</label>
-            </div>
-
-            {% is_in_query 'Attraction Food Outdoor Shopping' request.GET as is_in %}
-            {% if is_in %}
+        <div class="p-4 bg-light rounded-3 mb-4">
+            <form class='pb-4 p-2'>
+                <h1>Categories</h1>
+                <p>Remember to apply filters.</p>
                 <div class="form-floating mb-2">
-                    {% get_param_value 'neighborhood' request.GET as neighborhood_selected %}
-                    {% if neighborhood_selected %}
-                        <input value="{{neighborhood_selected}}" name="neighborhood" type="text" class="form-control" id="neighborhood_text">
+                    {% get_param_value 'name' request.GET as name_selected %}
+                    {% if name_selected %}
+                        <input value="{{name_selected}}" name="name" type="text" class="form-control" id="name_text">
                     {% else %}
-                        <input name="neighborhood" type="text" class="form-control" id="neighborhood_text">
+                        <input name="name" type="text" class="form-control" id="name_text">
                     {% endif %}
-                    <label for="neighborhood_text">Neighborhood</label>
+                    <label for="name_text">Name</label>
                 </div>
 
+                {% for category in categories %}
+                    <div class="form-check form-switch">
+                        <input {% is_checked category request.GET %} name="{{category}}" id="switch{{forloop.counter}}" class="form-check-input" type="checkbox" role="switch">
+                        <label class="form-check-label" for="switch{{forloop.counter}}">{{category}}</label>
+                    </div>
+                {% endfor %}
+
+                <div class="form-floating my-2">
+                    {% get_param_value 'stars' request.GET as stars_selected%}
+                    {% if stars_selected %}
+                    <input value="{{stars_selected}}" name="stars" id="stars" type="number" class="form-control">
+                    {% else %}
+                    <input name="stars" id="stars" type="number" class="form-control">
+                    {% endif %}
+                    <label for="stars">Min Stars</label>
+                </div>
+            
+                
                 <div class="form-floating">
-                    <select name="good_for" class="form-select mb-2" id="good_for_select">
-                    {% get_param_value 'good_for' request.GET as good_for_selected %}
-                    {% if good_for_selected %}
+                    <select name="type" class="form-select mb-2" id="type_select">
+                    {% get_param_value 'type' request.GET as type_selected %}
+                    {% if type_selected %}
                         <option>Any</option>
                     {% else %}
                         <option selected>Any</option>
                     {% endif %}
-                    {% get_good_fors thing_list as good_fors %}
-                    {% for good_for in good_fors %}
-                        {% if good_for_selected == good_for %}
-                            <option selected value="{{good_for}}">{{good_for}}</option>
+
+                    {% get_types thing_list as types %}
+                    {% for type in types %}
+                        {% if type_selected == type %}
+                            <option selected value="{{type}}">{{type}}</option>
                         {% else %}
-                            <option value="{{good_for}}">{{good_for}}</option>
+                            <option value="{{type}}">{{type}}</option>
                         {% endif %}
                     {% endfor %}
                     </select>
-                    <label for="good_for_select">Good for</label>
+                    <label for="type_select">Type</label>
                 </div>
-            {% endif %}
-        
-            {% is_in_query 'Tour' request.GET as is_in %}
-            {% if is_in %}
-                <div class="form-floating mb-2">
-                    {% get_param_value 'price' request.GET as price_selected %}
-                    {% if price_selected %}
-                        <input value="{{price_selected}}" name="price" type="number" class="form-control" id="price">
-                    {% else %}
-                        <input name="price" type="number" class="form-control" id="price">
-                    {% endif %}
-                    <label for="price">Max Price</label>
-                </div>
-        
-                <div class="form-floating mb-2">
-                    {% get_param_value 'duration' request.GET as duration_selected %}
-                    {% if duration_selected %}
-                        <input value="{{duration_selected}}" name="duration" type="number" class="form-control" id="duration">
-                    {% else %}
-                        <input name="duration" type="number" class="form-control" id="duration">
-                    {% endif %}
-                    <label for="duration">Max Duration</label>
-                </div>
-            {% endif %}
 
-            <div class="form-check mb-2">
-                {% get_param_value 'covid_safe' request.GET as covid_safe_selected%}
-                <input {% is_checked 'covid_safe' request.GET %} name='covid_safe' class="form-check-input" type="checkbox" id="covid_safe">
-                <label class="form-check-label" for="covid_safe">
-                  Covid Safe
-                </label>
-            </div>
+                {% is_in_query 'Attraction Food Outdoor Shopping' request.GET as is_in %}
+                {% if is_in %}
+                    <div class="form-floating mb-2">
+                        {% get_param_value 'neighborhood' request.GET as neighborhood_selected %}
+                        {% if neighborhood_selected %}
+                            <input value="{{neighborhood_selected}}" name="neighborhood" type="text" class="form-control" id="neighborhood_text">
+                        {% else %}
+                            <input name="neighborhood" type="text" class="form-control" id="neighborhood_text">
+                        {% endif %}
+                        <label for="neighborhood_text">Neighborhood</label>
+                    </div>
 
-            <button type="submit" class="btn btn-dark mb-2">Apply Filters</button>
-        </form>
+                    <div class="form-floating">
+                        <select name="good_for" class="form-select mb-2" id="good_for_select">
+                        {% get_param_value 'good_for' request.GET as good_for_selected %}
+                        {% if good_for_selected %}
+                            <option>Any</option>
+                        {% else %}
+                            <option selected>Any</option>
+                        {% endif %}
+                        {% get_good_fors thing_list as good_fors %}
+                        {% for good_for in good_fors %}
+                            {% if good_for_selected == good_for %}
+                                <option selected value="{{good_for}}">{{good_for}}</option>
+                            {% else %}
+                                <option value="{{good_for}}">{{good_for}}</option>
+                            {% endif %}
+                        {% endfor %}
+                        </select>
+                        <label for="good_for_select">Good for</label>
+                    </div>
+                {% endif %}
+            
+                {% is_in_query 'Tour' request.GET as is_in %}
+                {% if is_in %}
+                    <div class="form-floating mb-2">
+                        {% get_param_value 'price' request.GET as price_selected %}
+                        {% if price_selected %}
+                            <input value="{{price_selected}}" name="price" type="number" class="form-control" id="price">
+                        {% else %}
+                            <input name="price" type="number" class="form-control" id="price">
+                        {% endif %}
+                        <label for="price">Max Price</label>
+                    </div>
+            
+                    <div class="form-floating mb-2">
+                        {% get_param_value 'duration' request.GET as duration_selected %}
+                        {% if duration_selected %}
+                            <input value="{{duration_selected}}" name="duration" type="number" class="form-control" id="duration">
+                        {% else %}
+                            <input name="duration" type="number" class="form-control" id="duration">
+                        {% endif %}
+                        <label for="duration">Max Duration</label>
+                    </div>
+                {% endif %}
+
+                <div class="form-check mb-2">
+                    {% get_param_value 'covid_safe' request.GET as covid_safe_selected%}
+                    <input {% is_checked 'covid_safe' request.GET %} name='covid_safe' class="form-check-input" type="checkbox" id="covid_safe">
+                    <label class="form-check-label" for="covid_safe">
+                    Covid Safe
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-dark">Apply Filters</button>
+            </form>
+        </div>
     </div>
+    
     <div class="col-xl-9 col-lg-12" id="main">
         <div class="p-4 bg-light rounded-3">
             <div class="row">

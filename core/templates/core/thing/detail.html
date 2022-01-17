@@ -50,12 +50,15 @@
                     </div>
                     
                     <div class="modal-body">
+
                     {% if plans %}
+                    <div class="list-group">
                         {% for plan in plans %}
-                            <div class="row m-2">
-                                <a href="{% url "core:plan_add" plan_pk=plan.pk thing_pk=thing_detail.pk %}" class='btn btn-dark'>{{plan.name}}</a>
-                            </div>
+                            <a href="{% url "core:plan_add" plan_pk=plan.pk thing_pk=thing_detail.pk %}" class='list-group-item list-group-item-action'>
+                                {{plan.name}}
+                            </a>
                         {% endfor %}
+                    </div>
                     
                     {% else %}
                     You don't have plans
@@ -85,7 +88,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="col-lg-9 col-12">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">

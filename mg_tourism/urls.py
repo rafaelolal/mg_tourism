@@ -21,7 +21,9 @@ from core import views
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-    path('documentation/', views.documentation, name='documentation'),
+    path('features/', views.FeaturesView.as_view(), name='features'),
+    path('docs/', views.DocsView.as_view(), name='docs'),
+
     path('admin/', admin.site.urls),
 
     path('core/', include('core.urls')),

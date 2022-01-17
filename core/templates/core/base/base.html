@@ -21,107 +21,108 @@
 
 <body class="d-flex flex-column h-100">
     <main class="flex-shrink-0">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{%url 'index'%}">MG Tourism</a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="todo_dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Things To Do
-                        </a>
-                        
-                        <ul class="dropdown-menu" aria-labelledby="todo_dropdown">
-                            <li><a class="dropdown-item" href="{%url 'core:thing_list'%}">See All</a></li>
-                            <li><hr class="dropdown-divider"></li>  
-                            <li><a class="dropdown-item" href="{%url 'core:thing_list'%}?Tour=on">Tour</a></li>
-                            <li><a class="dropdown-item" href="{%url 'core:thing_list'%}?Attraction=on">Attraction</a></li>
-                            <li><a class="dropdown-item" href="{%url 'core:thing_list'%}?Food=on">Food</a></li>
-                            <li><a class="dropdown-item" href="{%url 'core:thing_list'%}?Outdoor=on">Outdoor</a></li>
-                            <li><a class="dropdown-item" href="{%url 'core:thing_list'%}?Shopping=on">Shopping</a></li>
-                        </ul>
-                    </li>
-
-                    {% if user.is_superuser %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{%url 'admin:index'%}">Admin</a>
-                    </li>
-                    {% endif %}
-                    
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{%url 'core:user_detail' pk=user.pk%}">Profile</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{%url 'core:register'%}">Register</a>
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="{%url 'core:user_login'%}">Login</a>
-                    </li>
-                    {% endif %}
-                </ul>
-
-                <div class="d-flex">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{%url 'index'%}">MG Tourism</a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{%url 'core:user_logout'%}">Logout</a>
-                        </li>
-                    {% endif %}
-                        <li class="nav-item dropdown mb-2">
-                            <a class="nav-link dropdown-toggle" href="#" id="create_dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Create a Thing
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="todo_dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Things To Do
                             </a>
-
-                            <ul class="dropdown-menu" aria-labelledby="create_dropdown">
-                                <li><a class="dropdown-item" href="{%url 'core:tour_create'%}">Tour</a></li>
+                            
+                            <ul class="dropdown-menu" aria-labelledby="todo_dropdown">
+                                <li><a class="dropdown-item" href="{%url 'core:thing_list'%}">See All</a></li>
                                 <li><hr class="dropdown-divider"></li>  
-                                <li><a class="dropdown-item" href="{%url 'core:attraction_create'%}">Attraction</a></li>
-                                <li><a class="dropdown-item" href="{%url 'core:food_create'%}">Food</a></li>
-                                <li><a class="dropdown-item" href="{%url 'core:outdoor_create'%}">Outdoor</a></li>
-                                <li><a class="dropdown-item" href="{%url 'core:shopping_create'%}">Shopping</a></li>
+                                <li><a class="dropdown-item" href="{%url 'core:thing_list'%}?Tour=on">Tour</a></li>
+                                <li><a class="dropdown-item" href="{%url 'core:thing_list'%}?Attraction=on">Attraction</a></li>
+                                <li><a class="dropdown-item" href="{%url 'core:thing_list'%}?Food=on">Food</a></li>
+                                <li><a class="dropdown-item" href="{%url 'core:thing_list'%}?Outdoor=on">Outdoor</a></li>
+                                <li><a class="dropdown-item" href="{%url 'core:thing_list'%}?Shopping=on">Shopping</a></li>
                             </ul>
                         </li>
 
-                        <form action="{% url "core:thing_list" %}"class="d-flex">
-                            <input name="name" class="form-control me-2" list="datalistOptions" type="search" placeholder="Search" aria-label="Search">
-                            <datalist id="datalistOptions">
-                                {% get_all_things as things %}
-                                {% for thing in things %}
-                                <option value="{{thing.name}}"></option>
-                                {% endfor %}
-                            </datalist>
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
+                        {% if user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{%url 'admin:index'%}">Admin</a>
+                        </li>
+                        {% endif %}
+                        
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{%url 'core:user_detail' pk=user.pk%}">Profile</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{%url 'core:register'%}">Register</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{%url 'core:user_login'%}">Login</a>
+                        </li>
+                        {% endif %}
                     </ul>
+
+                    <div class="d-flex">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{%url 'core:user_logout'%}">Logout</a>
+                            </li>
+                        {% endif %}
+                            <li class="nav-item dropdown mb-2">
+                                <a class="nav-link dropdown-toggle" href="#" id="create_dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Create a Thing
+                                </a>
+
+                                <ul class="dropdown-menu" aria-labelledby="create_dropdown">
+                                    <li><a class="dropdown-item" href="{%url 'core:tour_create'%}">Tour</a></li>
+                                    <li><hr class="dropdown-divider"></li>  
+                                    <li><a class="dropdown-item" href="{%url 'core:attraction_create'%}">Attraction</a></li>
+                                    <li><a class="dropdown-item" href="{%url 'core:food_create'%}">Food</a></li>
+                                    <li><a class="dropdown-item" href="{%url 'core:outdoor_create'%}">Outdoor</a></li>
+                                    <li><a class="dropdown-item" href="{%url 'core:shopping_create'%}">Shopping</a></li>
+                                </ul>
+                            </li>
+
+                            <form action="{% url "core:thing_list" %}"class="d-flex">
+                                <input name="name" class="form-control me-2" list="datalistOptions" type="search" placeholder="Search" aria-label="Search">
+                                <datalist id="datalistOptions">
+                                    {% get_all_things as things %}
+                                    {% for thing in things %}
+                                    <option value="{{thing.name}}"></option>
+                                    {% endfor %}
+                                </datalist>
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
     </main>
       
-<div class="container py-4">
-{% block base_body %}
-{% endblock base_body %}
-</div>
+    <div class="container py-4">
+        {% block base_body %}
+        {% endblock base_body %}
+    </div>
 
-<footer class="footer mt-auto py-3">
-    <span class="text-muted">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a href="{% url 'index' %}" class="nav-link px-2 text-muted">Home</a></li>
-            <li class="nav-item"><a href="{% url 'core:features' %}" class="nav-link px-2 text-muted">Features</a></li>
-            <li class="nav-item"><a href="{% url 'documentation' %}" class="nav-link px-2 text-muted">Documentation</a></li>
-        </ul>
-        <p class="text-center text-muted">FBLA Coding & Programming 2022</p>
-    </span>
-</footer>
+    <footer class="footer mt-auto py-3">
+        <span class="text-muted">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="{% url 'index' %}" class="nav-link px-2 text-muted">Home</a></li>
+                <li class="nav-item"><a href="{% url 'features' %}" class="nav-link px-2 text-muted">Features</a></li>
+                <li class="nav-item"><a href="{% url 'docs' %}" class="nav-link px-2 text-muted">Documentation</a></li>
+            </ul>
+            
+            <p class="text-center text-muted">FBLA Coding & Programming 2022</p>
+        </span>
+    </footer>
 
 </body>
 </html>

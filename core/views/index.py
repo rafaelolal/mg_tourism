@@ -7,7 +7,7 @@ class IndexView(TemplateView):
     template_name = 'core/index.html'
 
 class FeaturesView(TemplateView):
-    template_name = 'core/index.html'
+    template_name = 'core/features.html'
 
-def documentation(request):
-    return render(request, "_build/html/index.html")
+class DocsView(TemplateView):
+    template_name = 'core/docs.html'
