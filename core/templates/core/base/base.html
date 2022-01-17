@@ -95,7 +95,7 @@
                             <datalist id="datalistOptions">
                                 {% get_all_things as things %}
                                 {% for thing in things %}
-                                <option value="{{thing.name}}">
+                                <option value="{{thing.name}}"></option>
                                 {% endfor %}
                             </datalist>
                             <button class="btn btn-outline-success" type="submit">Search</button>

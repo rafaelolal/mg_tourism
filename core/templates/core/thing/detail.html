@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <a href="{% url "core:plan_create" owner_pk=user.pk %}?thing={{thing_detail.pk}}" class='btn btn-dark'>Create a Plan</a>
+                        <a href="{% url "core:plan_create" %}?thing={{thing_detail.pk}}" class='btn btn-dark'>Create a Plan</a>
                     </div>
 
                     {% else %}

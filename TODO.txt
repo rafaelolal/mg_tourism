@@ -14,13 +14,5 @@ Allow to create copy of plan
 
 Azure bot?
 
-Give Credit to
-Bootstrap
-Django
-Sqlite
-Fake Py
-Generated Photos
-https://github.com/LunarLogic/starability
-https://django-archive.readthedocs.io/en/latest/
-https://django-crispy-forms.readthedocs.io/en/latest/
-https://www.w3.org/Graphics/SVG/
+
+Include Django logo with link to main page

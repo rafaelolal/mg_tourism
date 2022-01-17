@@ -37,11 +37,7 @@ class IsThePlanOwner(LoginRequiredMixin, UserPassesTestMixin):
     """
 
     def test_func(self) -> bool:
-        if 'owner_pk' in self.kwargs:
-            return self.request.user.pk == int(self.kwargs['owner_pk']) == Plan.objects.get(pk=int(self.kwargs['pk'])).owner.pk
-        
-        else:
-            return self.request.user.pk == Plan.objects.get(pk=int(self.kwargs['pk'])).owner.pk
+        return self.request.user.pk == Plan.objects.get(pk=int(self.kwargs['pk'])).owner.pk
 
 class IsFirstComment(LoginRequiredMixin, UserPassesTestMixin):
     """Checks if a user is logged in and is the owner of the plan associated with the view

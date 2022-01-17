@@ -13,7 +13,7 @@
 <a href="{% url 'core:thing_detail' pk=request.GET.thing %}" class="btn btn-warning mb-2" type="button">Cancel</a>
 
 {% else %}
-{% get_owner view.kwargs.owner_pk as owner %}
+{% get_owner request.user.pk as owner %}
 <a href="{% url 'core:user_detail' pk=owner.pk%}?my_plans" class="btn btn-warning mb-2" type="button">Cancel</a>
 {% endif %}
 

@@ -42,7 +42,7 @@
                 <p class="card-text">{{user_detail.biography}}</p>
                 {% if user.pk == user_detail.pk %}
                     <a href="{% url 'core:user_update' pk=user_detail.pk%}" class="btn btn-dark">Edit</a>
-                    <a class='btn btn-dark' href="{% url 'core:plan_create' owner_pk=user_detail.pk %}">Create a Plan</a>
+                    <a class='btn btn-dark' href="{% url 'core:plan_create' %}">Create a Plan</a>
                 {% endif %}
             </div>
         </div>
@@ -128,7 +128,7 @@
                         <div class="alert alert-warning d-flex align-items-center" role="alert">
                             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                             <div>
-                                You haven't left a review on anything
+                                You haven't left a review on anything.
                             </div>
                         </div>
                             
@@ -174,16 +174,16 @@
                                     {% if user.is_authenticated %}
                                         {% user_liked user.pk plan.pk as user_liked %}
                                         {% if user_liked %}
-                                        <a class="btn btn-danger" href="{% url 'core:plan_like' user_pk=user.pk plan_pk=plan.pk %}">Dislike</a>
+                                        <a class="btn btn-primary" href="{% url 'core:user_detail' pk=user.pk %}?liked_plans">Liked</a>
                                         {% else %}
-                                        <a class="btn btn-success" href="{% url 'core:plan_like' user_pk=user.pk plan_pk=plan.pk %}">Like</a>
+                                        <a class="btn btn-success" href="{% url 'core:plan_like' plan_pk=plan.pk %}">Like</a>
                                         {% endif %}
                                     {% else %}
-                                    <a class="btn btn-success" href="{% url 'core:plan_like' user_pk=user.pk plan_pk=plan.pk %}">Like</a>
+                                    <a class="btn btn-success" href="{% url 'core:plan_like' plan_pk=plan.pk %}">Like</a>
                                     {% endif %}
 
                                 {% else %}
-                                    <a class="btn btn-dark" href="{% url 'core:plan_update' owner_pk=user.pk pk=plan.pk %}">Edit</a>
+                                    <a class="btn btn-dark" href="{% url 'core:plan_update' pk=plan.pk %}">Edit</a>
                                 {% endif %}
                             </div>
 
@@ -243,7 +243,7 @@
                         <div class="alert alert-warning d-flex align-items-center" role="alert">
                             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                             <div>
-                                This plan is empty
+                                This plan is empty.
                             </div>
                         </div>
                         {% endif %}
@@ -293,10 +293,10 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{plan.name}}</h5>
                                 <p class="card-text">{{plan.description}}</p>
-                                {% if user.is_authenticated %}
+                                {% if user.is_authenticated and user.pk == user_detail.pk %}
                                     {% user_liked user.pk plan.pk as user_liked %}
                                     {% if user_liked %}
-                                    <a class="btn btn-danger" href="{% url 'core:plan_like' user_pk=user.pk plan_pk=plan.pk %}">Dislike</a>
+                                    <a class="btn btn-danger" href="{% url 'core:plan_like' plan_pk=plan.pk %}">Dislike</a>
                                     {% endif %}
                                 {% endif %}
                                 <a class="btn btn-dark" href="{% url 'core:user_detail' pk=plan.owner.pk %}?my_plans">Visit</a>
@@ -314,7 +314,7 @@
                         <div class="alert alert-warning d-flex align-items-center" role="alert">
                             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                             <div>
-                                You haven't liked any plans
+                                You haven't liked any plans.
                             </div>
                         </div>
 
@@ -334,8 +334,8 @@
                                 {{user_detail.first_name}} hasn't liked any plans
                             </div>
                         </div>
+                        {% endif %}
                     </div>
-                    {% endif %}
                 {% endif %}
             </div>
         </div>

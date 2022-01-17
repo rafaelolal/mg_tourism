@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<html lang="en" class='h-100'>
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="/static/core/js/main.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="/static/core/css/starability-basic.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/core/css/main.css"/>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">MG Tourism</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="todo_dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Things To Do
+                        </a>
+                        
+                        <ul class="dropdown-menu" aria-labelledby="todo_dropdown">
+                            <li><a class="dropdown-item" href="/core/thing_list/">See All</a></li>
+                            <li><hr class="dropdown-divider"></li>  
+                            <li><a class="dropdown-item" href="/core/thing_list/?Tour=on">Tour</a></li>
+                            <li><a class="dropdown-item" href="/core/thing_list/?Attraction=on">Attraction</a></li>
+                            <li><a class="dropdown-item" href="/core/thing_list/?Food=on">Food</a></li>
+                            <li><a class="dropdown-item" href="/core/thing_list/?Outdoor=on">Outdoor</a></li>
+                            <li><a class="dropdown-item" href="/core/thing_list/?Shopping=on">Shopping</a></li>
+                        </ul>
+                    </li>
+
+                    
+                    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/core/user/102/">Profile</a>
+                    </li>
+                    
+                </ul>
+
+                <div class="d-flex">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                        <li class="nav-item">
+                            <a class="nav-link" href="/core/logout/user/">Logout</a>
+                        </li>
+                    
+                        <li class="nav-item dropdown mb-2">
+                            <a class="nav-link dropdown-toggle" href="#" id="create_dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Create a Thing
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="create_dropdown">
+                                <li><a class="dropdown-item" href="/core/create/tour/">Tour</a></li>
+                                <li><hr class="dropdown-divider"></li>  
+                                <li><a class="dropdown-item" href="/core/create/attraction/">Attraction</a></li>
+                                <li><a class="dropdown-item" href="/core/create/food/">Food</a></li>
+                                <li><a class="dropdown-item" href="/core/create/outdoor/">Outdoor</a></li>
+                                <li><a class="dropdown-item" href="/core/create/shopping/">Shopping</a></li>
+                            </ul>
+                        </li>
+
+                        <form action="/core/thing_list/"class="d-flex">
+                            <input name="name" class="form-control me-2" list="datalistOptions" type="search" placeholder="Search" aria-label="Search">
+                            <datalist id="datalistOptions">
+                                
+                                
+                                <option value="Freitas Ferreira - EI"></option>
+                                
+                                <option value="da Cunha Moreira"></option>
+                                
+                                <option value="Cardoso Paulista Caldeira"></option>
+                                
+                                <option value="Jesus de Moreira Araújo S.A."></option>
+                                
+                                <option value="Silva Novaes Teixeira - ME"></option>
+                                
+                                <option value="Azevedo Alegre Ferreira - ME"></option>
+                                
+                                <option value="Nogueira do Oeste Viana Rodrigues Ltda."></option>
+                                
+                                <option value="Barros da Cruz Ltda."></option>
+                                
+                                <option value="Ribeiro Costela"></option>
+                                
+                                <option value="da Luz da Cunha Jesus e Filhos"></option>
+                                
+                                <option value="Gonçalves Ribeiro Ltda."></option>
+                                
+                                <option value="da Rosa do Amparo Alves Ramos S/A"></option>
+                                
+                                <option value="Fernandes da Mata Dias"></option>
+                                
+                                <option value="das Neves do Campo Freitas"></option>
+                                
+                                <option value="Araújo Rezende"></option>
+                                
+                                <option value="Lima de Ramos Castro"></option>
+                                
+                                <option value="Viana da Rocha"></option>
+                                
+                                <option value="Monteiro da Prata Barros - EI"></option>
+                                
+                                <option value="Silva Novaes S/A"></option>
+                                
+                                <option value="Pereira Freitas"></option>
+                                
+                                <option value="Correia Grande Cardoso"></option>
+                                
+                                <option value="da Luz do Oeste Rocha"></option>
+                                
+                                <option value="Cardoso de Aragão Lopes Farias S/A"></option>
+                                
+                                <option value="Mendes da Serra Costela S.A."></option>
+                                
+                                <option value="Cunha Verde Silva"></option>
+                                
+                                <option value="Gomes da Serra Peixoto - EI"></option>
+                                
+                                <option value="Cavalcanti Nogueira"></option>
+                                
+                                <option value="Moraes Nunes Ltda."></option>
+                                
+                                <option value="Monteiro de Gonçalves Ribeiro"></option>
+                                
+                                <option value="da Rosa Moreira S.A."></option>
+                                
+                                <option value="Costa do Norte da Paz Martins - ME"></option>
+                                
+                                <option value="Melo Santos e Filhos"></option>
+                                
+                                <option value="Silva Mendes S.A."></option>
+                                
+                                <option value="da Mota do Sul da Rosa Vieira Ltda."></option>
+                                
+                                <option value="da Cruz Viana"></option>
+                                
+                                <option value="Moreira Gonçalves Rodrigues e Filhos"></option>
+                                
+                                <option value="Fernandes Aragão da Luz - ME"></option>
+                                
+                                <option value="Ferreira Campos Costela - EI"></option>
+                                
+                                <option value="Aragão Cavalcanti da Luz S/A"></option>
+                                
+                                <option value="Farias Souza"></option>
+                                
+                                <option value="Moura Caldeira - ME"></option>
+                                
+                                <option value="da Mata Verde Cardoso"></option>
+                                
+                                <option value="Rodrigues Lopes"></option>
+                                
+                                <option value="Rezende Novaes Martins Ltda."></option>
+                                
+                                <option value="Peixoto de Caldeira Nunes S/A"></option>
+                                
+                                <option value="Costa da Praia Campos"></option>
+                                
+                                <option value="Ribeiro das Pedras Castro Fernandes - ME"></option>
+                                
+                                <option value="Correia Rodrigues Nascimento S/A"></option>
+                                
+                                <option value="Pires de Martins Porto"></option>
+                                
+                                <option value="Cavalcanti Aragão"></option>
+                                
+                                <option value="Caldeira Paulista Costela"></option>
+                                
+                                <option value="Oliveira da Rosa"></option>
+                                
+                                <option value="Campos Nunes - ME"></option>
+                                
+                                <option value="Fernandes de Rocha Ribeiro S.A."></option>
+                                
+                                <option value="da Cruz Novaes Sales - ME"></option>
+                                
+                                <option value="Barros da Serra Pinto S/A"></option>
+                                
+                                <option value="Campos Castro"></option>
+                                
+                                <option value="Lopes Duarte e Filhos"></option>
+                                
+                                <option value="da Mota Viana"></option>
+                                
+                                <option value="Ferreira Jesus"></option>
+                                
+                                <option value="Gobbler"></option>
+                                
+                            </datalist>
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    </main>
+      
+<div class="container py-4">
+
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+    </symbol>
+    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    </symbol>
+</svg>
+
+
+
+<div class="row">
+    <div class="col-lg-3 col-12">
+        <div class="card mb-4" style="">
+            <img src="/media/profile_pics/default.jpg" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">Rafael Almeida</h5>
+                <p class="card-text">I am Raf.</p>
+                
+                    <a href="/core/update/user/102/" class="btn btn-dark">Edit</a>
+                    <a class='btn btn-dark' href="/core/create/plan/">Create a Plan</a>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-9 col-12">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                
+                <button class="nav-link " id="pills-visited-tab" data-bs-toggle="pill" data-bs-target="#pills-visited" type="button" role="tab" aria-controls="pills-visited">Visited</button>
+            </li>
+            
+            <li class="nav-item" role="presentation">
+                
+                <button class="nav-link " id="pills-my-plans-tab" data-bs-toggle="pill" data-bs-target="#pills-my-plans" type="button" role="tab" aria-controls="pills-my-plans">
+                    My Plans
+                </button>
+            </li>
+            
+            <li class="nav-item" role="presentation">
+                
+                <button class="nav-link show active" id="pills-liked-plans-tab" data-bs-toggle="pill" data-bs-target="#pills-liked-plans" type="button" role="tab" aria-controls="pills-liked-plans">Liked Plans</button>
+            </li>
+        </ul>
+            
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade " id="pills-visited" role="tabpanel" aria-labelledby="pills-visited-tab">
+                <div class="p-4 bg-light rounded-3">
+                    
+                                              
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <div>
+                                You haven't left a review on anything.
+                            </div>
+                        </div>
+                            
+                        <div class="alert alert-primary d-flex align-items-center" role="alert">
+                            <a href="/core/thing_list/">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                            </a>
+                            <div>
+                                Click the icon to see things to do!
+                            </div>
+                        </div>
+                        
+                        
+                    
+                </div>
+            </div>
+
+            <div class="tab-pane fade " id="pills-my-plans" role="tabpanel" aria-labelledby="pills-my-plans-tab">
+                
+                
+                    <div class="p-4 bg-light rounded-3 mb-4">
+                        
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <div>
+                                You have no plans
+                            </div>
+                        </div>
+
+                        <div class="alert alert-primary d-flex align-items-center" role="alert">
+                            <a href="/core/thing_list/">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                            </a>
+                            <div>
+                                Create a plan then click on the icon to add things to it!
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                
+            </div>
+
+            <div class="tab-pane fade show active" id="pills-liked-plans" role="tabpanel" aria-labelledby="pills-liked-plans-tab">
+                
+                    <div class="p-4 bg-light rounded-3 mb-4">
+                        
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <div>
+                                You haven't liked any plans.
+                            </div>
+                        </div>
+
+                        <div class="alert alert-primary d-flex align-items-center" role="alert">
+                            <a href="/core/thing_list/">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                            </a>
+                            <div>
+                                Click the icon to see things to do and explore others' plans!
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+<footer class="footer mt-auto py-3">
+    <span class="text-muted">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="/core/features/" class="nav-link px-2 text-muted">Features</a></li>
+            <li class="nav-item"><a href="/documentation/" class="nav-link px-2 text-muted">Documentation</a></li>
+        </ul>
+        <p class="text-center text-muted">FBLA Coding & Programming 2022</p>
+    </span>
+</footer>
+
+</body>
+</html>

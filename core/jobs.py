@@ -1,5 +1,5 @@
 """Source: https://stackoverflow.com/questions/44896618/django-run-a-function-every-x-seconds/44897678
-Runs the "archive" command from the django_archives app every day at midnight
+Runs the "archive" command from the django_archives app every day at midnight to dynamically backup the database
 django_archives: https://django-archive.readthedocs.io/en/latest/
 """
 

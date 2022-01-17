@@ -47,23 +47,25 @@ def plan_remove(request: HttpResponse, plan_pk: int, thing_pk: int) -> HttpRespo
     return HttpResponseRedirect(reverse('core:user_detail', kwargs={'pk': plan.owner.pk}) + "?my_plans")
 
 @login_required
-def plan_like(request: HttpResponse, user_pk: int, plan_pk: int) -> HttpResponse:
+def plan_like(request: HttpResponse, plan_pk: int) -> HttpResponse:
     """Likes or dislikes a plan depending if the user has already liked this plan
-    Redirects user back to the detail view on the "My Plans" tab of the owner of the plan they liked/disliked
+    If the user disliked a plan in another user's detail view, redirects them to that user's "My Plans" tab
+    If the user diliksed a plan in their own detail view, redirects them to their "Liked Plans" tab
     """
 
-    user = UserProfile.objects.get(pk=user_pk)
+    user = UserProfile.objects.get(pk=request.user.pk)
     plan = Plan.objects.get(pk=plan_pk)
     
-    if plan in user.liked.all():
+    if not plan in user.liked.all():
         user.liked.add(plan)
         messages.success(request, f'Successfully liked plan "{plan.name}"')
-    
+        return HttpResponseRedirect(reverse('core:user_detail', kwargs={'pk': plan.owner.pk}) + "?my_plans")
+
+
     else:
         user.liked.remove(plan)
         messages.success(request, f'Successfully disliked plan "{plan.name}"')
-
-    return HttpResponseRedirect(reverse('core:user_detail', kwargs={'pk': plan.owner.pk}) + "?my_plans")
+        return HttpResponseRedirect(reverse('core:user_detail', kwargs={'pk': user.pk}) + "?liked_plans")
 
 class PlanCreateView(LoginRequiredMixin, CreateView):
     login_url = 'core:user_login'
@@ -74,7 +76,7 @@ class PlanCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form: Form) -> HttpResponse:
         """Manually sets the owner attribute of a Plan object to the UserProfile object with the matchin pk given in the request"""
         
-        form.instance.owner = UserProfile.objects.get(pk=int(self.kwargs['owner_pk']))
+        form.instance.owner = UserProfile.objects.get(pk=int(self.request.user.pk))
         return super().form_valid(form)
 
     def get_success_url(self) -> str:

@@ -1,0 +1,7 @@
+https://www.djangoproject.com/
+
+Django Trademark License
+The Django Software Foundation, as the owner of registered and common law trademarks in the Django name and logo, licenses the use of the Django trademarks to the community under the following conditions:
+
+1. Service Identification
+You may use the Django name and logo on a list of services, tools, or supported platforms, or as an identifier that a product or service is Django-related, provided that the usage of the logo does not imply that the organization is official or otherwise endorsed by the DSF, or by the Django Core team as representatives of the Django project, and the logo acts as a hyperlink to the main Django Project website wherever technically possible.
