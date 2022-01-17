@@ -114,7 +114,7 @@
 <span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">django.forms.forms.Form</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.http.response.HttpResponse</span></span></span><a class="headerlink" href="#core.views.comment.CommentCreateView.form_valid" title="Permalink to this definition"></a></dt>
 <dd><p>Manually sets the thing, author, and rating for a comment
 Thing and author come from the request
-Rating comes from the request's POST, needed because I create my own input for rating</p>
+Rating comes from the request’s POST, needed because I create my own input for rating</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -142,7 +142,7 @@ Rating comes from the request's POST, needed because I create my own input for r
 <dl class="py method">
 <dt class="sig sig-object py" id="core.views.comment.CommentDeleteView.get_success_url">
 <span class="sig-name descname"><span class="pre">get_success_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.http.response.HttpResponse</span></span></span><a class="headerlink" href="#core.views.comment.CommentDeleteView.get_success_url" title="Permalink to this definition"></a></dt>
-<dd><p>Redirects the user back to the Thing's detail view they deleted the comment from</p>
+<dd><p>Redirects the user back to the Thing’s detail view they deleted the comment from</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -175,7 +175,7 @@ Rating comes from the request's POST, needed because I create my own input for r
 <dl class="py method">
 <dt class="sig sig-object py" id="core.views.comment.CommentUpdateView.form_valid">
 <span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">django.forms.forms.Form</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.http.response.HttpResponse</span></span></span><a class="headerlink" href="#core.views.comment.CommentUpdateView.form_valid" title="Permalink to this definition"></a></dt>
-<dd><p>Manually sets the is_edited field and gets the rating field from the request's POST</p>
+<dd><p>Manually sets the is_edited field and gets the rating field from the request’s POST</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -201,12 +201,23 @@ Rating comes from the request's POST, needed because I create my own input for r
 <span id="core-views-index-module"></span><h2>core.views.index module<a class="headerlink" href="#module-core.views.index" title="Permalink to this headline"></a></h2>
 <p>The most basic views</p>
 <dl class="py class">
+<dt class="sig sig-object py" id="core.views.index.DocsView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.views.index.</span></span><span class="sig-name descname"><span class="pre">DocsView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.views.index.DocsView" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.views.index.DocsView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'core/docs.html'</span></em><a class="headerlink" href="#core.views.index.DocsView.template_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="core.views.index.FeaturesView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.views.index.</span></span><span class="sig-name descname"><span class="pre">FeaturesView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.views.index.FeaturesView" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="core.views.index.FeaturesView.template_name">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'core/index.html'</span></em><a class="headerlink" href="#core.views.index.FeaturesView.template_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'core/features.html'</span></em><a class="headerlink" href="#core.views.index.FeaturesView.template_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -221,11 +232,6 @@ Rating comes from the request's POST, needed because I create my own input for r
 <dd></dd></dl>
 
 </dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="core.views.index.documentation">
-<span class="sig-prename descclassname"><span class="pre">core.views.index.</span></span><span class="sig-name descname"><span class="pre">documentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.views.index.documentation" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
 
 </section>
 <section id="module-core.views.picture">
@@ -311,7 +317,7 @@ Sends the user back to the Thing detail view they created the project on, else r
 <dl class="py method">
 <dt class="sig sig-object py" id="core.views.plan.PlanDeleteView.get_success_url">
 <span class="sig-name descname"><span class="pre">get_success_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.http.response.HttpResponse</span></span></span><a class="headerlink" href="#core.views.plan.PlanDeleteView.get_success_url" title="Permalink to this definition"></a></dt>
-<dd><p>Redirects user back to their profile view in the &quot;My Plans&quot; tab after deleting a plan</p>
+<dd><p>Redirects user back to their profile view in the “My Plans” tab after deleting a plan</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -367,9 +373,10 @@ Sends the user back to the Thing detail view they created the project on, else r
 
 <dl class="py function">
 <dt class="sig sig-object py" id="core.views.plan.plan_like">
-<span class="sig-prename descclassname"><span class="pre">core.views.plan.</span></span><span class="sig-name descname"><span class="pre">plan_like</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">django.http.response.HttpResponse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_pk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plan_pk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.http.response.HttpResponse</span></span></span><a class="headerlink" href="#core.views.plan.plan_like" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">core.views.plan.</span></span><span class="sig-name descname"><span class="pre">plan_like</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">django.http.response.HttpResponse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plan_pk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.http.response.HttpResponse</span></span></span><a class="headerlink" href="#core.views.plan.plan_like" title="Permalink to this definition"></a></dt>
 <dd><p>Likes or dislikes a plan depending if the user has already liked this plan
-Redirects user back to the detail view on the &quot;My Plans&quot; tab of the owner of the plan they liked/disliked</p>
+If the user disliked a plan in another user’s detail view, redirects them to that user’s “My Plans” tab
+If the user diliksed a plan in their own detail view, redirects them to their “Liked Plans” tab</p>
 </dd></dl>
 
 </section>
@@ -442,7 +449,7 @@ Redirects user back to the detail view on the &quot;My Plans&quot; tab of the ow
 <dt class="sig sig-object py" id="core.views.thing.ThingListView.get">
 <span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">django.http.response.HttpResponse</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.http.response.HttpResponse</span></span></span><a class="headerlink" href="#core.views.thing.ThingListView.get" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the link to the appropriate view
-Redirects user to the ThingListView or if there is only one Thing object in the queryset, redirects to that Thing's DetailView
+Redirects user to the ThingListView or if there is only one Thing object in the queryset, redirects to that Thing’s DetailView
 Saves the user time</p>
 </dd></dl>
 
@@ -450,14 +457,14 @@ Saves the user time</p>
 <dt class="sig sig-object py" id="core.views.thing.ThingListView.get_cat_dependent_filters">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_cat_dependent_filters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_categories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#core.views.thing.ThingListView.get_cat_dependent_filters" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a dictionary of all the filters in the querystring
-of the URL that depend on a Thing's category</p>
+of the URL that depend on a Thing’s category</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="core.views.thing.ThingListView.get_cat_independent_filters">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_cat_independent_filters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#core.views.thing.ThingListView.get_cat_independent_filters" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a dictionary of all the filters in the querystring
-of the URL that are independent of a Thing's category</p>
+of the URL that are independent of a Thing’s category</p>
 </dd></dl>
 
 <dl class="py method">
@@ -483,7 +490,7 @@ and their values in the querystring of the URL, except categories</p>
 <dt class="sig sig-object py" id="core.views.thing.ThingListView.get_queryset">
 <span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.db.models.query.QuerySet</span></span></span><a class="headerlink" href="#core.views.thing.ThingListView.get_queryset" title="Permalink to this definition"></a></dt>
 <dd><p>Gets queryset, all the Thing objects to be displayed
-Returns only the Thing objects that fit the filters in the request's querystring</p>
+Returns only the Thing objects that fit the filters in the request’s querystring</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -709,7 +716,7 @@ Returns only the Thing objects that fit the filters in the request's querystring
 <dl class="py class">
 <dt class="sig sig-object py" id="core.views.user.UserDeleteView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.views.user.</span></span><span class="sig-name descname"><span class="pre">UserDeleteView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.views.user.UserDeleteView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="core.html#core.mixins.IsTheUser" title="core.mixins.IsTheUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.mixins.IsTheUser</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.DeleteView</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="core.html#core.mixins.IsTheUserMixin" title="core.mixins.IsTheUserMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.mixins.IsTheUserMixin</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.DeleteView</span></code></p>
 <p>View to delete a UserProfile object</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="core.views.user.UserDeleteView.login_url">
@@ -737,11 +744,16 @@ Returns only the Thing objects that fit the filters in the request's querystring
 <dl class="py class">
 <dt class="sig sig-object py" id="core.views.user.UserDetailView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.views.user.</span></span><span class="sig-name descname"><span class="pre">UserDetailView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.views.user.UserDetailView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.detail.DetailView</span></code></p>
-<p>View to see a user's profile</p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.detail.DetailView</span></code></p>
+<p>View to see a user’s profile</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="core.views.user.UserDetailView.context_object_name">
 <span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'user_detail'</span></em><a class="headerlink" href="#core.views.user.UserDetailView.context_object_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.views.user.UserDetailView.login_url">
+<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'core:user_login'</span></em><a class="headerlink" href="#core.views.user.UserDetailView.login_url" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -760,11 +772,11 @@ Returns only the Thing objects that fit the filters in the request's querystring
 <dl class="py class">
 <dt class="sig sig-object py" id="core.views.user.UserUpdateView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.views.user.</span></span><span class="sig-name descname"><span class="pre">UserUpdateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.views.user.UserUpdateView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="core.html#core.mixins.IsTheUser" title="core.mixins.IsTheUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.mixins.IsTheUser</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.UpdateView</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="core.html#core.mixins.IsTheUserMixin" title="core.mixins.IsTheUserMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.mixins.IsTheUserMixin</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.UpdateView</span></code></p>
 <p>View to update a UserProfile object</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="core.views.user.UserUpdateView.fields">
-<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['biography',</span> <span class="pre">'profile_pic']</span></em><a class="headerlink" href="#core.views.user.UserUpdateView.fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['first_name',</span> <span class="pre">'last_name',</span> <span class="pre">'username',</span> <span class="pre">'email',</span> <span class="pre">'biography',</span> <span class="pre">'profile_pic']</span></em><a class="headerlink" href="#core.views.user.UserUpdateView.fields" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">

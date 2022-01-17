@@ -1,6 +1,2 @@
 500 error when deleting comment and going back on page, trying to delete comment again
 403 custom page
-
-Explore jumbotron for styling
-
-Fill out homepage
