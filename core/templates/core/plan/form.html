@@ -1,6 +1,6 @@
 {% extends 'core/base/form.html' %}
 
-{% load thing_filters %}
+{% load my_tags %}
 
 
 {% block form_body %}
@@ -14,11 +14,11 @@
 
 {% else %}
 {% get_owner view.kwargs.owner_pk as owner %}
-<a href="{% url 'core:user_detail' pk=owner.id%}?my_plans" class="btn btn-warning mb-2" type="button">Cancel</a>
+<a href="{% url 'core:user_detail' pk=owner.pk%}?my_plans" class="btn btn-warning mb-2" type="button">Cancel</a>
 {% endif %}
 
 {% if plan %}
-<a href="{% url 'core:plan_delete' pk=plan.id %}" class="btn btn-danger mb-2" type="button">Delete</a>
+<a href="{% url 'core:plan_delete' pk=plan.pk %}" class="btn btn-danger mb-2" type="button">Delete</a>
 {% endif %}
 
 {% endblock form_extra %}

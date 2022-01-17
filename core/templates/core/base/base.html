@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class='h-100'>
-{% load thing_filters %}
+{% load my_tags %}
 {% load static %}
 
 <head>
@@ -115,9 +115,9 @@
 <footer class="footer mt-auto py-3">
     <span class="text-muted">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+            <li class="nav-item"><a href="{% url 'index' %}" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="{% url 'core:features' %}" class="nav-link px-2 text-muted">Features</a></li>
+            <li class="nav-item"><a href="{% url 'documentation' %}" class="nav-link px-2 text-muted">Documentation</a></li>
         </ul>
         <p class="text-center text-muted">FBLA Coding & Programming 2022</p>
     </span>

@@ -24,19 +24,21 @@ STATIC_DIR = BASE_DIR / 'static'
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-y%&4gfos-g(1e+)_7et0q0jaw885s+37de%$la7ket5+3--uej'
+from dotenv import load_dotenv
+from os import getenv
+load_dotenv()
+SECRET_KEY = getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 LOGIN_URL = 'user/login/'
 
-
-ALLOWED_HOSTS = ['nasa-softball-peace-worker.trycloudflare.com',
+ALLOWED_HOSTS = ['arrangement-fixtures-buffer-idol.trycloudflare.com',
     'localhost',
     '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://nasa-softball-peace-worker.trycloudflare.com']
+CSRF_TRUSTED_ORIGINS = ['https://arrangement-fixtures-buffer-idol.trycloudflare.com']
 
 # Application definition
 
@@ -72,7 +74,7 @@ ROOT_URLCONF = 'mg_tourism.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR,],
+        'DIRS': [TEMPLATE_DIR, BASE_DIR / 'documentation'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

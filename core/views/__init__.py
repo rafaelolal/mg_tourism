@@ -4,3 +4,4 @@ from .thing import *
 from .user import *
 from .plan import *
 from .index import *
+from .picture import *

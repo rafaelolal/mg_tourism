@@ -1,5 +1,7 @@
 {% extends 'core/base/base.html' %}
-{% load thing_filters %}
+
+{% load my_filters %}
+{% load my_tags %}
 {% load static %}
 
 {% block base_body %}
@@ -69,10 +71,10 @@
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade {{tab_selected}}" id="pills-visited" role="tabpanel" aria-labelledby="pills-visited-tab">
                 <div class="p-4 bg-light rounded-3">
-                    {% if user_detail.comment_set.all %}
+                    {% if user_detail.comments.all %}
                     <h1>Places Visited</h1>
                     <div class="row">
-                    {% for comment in user_detail.comment_set.all|dictsortreversed:'posted_on' %}
+                    {% for comment in user_detail.comments.all|dictsortreversed:'posted_on' %}
                         <div class="col-xl-6 col-12 pb-2">
                             <div class="card bg-dark text-white">
                                 {% if comment.thing.get_picture.image.url %}
@@ -84,14 +86,14 @@
                                 <div class="card-img-overlay">
                                     <h5 class="card-title">{{comment.thing.name}}</h5>
                                     <p class="card-text">{{comment.thing.short_description}}</p>
-                                    <a href="{% url 'core:thing_detail' pk=comment.thing.id %}" class='btn btn-outline-light m-1'>Visit</a>                                        
+                                    <a href="{% url 'core:thing_detail' pk=comment.thing.pk %}" class='btn btn-outline-light m-1'>Visit</a>                                        
                                 </div>
             
                                 <ul class="list-group text-dark">
                                     <a class="list-group-item" aria-current="true">
                                         <div class="d-flex w-100 justify-content-between">
                                           <h5 class="mb-1">Stars</h5>
-                                          <small>{{comment.thing.stars}} • {{comment.thing.comment_set.count}}</small>
+                                          <small>{{comment.thing.stars}} • {{comment.thing.comments.count}}</small>
                                         </div>
 
                                         <p class="starability-result mb-1" data-rating="{{comment.thing.stars|to_int}}">
@@ -172,12 +174,12 @@
                                     {% if user.is_authenticated %}
                                         {% user_liked user.pk plan.pk as user_liked %}
                                         {% if user_liked %}
-                                        <a class="btn btn-danger" href="{% url 'core:plan_like' user_pk=user.pk plan_pk=plan.pk liking="false"%}">Dislike</a>
+                                        <a class="btn btn-danger" href="{% url 'core:plan_like' user_pk=user.pk plan_pk=plan.pk %}">Dislike</a>
                                         {% else %}
-                                        <a class="btn btn-success" href="{% url 'core:plan_like' user_pk=user.pk plan_pk=plan.pk liking="true"%}">Like</a>
+                                        <a class="btn btn-success" href="{% url 'core:plan_like' user_pk=user.pk plan_pk=plan.pk %}">Like</a>
                                         {% endif %}
                                     {% else %}
-                                    <a class="btn btn-success" href="{% url 'core:plan_like' user_pk=user.pk plan_pk=plan.pk liking="true"%}">Like</a>
+                                    <a class="btn btn-success" href="{% url 'core:plan_like' user_pk=user.pk plan_pk=plan.pk %}">Like</a>
                                     {% endif %}
 
                                 {% else %}
@@ -204,23 +206,25 @@
                                         <div class="card-img-overlay">
                                             <h5 class="card-title">{{thing.name}}</h5>
                                             <p class="card-text">{{thing.short_description}}</p>
-                                            <a href="{% url 'core:thing_detail' pk=thing.id %}" class='btn btn-outline-light m-1'>Visit</a>
+                                            <a href="{% url 'core:thing_detail' pk=thing.pk %}" class='btn btn-outline-light m-1'>Visit</a>
+                                            {% if user.pk == user_detail.pk %}
                                             <a class="btn btn-outline-danger" href="{% url 'core:plan_remove' plan_pk=plan.pk thing_pk=thing.pk %}">Remove</a>
+                                            {% endif %}
                                         </div>
                     
                                         <ul class="list-group text-dark">
+                                            {% if thing.stars %}
                                             <a class="list-group-item" aria-current="true">
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <h5 class="mb-1">Stars</h5>
-                                                    <small>{{thing.stars}} • {{thing.comment_set.count}}</small>
+                                                    <small>{{thing.stars}} • {{thing.comments.count}}</small>
                                                 </div>
 
-                                                {% if thing.stars != 'None' %}
                                                 <p class="starability-result mb-1" data-rating="{{thing.stars|to_int}}">
                                                 Rated: {{thing.stars|to_int}} stars
                                                 </p>
-                                                {% endif %}
                                             </a>
+                                            {% endif %}
                                             
                                             <a class="list-group-item" aria-current="true">
                                                 <div class="d-flex w-100 justify-content-between">
@@ -278,8 +282,8 @@
             </div>
 
             <div class="tab-pane fade {{liked_is_selected}}" id="pills-liked-plans" role="tabpanel" aria-labelledby="pills-liked-plans-tab">
-                {% if user_detail.likes.all %}
-                    {% for plan in user_detail.likes.all %}
+                {% if user_detail.liked.all %}
+                    {% for plan in user_detail.liked.all %}
                     <div class="p-4 bg-light rounded-3 mb-4">
                         <div class="card text-center">
                             <div class="card-header">
@@ -292,7 +296,7 @@
                                 {% if user.is_authenticated %}
                                     {% user_liked user.pk plan.pk as user_liked %}
                                     {% if user_liked %}
-                                    <a class="btn btn-danger" href="{% url 'core:plan_like' user_pk=user.pk plan_pk=plan.pk liking="false"%}">Dislike</a>
+                                    <a class="btn btn-danger" href="{% url 'core:plan_like' user_pk=user.pk plan_pk=plan.pk %}">Dislike</a>
                                     {% endif %}
                                 {% endif %}
                                 <a class="btn btn-dark" href="{% url 'core:user_detail' pk=plan.owner.pk %}?my_plans">Visit</a>

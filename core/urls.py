@@ -5,6 +5,8 @@ from core import views
 app_name = 'core'
 
 urlpatterns = [
+    path('features/', views.FeaturesView.as_view(), name='features'),
+
     path('register/', views.register, name='register'),
     
     path('user/login/', views.user_login, name='user_login'),
@@ -33,8 +35,7 @@ urlpatterns = [
     path('plan/<str:plan_pk>/remove/thing/<str:thing_pk>/', views.plan_remove, name="plan_remove"),
     path('plan/<str:pk>/delete/', views.PlanDeleteView.as_view(), name='plan_delete'),
     path('user/<str:owner_pk>/update/plan/<str:pk>/', views.PlanUpdateView.as_view(), name='plan_update'),
-    path('user/<str:user_pk>/like/<str:liking>/plan/<str:plan_pk>/', views.plan_like, name="plan_like"),
+    path('user/<str:user_pk>/like/plan/<str:plan_pk>/', views.plan_like, name="plan_like"),
 
     path('thing/<str:thing_pk>/create/picture/', views.PictureCreateView.as_view(), name='picture_create'),
-
 ]

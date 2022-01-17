@@ -19,17 +19,17 @@ class Comment(models.Model):
     posted_on = DateField(default=timezone.now)
     is_edited = BooleanField(default=False)
 
-    thing = ForeignKey(Thing, on_delete=models.CASCADE)
-    author = ForeignKey(UserProfile, on_delete=models.CASCADE)
+    thing = ForeignKey(Thing, on_delete=models.CASCADE, related_name="comments")
+    author = ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="comments")
 
     def save(self, *args, **kwargs) -> None:
         """Updates the average rating of a Thing when a new comment is created"""
 
-        if Comment.objects.filter(pk=self.id).exists():
-            average = mean([getattr(comment, 'rating') for comment in self.thing.comment_set.exclude(pk=self.id)] + [self.rating])
+        if Comment.objects.filter(pk=self.pk).exists():
+            average = mean([getattr(comment, 'rating') for comment in self.thing.comments.exclude(pk=self.pk)] + [self.rating])
 
         else:
-            average = mean([getattr(comment, 'rating') for comment in self.thing.comment_set.all()] + [self.rating])
+            average = mean([getattr(comment, 'rating') for comment in self.thing.comments.all()] + [self.rating])
         
         self.thing.stars = average
         self.thing.save()

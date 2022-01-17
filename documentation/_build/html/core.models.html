@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>core.models package &mdash; MG Tourism  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="core.templatetags package" href="core.templatetags.html" />
+    <link rel="prev" title="core.migrations package" href="core.migrations.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> MG Tourism
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">mg_tourism</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="core.html">core package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="core.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="core.migrations.html">core.migrations package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">core.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.templatetags.html">core.templatetags package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.views.html">core.views package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#module-core.admin">core.admin module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#module-core.apps">core.apps module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#module-core.decorators">core.decorators module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#module-core.forms">core.forms module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#module-core.jobs">core.jobs module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#module-core.mixins">core.mixins module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#module-core.urls">core.urls module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#module-core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manage.html">manage module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mg_tourism.html">mg_tourism package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="populate_db.html">populate_db module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MG Tourism</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">mg_tourism</a> &raquo;</li>
+          <li><a href="core.html">core package</a> &raquo;</li>
+      <li>core.models package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/core.models.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="core-models-package">
+<h1>core.models package<a class="headerlink" href="#core-models-package" title="Permalink to this headline"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+</section>
+<section id="module-core.models.comment">
+<span id="core-models-comment-module"></span><h2>core.models.comment module<a class="headerlink" href="#module-core.models.comment" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.comment.Comment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.comment.</span></span><span class="sig-name descname"><span class="pre">Comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posted_on</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_edited</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">author</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.comment.Comment" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.comment.Comment.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.comment.Comment.DoesNotExist" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.comment.Comment.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.comment.Comment.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.comment.Comment.author">
+<span class="sig-name descname"><span class="pre">author</span></span><a class="headerlink" href="#core.models.comment.Comment.author" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.comment.Comment.author_id">
+<span class="sig-name descname"><span class="pre">author_id</span></span><a class="headerlink" href="#core.models.comment.Comment.author_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.comment.Comment.content">
+<span class="sig-name descname"><span class="pre">content</span></span><a class="headerlink" href="#core.models.comment.Comment.content" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.comment.Comment.get_absolute_url">
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.models.comment.Comment.get_absolute_url" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.comment.Comment.get_next_by_posted_on">
+<span class="sig-name descname"><span class="pre">get_next_by_posted_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">posted_on&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.comment.Comment.get_next_by_posted_on" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.comment.Comment.get_previous_by_posted_on">
+<span class="sig-name descname"><span class="pre">get_previous_by_posted_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">posted_on&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.comment.Comment.get_previous_by_posted_on" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.comment.Comment.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#core.models.comment.Comment.id" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.comment.Comment.is_edited">
+<span class="sig-name descname"><span class="pre">is_edited</span></span><a class="headerlink" href="#core.models.comment.Comment.is_edited" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.comment.Comment.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#core.models.comment.Comment.objects" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.comment.Comment.posted_on">
+<span class="sig-name descname"><span class="pre">posted_on</span></span><a class="headerlink" href="#core.models.comment.Comment.posted_on" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.comment.Comment.rating">
+<span class="sig-name descname"><span class="pre">rating</span></span><a class="headerlink" href="#core.models.comment.Comment.rating" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.comment.Comment.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.models.comment.Comment.save" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the average rating of a Thing when a new comment is created</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.comment.Comment.thing">
+<span class="sig-name descname"><span class="pre">thing</span></span><a class="headerlink" href="#core.models.comment.Comment.thing" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.comment.Comment.thing_id">
+<span class="sig-name descname"><span class="pre">thing_id</span></span><a class="headerlink" href="#core.models.comment.Comment.thing_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.comment.Comment.title">
+<span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#core.models.comment.Comment.title" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-core.models.plan">
+<span id="core-models-plan-module"></span><h2>core.models.plan module<a class="headerlink" href="#module-core.models.plan" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.plan.Plan">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.plan.</span></span><span class="sig-name descname"><span class="pre">Plan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_public</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.plan.Plan" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.plan.Plan.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.plan.Plan.DoesNotExist" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.plan.Plan.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.plan.Plan.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.plan.Plan.description">
+<span class="sig-name descname"><span class="pre">description</span></span><a class="headerlink" href="#core.models.plan.Plan.description" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.plan.Plan.get_absolute_url">
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.models.plan.Plan.get_absolute_url" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.plan.Plan.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#core.models.plan.Plan.id" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.plan.Plan.is_public">
+<span class="sig-name descname"><span class="pre">is_public</span></span><a class="headerlink" href="#core.models.plan.Plan.is_public" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.plan.Plan.liked_by">
+<span class="sig-name descname"><span class="pre">liked_by</span></span><a class="headerlink" href="#core.models.plan.Plan.liked_by" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.plan.Plan.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#core.models.plan.Plan.name" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.plan.Plan.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#core.models.plan.Plan.objects" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.plan.Plan.owner">
+<span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#core.models.plan.Plan.owner" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.plan.Plan.owner_id">
+<span class="sig-name descname"><span class="pre">owner_id</span></span><a class="headerlink" href="#core.models.plan.Plan.owner_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.plan.Plan.things">
+<span class="sig-name descname"><span class="pre">things</span></span><a class="headerlink" href="#core.models.plan.Plan.things" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-core.models.thing">
+<span id="core-models-thing-module"></span><h2>core.models.thing module<a class="headerlink" href="#module-core.models.thing" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.thing.Attraction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.thing.</span></span><span class="sig-name descname"><span class="pre">Attraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">covid_safe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thing_ptr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighborhood</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">good_for</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Attraction" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#core.models.thing.Thing" title="core.models.thing.Thing"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.models.thing.Thing</span></code></a></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.thing.Attraction.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.thing.Attraction.DoesNotExist" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#core.models.thing.Thing.DoesNotExist" title="core.models.thing.Thing.DoesNotExist"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.models.thing.Thing.DoesNotExist</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.thing.Attraction.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.thing.Attraction.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#core.models.thing.Thing.MultipleObjectsReturned" title="core.models.thing.Thing.MultipleObjectsReturned"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.models.thing.Thing.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.thing.Attraction.get_good_for_display">
+<span class="sig-name descname"><span class="pre">get_good_for_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">good_for&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Attraction.get_good_for_display" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.thing.Attraction.get_type_display">
+<span class="sig-name descname"><span class="pre">get_type_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">type&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Attraction.get_type_display" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Attraction.good_for">
+<span class="sig-name descname"><span class="pre">good_for</span></span><a class="headerlink" href="#core.models.thing.Attraction.good_for" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Attraction.good_fors">
+<span class="sig-name descname"><span class="pre">good_fors</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Kids',</span> <span class="pre">'Big</span> <span class="pre">Groups',</span> <span class="pre">'Adrenaline</span> <span class="pre">Seekers',</span> <span class="pre">'a</span> <span class="pre">Rainy</span> <span class="pre">Day',</span> <span class="pre">'Couples']</span></em><a class="headerlink" href="#core.models.thing.Attraction.good_fors" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Attraction.neighborhood">
+<span class="sig-name descname"><span class="pre">neighborhood</span></span><a class="headerlink" href="#core.models.thing.Attraction.neighborhood" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Attraction.thing_ptr">
+<span class="sig-name descname"><span class="pre">thing_ptr</span></span><a class="headerlink" href="#core.models.thing.Attraction.thing_ptr" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Restaurant.place</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Attraction.thing_ptr_id">
+<span class="sig-name descname"><span class="pre">thing_ptr_id</span></span><a class="headerlink" href="#core.models.thing.Attraction.thing_ptr_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Attraction.tuple_choices">
+<span class="sig-name descname"><span class="pre">tuple_choices</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('Kids',</span> <span class="pre">'Kids'),</span> <span class="pre">('Big</span> <span class="pre">Groups',</span> <span class="pre">'Big</span> <span class="pre">Groups'),</span> <span class="pre">('Adrenaline</span> <span class="pre">Seekers',</span> <span class="pre">'Adrenaline</span> <span class="pre">Seekers'),</span> <span class="pre">('a</span> <span class="pre">Rainy</span> <span class="pre">Day',</span> <span class="pre">'a</span> <span class="pre">Rainy</span> <span class="pre">Day'),</span> <span class="pre">('Couples',</span> <span class="pre">'Couples')]</span></em><a class="headerlink" href="#core.models.thing.Attraction.tuple_choices" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Attraction.tuple_types">
+<span class="sig-name descname"><span class="pre">tuple_types</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('Nightlife',</span> <span class="pre">'Nightlife'),</span> <span class="pre">('Sight',</span> <span class="pre">'Sight'),</span> <span class="pre">('Landmark',</span> <span class="pre">'Landmark'),</span> <span class="pre">('Museum',</span> <span class="pre">'Museum'),</span> <span class="pre">('Fun',</span> <span class="pre">'Fun')]</span></em><a class="headerlink" href="#core.models.thing.Attraction.tuple_types" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Attraction.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#core.models.thing.Attraction.type" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Attraction.types">
+<span class="sig-name descname"><span class="pre">types</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Nightlife',</span> <span class="pre">'Sight',</span> <span class="pre">'Landmark',</span> <span class="pre">'Museum',</span> <span class="pre">'Fun']</span></em><a class="headerlink" href="#core.models.thing.Attraction.types" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.thing.Food">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.thing.</span></span><span class="sig-name descname"><span class="pre">Food</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">covid_safe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thing_ptr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighborhood</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">good_for</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Food" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#core.models.thing.Thing" title="core.models.thing.Thing"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.models.thing.Thing</span></code></a></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.thing.Food.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.thing.Food.DoesNotExist" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#core.models.thing.Thing.DoesNotExist" title="core.models.thing.Thing.DoesNotExist"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.models.thing.Thing.DoesNotExist</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.thing.Food.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.thing.Food.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#core.models.thing.Thing.MultipleObjectsReturned" title="core.models.thing.Thing.MultipleObjectsReturned"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.models.thing.Thing.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.thing.Food.get_good_for_display">
+<span class="sig-name descname"><span class="pre">get_good_for_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">good_for&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Food.get_good_for_display" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.thing.Food.get_type_display">
+<span class="sig-name descname"><span class="pre">get_type_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">type&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Food.get_type_display" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Food.good_for">
+<span class="sig-name descname"><span class="pre">good_for</span></span><a class="headerlink" href="#core.models.thing.Food.good_for" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Food.good_fors">
+<span class="sig-name descname"><span class="pre">good_fors</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Kids',</span> <span class="pre">'Big</span> <span class="pre">Groups',</span> <span class="pre">'Adrenaline</span> <span class="pre">Seekers',</span> <span class="pre">'a</span> <span class="pre">Rainy</span> <span class="pre">Day',</span> <span class="pre">'Couples']</span></em><a class="headerlink" href="#core.models.thing.Food.good_fors" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Food.neighborhood">
+<span class="sig-name descname"><span class="pre">neighborhood</span></span><a class="headerlink" href="#core.models.thing.Food.neighborhood" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Food.thing_ptr">
+<span class="sig-name descname"><span class="pre">thing_ptr</span></span><a class="headerlink" href="#core.models.thing.Food.thing_ptr" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Restaurant.place</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Food.thing_ptr_id">
+<span class="sig-name descname"><span class="pre">thing_ptr_id</span></span><a class="headerlink" href="#core.models.thing.Food.thing_ptr_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Food.tuple_choices">
+<span class="sig-name descname"><span class="pre">tuple_choices</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('Kids',</span> <span class="pre">'Kids'),</span> <span class="pre">('Big</span> <span class="pre">Groups',</span> <span class="pre">'Big</span> <span class="pre">Groups'),</span> <span class="pre">('Adrenaline</span> <span class="pre">Seekers',</span> <span class="pre">'Adrenaline</span> <span class="pre">Seekers'),</span> <span class="pre">('a</span> <span class="pre">Rainy</span> <span class="pre">Day',</span> <span class="pre">'a</span> <span class="pre">Rainy</span> <span class="pre">Day'),</span> <span class="pre">('Couples',</span> <span class="pre">'Couples')]</span></em><a class="headerlink" href="#core.models.thing.Food.tuple_choices" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Food.tuple_types">
+<span class="sig-name descname"><span class="pre">tuple_types</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('Farmers</span> <span class="pre">Market',</span> <span class="pre">'Farmers</span> <span class="pre">Market'),</span> <span class="pre">('Breweries</span> <span class="pre">and</span> <span class="pre">Wine',</span> <span class="pre">'Breweries</span> <span class="pre">and</span> <span class="pre">Wine'),</span> <span class="pre">('Coffee</span> <span class="pre">Shop',</span> <span class="pre">'Coffee</span> <span class="pre">Shop'),</span> <span class="pre">('Restaurant',</span> <span class="pre">'Restaurant'),</span> <span class="pre">('Bar',</span> <span class="pre">'Bar')]</span></em><a class="headerlink" href="#core.models.thing.Food.tuple_types" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Food.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#core.models.thing.Food.type" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Food.types">
+<span class="sig-name descname"><span class="pre">types</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Farmers</span> <span class="pre">Market',</span> <span class="pre">'Breweries</span> <span class="pre">and</span> <span class="pre">Wine',</span> <span class="pre">'Coffee</span> <span class="pre">Shop',</span> <span class="pre">'Restaurant',</span> <span class="pre">'Bar']</span></em><a class="headerlink" href="#core.models.thing.Food.types" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.thing.Outdoor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.thing.</span></span><span class="sig-name descname"><span class="pre">Outdoor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">covid_safe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thing_ptr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighborhood</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">good_for</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Outdoor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#core.models.thing.Thing" title="core.models.thing.Thing"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.models.thing.Thing</span></code></a></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.thing.Outdoor.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.thing.Outdoor.DoesNotExist" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#core.models.thing.Thing.DoesNotExist" title="core.models.thing.Thing.DoesNotExist"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.models.thing.Thing.DoesNotExist</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.thing.Outdoor.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.thing.Outdoor.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#core.models.thing.Thing.MultipleObjectsReturned" title="core.models.thing.Thing.MultipleObjectsReturned"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.models.thing.Thing.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.thing.Outdoor.get_good_for_display">
+<span class="sig-name descname"><span class="pre">get_good_for_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">good_for&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Outdoor.get_good_for_display" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.thing.Outdoor.get_type_display">
+<span class="sig-name descname"><span class="pre">get_type_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">type&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Outdoor.get_type_display" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Outdoor.good_for">
+<span class="sig-name descname"><span class="pre">good_for</span></span><a class="headerlink" href="#core.models.thing.Outdoor.good_for" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Outdoor.good_fors">
+<span class="sig-name descname"><span class="pre">good_fors</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Kids',</span> <span class="pre">'Big</span> <span class="pre">Groups',</span> <span class="pre">'Adrenaline</span> <span class="pre">Seekers',</span> <span class="pre">'Couples']</span></em><a class="headerlink" href="#core.models.thing.Outdoor.good_fors" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Outdoor.neighborhood">
+<span class="sig-name descname"><span class="pre">neighborhood</span></span><a class="headerlink" href="#core.models.thing.Outdoor.neighborhood" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Outdoor.thing_ptr">
+<span class="sig-name descname"><span class="pre">thing_ptr</span></span><a class="headerlink" href="#core.models.thing.Outdoor.thing_ptr" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Restaurant.place</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Outdoor.thing_ptr_id">
+<span class="sig-name descname"><span class="pre">thing_ptr_id</span></span><a class="headerlink" href="#core.models.thing.Outdoor.thing_ptr_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Outdoor.tuple_choices">
+<span class="sig-name descname"><span class="pre">tuple_choices</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('Kids',</span> <span class="pre">'Kids'),</span> <span class="pre">('Big</span> <span class="pre">Groups',</span> <span class="pre">'Big</span> <span class="pre">Groups'),</span> <span class="pre">('Adrenaline</span> <span class="pre">Seekers',</span> <span class="pre">'Adrenaline</span> <span class="pre">Seekers'),</span> <span class="pre">('Couples',</span> <span class="pre">'Couples')]</span></em><a class="headerlink" href="#core.models.thing.Outdoor.tuple_choices" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Outdoor.tuple_types">
+<span class="sig-name descname"><span class="pre">tuple_types</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('Wildlife</span> <span class="pre">Exploration',</span> <span class="pre">'Wildlife</span> <span class="pre">Exploration'),</span> <span class="pre">('Hiking',</span> <span class="pre">'Hiking'),</span> <span class="pre">('Biking',</span> <span class="pre">'Biking'),</span> <span class="pre">('Zoo',</span> <span class="pre">'Zoo'),</span> <span class="pre">('River</span> <span class="pre">Rafting',</span> <span class="pre">'River</span> <span class="pre">Rafting')]</span></em><a class="headerlink" href="#core.models.thing.Outdoor.tuple_types" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Outdoor.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#core.models.thing.Outdoor.type" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Outdoor.types">
+<span class="sig-name descname"><span class="pre">types</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Wildlife</span> <span class="pre">Exploration',</span> <span class="pre">'Hiking',</span> <span class="pre">'Biking',</span> <span class="pre">'Zoo',</span> <span class="pre">'River</span> <span class="pre">Rafting']</span></em><a class="headerlink" href="#core.models.thing.Outdoor.types" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.thing.Picture">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.thing.</span></span><span class="sig-name descname"><span class="pre">Picture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Picture" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.thing.Picture.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.thing.Picture.DoesNotExist" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.thing.Picture.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.thing.Picture.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.thing.Picture.get_absolute_url">
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Picture.get_absolute_url" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Picture.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#core.models.thing.Picture.id" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Picture.image">
+<span class="sig-name descname"><span class="pre">image</span></span><a class="headerlink" href="#core.models.thing.Picture.image" title="Permalink to this definition"></a></dt>
+<dd><p>Just like the FileDescriptor, but for ImageFields. The only difference is
+assigning the width/height to the width_field/height_field, if appropriate.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Picture.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#core.models.thing.Picture.objects" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Picture.thing">
+<span class="sig-name descname"><span class="pre">thing</span></span><a class="headerlink" href="#core.models.thing.Picture.thing" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Picture.thing_id">
+<span class="sig-name descname"><span class="pre">thing_id</span></span><a class="headerlink" href="#core.models.thing.Picture.thing_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.thing.Shopping">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.thing.</span></span><span class="sig-name descname"><span class="pre">Shopping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">covid_safe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thing_ptr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighborhood</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">good_for</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Shopping" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#core.models.thing.Thing" title="core.models.thing.Thing"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.models.thing.Thing</span></code></a></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.thing.Shopping.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.thing.Shopping.DoesNotExist" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#core.models.thing.Thing.DoesNotExist" title="core.models.thing.Thing.DoesNotExist"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.models.thing.Thing.DoesNotExist</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.thing.Shopping.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.thing.Shopping.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#core.models.thing.Thing.MultipleObjectsReturned" title="core.models.thing.Thing.MultipleObjectsReturned"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.models.thing.Thing.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.thing.Shopping.get_good_for_display">
+<span class="sig-name descname"><span class="pre">get_good_for_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">good_for&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Shopping.get_good_for_display" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.thing.Shopping.get_type_display">
+<span class="sig-name descname"><span class="pre">get_type_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">type&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Shopping.get_type_display" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Shopping.good_for">
+<span class="sig-name descname"><span class="pre">good_for</span></span><a class="headerlink" href="#core.models.thing.Shopping.good_for" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Shopping.good_fors">
+<span class="sig-name descname"><span class="pre">good_fors</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Kids',</span> <span class="pre">'Big</span> <span class="pre">Groups',</span> <span class="pre">'a</span> <span class="pre">Rainy</span> <span class="pre">Day',</span> <span class="pre">'Couples']</span></em><a class="headerlink" href="#core.models.thing.Shopping.good_fors" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Shopping.neighborhood">
+<span class="sig-name descname"><span class="pre">neighborhood</span></span><a class="headerlink" href="#core.models.thing.Shopping.neighborhood" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Shopping.thing_ptr">
+<span class="sig-name descname"><span class="pre">thing_ptr</span></span><a class="headerlink" href="#core.models.thing.Shopping.thing_ptr" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Restaurant.place</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Shopping.thing_ptr_id">
+<span class="sig-name descname"><span class="pre">thing_ptr_id</span></span><a class="headerlink" href="#core.models.thing.Shopping.thing_ptr_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Shopping.tuple_choices">
+<span class="sig-name descname"><span class="pre">tuple_choices</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('Kids',</span> <span class="pre">'Kids'),</span> <span class="pre">('Big</span> <span class="pre">Groups',</span> <span class="pre">'Big</span> <span class="pre">Groups'),</span> <span class="pre">('a</span> <span class="pre">Rainy</span> <span class="pre">Day',</span> <span class="pre">'a</span> <span class="pre">Rainy</span> <span class="pre">Day'),</span> <span class="pre">('Couples',</span> <span class="pre">'Couples')]</span></em><a class="headerlink" href="#core.models.thing.Shopping.tuple_choices" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Shopping.tuple_types">
+<span class="sig-name descname"><span class="pre">tuple_types</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('Gift</span> <span class="pre">Shop',</span> <span class="pre">'Gift</span> <span class="pre">Shop'),</span> <span class="pre">('Shopping</span> <span class="pre">Mall',</span> <span class="pre">'Shopping</span> <span class="pre">Mall'),</span> <span class="pre">('Antique</span> <span class="pre">Store',</span> <span class="pre">'Antique</span> <span class="pre">Store'),</span> <span class="pre">('Department</span> <span class="pre">Store',</span> <span class="pre">'Department</span> <span class="pre">Store'),</span> <span class="pre">('Factory</span> <span class="pre">Outlet',</span> <span class="pre">'Factory</span> <span class="pre">Outlet')]</span></em><a class="headerlink" href="#core.models.thing.Shopping.tuple_types" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Shopping.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#core.models.thing.Shopping.type" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Shopping.types">
+<span class="sig-name descname"><span class="pre">types</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Gift</span> <span class="pre">Shop',</span> <span class="pre">'Shopping</span> <span class="pre">Mall',</span> <span class="pre">'Antique</span> <span class="pre">Store',</span> <span class="pre">'Department</span> <span class="pre">Store',</span> <span class="pre">'Factory</span> <span class="pre">Outlet']</span></em><a class="headerlink" href="#core.models.thing.Shopping.types" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.thing.Thing">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.thing.</span></span><span class="sig-name descname"><span class="pre">Thing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">covid_safe</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Thing" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.thing.Thing.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.thing.Thing.DoesNotExist" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.thing.Thing.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.thing.Thing.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.address">
+<span class="sig-name descname"><span class="pre">address</span></span><a class="headerlink" href="#core.models.thing.Thing.address" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.attraction">
+<span class="sig-name descname"><span class="pre">attraction</span></span><a class="headerlink" href="#core.models.thing.Thing.attraction" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related object on the reverse side of a one-to-one
+relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Place.restaurant</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.categories">
+<span class="sig-name descname"><span class="pre">categories</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Attraction',</span> <span class="pre">'Tour',</span> <span class="pre">'Food',</span> <span class="pre">'Outdoor',</span> <span class="pre">'Shopping']</span></em><a class="headerlink" href="#core.models.thing.Thing.categories" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.category">
+<span class="sig-name descname"><span class="pre">category</span></span><a class="headerlink" href="#core.models.thing.Thing.category" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.comments">
+<span class="sig-name descname"><span class="pre">comments</span></span><a class="headerlink" href="#core.models.thing.Thing.comments" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.covid_safe">
+<span class="sig-name descname"><span class="pre">covid_safe</span></span><a class="headerlink" href="#core.models.thing.Thing.covid_safe" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.food">
+<span class="sig-name descname"><span class="pre">food</span></span><a class="headerlink" href="#core.models.thing.Thing.food" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related object on the reverse side of a one-to-one
+relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Place.restaurant</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.thing.Thing.get_absolute_url">
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Thing.get_absolute_url" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.thing.Thing.get_category_display">
+<span class="sig-name descname"><span class="pre">get_category_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">category&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Thing.get_category_display" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.thing.Thing.get_fields">
+<span class="sig-name descname"><span class="pre">get_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#core.models.thing.Thing.get_fields" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the name and value of specific fields in a Thing, independent of its category</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.thing.Thing.get_picture">
+<span class="sig-name descname"><span class="pre">get_picture</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Thing.get_picture" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a random picture from a Thing to use in core:thing_list</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#core.models.thing.Thing.id" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.long_description">
+<span class="sig-name descname"><span class="pre">long_description</span></span><a class="headerlink" href="#core.models.thing.Thing.long_description" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#core.models.thing.Thing.name" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#core.models.thing.Thing.objects" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.outdoor">
+<span class="sig-name descname"><span class="pre">outdoor</span></span><a class="headerlink" href="#core.models.thing.Thing.outdoor" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related object on the reverse side of a one-to-one
+relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Place.restaurant</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.pictures">
+<span class="sig-name descname"><span class="pre">pictures</span></span><a class="headerlink" href="#core.models.thing.Thing.pictures" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.plans_in">
+<span class="sig-name descname"><span class="pre">plans_in</span></span><a class="headerlink" href="#core.models.thing.Thing.plans_in" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.thing.Thing.remove_unwanted_keys">
+<span class="sig-name descname"><span class="pre">remove_unwanted_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#core.models.thing.Thing.remove_unwanted_keys" title="Permalink to this definition"></a></dt>
+<dd><p>Removed unwanted values from fields</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.shopping">
+<span class="sig-name descname"><span class="pre">shopping</span></span><a class="headerlink" href="#core.models.thing.Thing.shopping" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related object on the reverse side of a one-to-one
+relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Place.restaurant</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.short_description">
+<span class="sig-name descname"><span class="pre">short_description</span></span><a class="headerlink" href="#core.models.thing.Thing.short_description" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.stars">
+<span class="sig-name descname"><span class="pre">stars</span></span><a class="headerlink" href="#core.models.thing.Thing.stars" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.tour">
+<span class="sig-name descname"><span class="pre">tour</span></span><a class="headerlink" href="#core.models.thing.Thing.tour" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related object on the reverse side of a one-to-one
+relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Place.restaurant</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.tuple_categories">
+<span class="sig-name descname"><span class="pre">tuple_categories</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('Attraction',</span> <span class="pre">'Attraction'),</span> <span class="pre">('Tour',</span> <span class="pre">'Tour'),</span> <span class="pre">('Food',</span> <span class="pre">'Food'),</span> <span class="pre">('Outdoor',</span> <span class="pre">'Outdoor'),</span> <span class="pre">('Shopping',</span> <span class="pre">'Shopping')]</span></em><a class="headerlink" href="#core.models.thing.Thing.tuple_categories" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.thing.Tour">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.thing.</span></span><span class="sig-name descname"><span class="pre">Tour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">covid_safe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thing_ptr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Tour" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#core.models.thing.Thing" title="core.models.thing.Thing"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.models.thing.Thing</span></code></a></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.thing.Tour.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.thing.Tour.DoesNotExist" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#core.models.thing.Thing.DoesNotExist" title="core.models.thing.Thing.DoesNotExist"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.models.thing.Thing.DoesNotExist</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.thing.Tour.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.thing.Tour.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#core.models.thing.Thing.MultipleObjectsReturned" title="core.models.thing.Thing.MultipleObjectsReturned"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.models.thing.Thing.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Tour.category">
+<span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Tour'</span></em><a class="headerlink" href="#core.models.thing.Tour.category" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Tour.duration">
+<span class="sig-name descname"><span class="pre">duration</span></span><a class="headerlink" href="#core.models.thing.Tour.duration" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.thing.Tour.get_type_display">
+<span class="sig-name descname"><span class="pre">get_type_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">type&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.thing.Tour.get_type_display" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Tour.price">
+<span class="sig-name descname"><span class="pre">price</span></span><a class="headerlink" href="#core.models.thing.Tour.price" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Tour.thing_ptr">
+<span class="sig-name descname"><span class="pre">thing_ptr</span></span><a class="headerlink" href="#core.models.thing.Tour.thing_ptr" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Restaurant.place</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Tour.thing_ptr_id">
+<span class="sig-name descname"><span class="pre">thing_ptr_id</span></span><a class="headerlink" href="#core.models.thing.Tour.thing_ptr_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Tour.tuple_types">
+<span class="sig-name descname"><span class="pre">tuple_types</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('Multi-day',</span> <span class="pre">'Multi-day'),</span> <span class="pre">('City',</span> <span class="pre">'City'),</span> <span class="pre">('Cultural',</span> <span class="pre">'Cultural'),</span> <span class="pre">('Historical',</span> <span class="pre">'Historical'),</span> <span class="pre">('Private',</span> <span class="pre">'Private')]</span></em><a class="headerlink" href="#core.models.thing.Tour.tuple_types" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Tour.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#core.models.thing.Tour.type" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Tour.types">
+<span class="sig-name descname"><span class="pre">types</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Multi-day',</span> <span class="pre">'City',</span> <span class="pre">'Cultural',</span> <span class="pre">'Historical',</span> <span class="pre">'Private']</span></em><a class="headerlink" href="#core.models.thing.Tour.types" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-core.models.user">
+<span id="core-models-user-module"></span><h2>core.models.user module<a class="headerlink" href="#module-core.models.user" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.user.UserProfile">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.user.</span></span><span class="sig-name descname"><span class="pre">UserProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_login</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_superuser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_staff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_active</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date_joined</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_ptr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">biography</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_pic</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.user.UserProfile" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.User</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.user.UserProfile.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.user.UserProfile.DoesNotExist" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.User.DoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.user.UserProfile.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.user.UserProfile.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.User.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.user.UserProfile.biography">
+<span class="sig-name descname"><span class="pre">biography</span></span><a class="headerlink" href="#core.models.user.UserProfile.biography" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.user.UserProfile.comments">
+<span class="sig-name descname"><span class="pre">comments</span></span><a class="headerlink" href="#core.models.user.UserProfile.comments" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.user.UserProfile.get_absolute_url">
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.models.user.UserProfile.get_absolute_url" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.user.UserProfile.liked">
+<span class="sig-name descname"><span class="pre">liked</span></span><a class="headerlink" href="#core.models.user.UserProfile.liked" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.user.UserProfile.plans">
+<span class="sig-name descname"><span class="pre">plans</span></span><a class="headerlink" href="#core.models.user.UserProfile.plans" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.user.UserProfile.profile_pic">
+<span class="sig-name descname"><span class="pre">profile_pic</span></span><a class="headerlink" href="#core.models.user.UserProfile.profile_pic" title="Permalink to this definition"></a></dt>
+<dd><p>Just like the FileDescriptor, but for ImageFields. The only difference is
+assigning the width/height to the width_field/height_field, if appropriate.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.user.UserProfile.user_ptr">
+<span class="sig-name descname"><span class="pre">user_ptr</span></span><a class="headerlink" href="#core.models.user.UserProfile.user_ptr" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Restaurant.place</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.user.UserProfile.user_ptr_id">
+<span class="sig-name descname"><span class="pre">user_ptr_id</span></span><a class="headerlink" href="#core.models.user.UserProfile.user_ptr_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-core.models">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-core.models" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="core.migrations.html" class="btn btn-neutral float-left" title="core.migrations package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="core.templatetags.html" class="btn btn-neutral float-right" title="core.templatetags package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Participant of FBLA-2022.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

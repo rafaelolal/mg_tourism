@@ -1,8 +1,10 @@
+"""Views associated with a UserProfile object"""
+
 from django.shortcuts import render
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, UpdateView, DeleteView
@@ -12,11 +14,19 @@ from core.forms import UserProfileForm
 from core.mixins import IsTheUser
 
 @login_required
-def user_logout(request):
+def user_logout(request: HttpResponse) -> HttpResponse:
+    """View to logout user
+    Redirects user to index page
+    """
+
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
-def register(request):
+def register(request: HttpResponse) -> HttpResponse:
+    """View used to register a user
+    Redirects user to index page or if there is a next URL parameter, redirects user to appropriate page
+    """
+    
     registered = False
 
     if request.method == 'POST':
@@ -38,6 +48,7 @@ def register(request):
             user.save()
 
             registered = True
+            messages.success(request, "Thank you for registering, now login to begin experiencing Minas Gerais")
 
         else:
             print(user_form.errors)
@@ -48,16 +59,20 @@ def register(request):
     if registered:
         next_page = request.GET.get('next')
         if next_page:
-            return HttpResponseRedirect(reverse('core:user_login') + f'?next={next_page}' + '&new_user')
+            return HttpResponseRedirect(reverse('core:user_login') + f'?next={next_page}')
 
-        return HttpResponseRedirect(reverse('core:user_login') + '?new_user')
+        return HttpResponseRedirect(reverse('core:user_login'))
 
     else:
         return render(request,
             'core/user/registration.html',
             {'user_form': user_form,})
 
-def user_login(request):
+def user_login(request: HttpResponse) -> HttpResponse:
+    """View used to login a user
+    Redirects user to index page or if there is a next URL parameter, redirects user to appropriate page
+    """
+    
     next_page = request.GET.get('next')
 
     if request.method == 'POST':
@@ -87,11 +102,15 @@ def user_login(request):
     return render(request, 'core/user/login.html')
 
 class UserDetailView(DetailView):
+    """View to see a user's profile"""
+    
     context_object_name = "user_detail"
     model = UserProfile
     template_name = 'core/user/detail.html'
 
 class UserUpdateView(IsTheUser, UpdateView):
+    """View to update a UserProfile object"""
+    
     login_url = 'core:user_login'
     fields = ['biography', 'profile_pic']
     model = UserProfile
@@ -104,6 +123,8 @@ class UserUpdateView(IsTheUser, UpdateView):
         return super().form_valid(form)
 
 class UserDeleteView(IsTheUser, DeleteView):
+    """View to delete a UserProfile object"""
+
     login_url = 'core:user_login'
     model = UserProfile
     template_name = 'core/user/confirm_delete.html'

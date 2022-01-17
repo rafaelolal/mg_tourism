@@ -1,6 +1,7 @@
 {% extends 'core/base/base.html' %}
 
-{% load thing_filters %}
+{% load my_filters %}
+{% load my_tags %}
 {% load static %}
 
 {% block base_body %}
@@ -154,7 +155,7 @@
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1">{{field|add_spaces}}</h5>
                                         {% if field == 'stars' %}
-                                        <small>{{value}} • {{thing.comment_set.count}}</small>
+                                        <small>{{value}} • {{thing.comments.count}}</small>
                                         {% endif %}
                                     </div>
                                     

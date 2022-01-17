@@ -1,16 +1,25 @@
+"""Views associated with Plan objects"""
+
+from django.forms import Form
+
 from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import CreateView, UpdateView, DeleteView
 
 from core.models import Thing, UserProfile, Plan
 from core.mixins import LoginRequiredMixin, IsThePlanOwner
 from core.decorators import is_plan_owner
 
 @is_plan_owner
-def plan_add(request, plan_pk, thing_pk):
+def plan_add(request: HttpResponse, plan_pk: int, thing_pk: int) -> HttpResponse:
+    """Adds a Thing object to a Plan
+    Checks if the Thing is already in the Plan and returns a message accordingly
+    Redirects user back to the Thing's detail view
+    """
+
     plan = Plan.objects.get(pk=plan_pk)
     thing = Thing.objects.get(pk=thing_pk)
     
@@ -24,7 +33,11 @@ def plan_add(request, plan_pk, thing_pk):
     return HttpResponseRedirect(reverse('core:thing_detail', kwargs={'pk': thing.pk}))
 
 @is_plan_owner
-def plan_remove(request, plan_pk, thing_pk):
+def plan_remove(request: HttpResponse, plan_pk: int, thing_pk: int) -> HttpResponse:
+    """Removes a Thing object from a Plan
+    Redirects user back to their detail view on the "My Plans" tab
+    """
+
     plan = Plan.objects.get(pk=plan_pk)
     thing = Thing.objects.get(pk=thing_pk)
     plan.things.remove(thing)
@@ -34,16 +47,20 @@ def plan_remove(request, plan_pk, thing_pk):
     return HttpResponseRedirect(reverse('core:user_detail', kwargs={'pk': plan.owner.pk}) + "?my_plans")
 
 @login_required
-def plan_like(request, user_pk, plan_pk, liking):
+def plan_like(request: HttpResponse, user_pk: int, plan_pk: int) -> HttpResponse:
+    """Likes or dislikes a plan depending if the user has already liked this plan
+    Redirects user back to the detail view on the "My Plans" tab of the owner of the plan they liked/disliked
+    """
+
     user = UserProfile.objects.get(pk=user_pk)
     plan = Plan.objects.get(pk=plan_pk)
     
-    if liking == 'true':
-        user.likes.add(plan)
+    if plan in user.liked.all():
+        user.liked.add(plan)
         messages.success(request, f'Successfully liked plan "{plan.name}"')
     
     else:
-        user.likes.remove(plan)
+        user.liked.remove(plan)
         messages.success(request, f'Successfully disliked plan "{plan.name}"')
 
     return HttpResponseRedirect(reverse('core:user_detail', kwargs={'pk': plan.owner.pk}) + "?my_plans")
@@ -54,11 +71,17 @@ class PlanCreateView(LoginRequiredMixin, CreateView):
     model = Plan
     template_name = 'core/plan/form.html'
 
-    def form_valid(self, form):
-        form.instance.owner = UserProfile.objects.get(id=int(self.kwargs['owner_pk']))
+    def form_valid(self, form: Form) -> HttpResponse:
+        """Manually sets the owner attribute of a Plan object to the UserProfile object with the matchin pk given in the request"""
+        
+        form.instance.owner = UserProfile.objects.get(pk=int(self.kwargs['owner_pk']))
         return super().form_valid(form)
 
     def get_success_url(self) -> str:
+        """Gets the HttpResponse object the user is supposed to be redirected to after creating a plan
+        Sends the user back to the Thing detail view they created the project on, else redirects back to their profile view
+        """
+
         messages.success(self.request, f'Successfully created plan "{self.object.name}", now add a thing to it.')
 
         thing = self.request.GET.get('thing')
@@ -73,7 +96,9 @@ class PlanUpdateView(IsThePlanOwner, UpdateView):
     model = Plan
     template_name = 'core/plan/form.html'
 
-    def form_valid(self, form):
+    def form_valid(self, form: Form) -> HttpResponse:
+        """Checks if the plan is no longer public and removes all UserProfile objects which liked it"""
+
         if not form.instance.is_public:
             form.instance.liked_by.clear()
 
@@ -84,5 +109,7 @@ class PlanDeleteView(IsThePlanOwner, DeleteView):
     model = Plan
     template_name = 'core/plan/confirm_delete.html'
 
-    def get_success_url(self):
-        return reverse_lazy(f"core:user_detail", kwargs={'pk': self.get_object().owner.id}) + "?my_plans"
+    def get_success_url(self) -> HttpResponse:
+        """Redirects user back to their profile view in the "My Plans" tab after deleting a plan"""
+
+        return reverse_lazy(f"core:user_detail", kwargs={'pk': self.get_object().owner.pk}) + "?my_plans"

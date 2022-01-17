@@ -1,39 +1,53 @@
+"""Views associated with Thing objects"""
+
 from datetime import timedelta
 
 from typing import Any, Dict, List
+from django.db.models.query import QuerySet
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView
 
 from core.models import Thing, Picture, Tour, Attraction, Food, Shopping, Outdoor
-from core.mixins import SuperUserRequiredMixin, LoginRequiredMixin
+from core.mixins import IsSuperuserMixin
 
 class ThingDetailView(DetailView):
-    # returns model name in lowercase
-    # better to change it yourself:
+    """View to see the details of a Thing object"""
+
     context_object_name = "thing_detail"
     model = Thing
     template_name = 'core/thing/detail.html'
 
-class ThingDeleteView(SuperUserRequiredMixin, DeleteView):
+class ThingDeleteView(IsSuperuserMixin, DeleteView):
+    """View to delete a Thing object"""
+
     login_url = 'core:user_login'
     model = Thing
     success_url = reverse_lazy("core:thing_list")
     template_name = 'core/thing/confirm_delete.html'
 
-class ThingUpdateView(SuperUserRequiredMixin, UpdateView):
+class ThingUpdateView(IsSuperuserMixin, UpdateView):
+    """View to update a Thing object"""
+
     login_url = 'core:user_login'
     fields = ['name', 'short_description', 'long_description', 'address', 'covid_safe']
     model = Thing
     template_name = 'core/thing/form.html'
 
 class ThingListView(ListView):
+    """View to see the list of all Thing objects"""
+
     model = Thing
     template_name = 'core/thing/list.html'
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpResponse, *args: (Any), **kwargs: Dict[str, Any]) -> HttpResponse:
+        """Gets the link to the appropriate view
+        Redirects user to the ThingListView or if there is only one Thing object in the queryset, redirects to that Thing's DetailView
+        Saves the user time
+        """
+        
         query_set = self.get_queryset()
         if query_set:
             if len(query_set) == 1:
@@ -42,13 +56,17 @@ class ThingListView(ListView):
 
         return super().get(request, *args, **kwargs)
 
-    # manually changing data that is sent to the django template
-    def get_context_data(self, **kwargs):
-        # categories is used to create the switches
+    def get_context_data(self, **kwargs: Dict[str, Any]):
+        """Determines the variables accessible within the template for this view"""
+
         return super().get_context_data(**kwargs,
         categories=self.model.categories)
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
+        """Gets queryset, all the Thing objects to be displayed
+        Returns only the Thing objects that fit the filters in the request's querystring
+        """
+
         query_categories = self.get_query_categories()
         query_fields = self.get_query_fields()
         query_set = self.query_filter_fields(query_fields, query_categories)
@@ -82,7 +100,7 @@ class ThingListView(ListView):
 
         return query_fields
 
-    def query_filter_fields(self, query_fields: Dict[str, str], query_categories: Dict[str, str]):
+    def query_filter_fields(self, query_fields: Dict[str, str], query_categories: Dict[str, str]) -> QuerySet:
         """Returns a queryset of all objects that satisfy the querystring parameters in the URL"""
 
         cat_independent_filters = self.get_cat_independent_filters(query_fields)   
@@ -132,7 +150,9 @@ class ThingListView(ListView):
         return cat_independent_filters
 
     @staticmethod
-    def get_cat_dependent_filters(query_fields: Dict[str, str], query_categories: List[str]) -> Dict[str, Any]:
+    def get_cat_dependent_filters(query_fields: Dict[str, str],
+        query_categories: List[str]) -> Dict[str, Any]:
+        
         """Returns a dictionary of all the filters in the querystring
         of the URL that depend on a Thing's category
         """
@@ -155,20 +175,11 @@ class ThingListView(ListView):
         return cat_dependent_filters
 
     @staticmethod
-    def combine(queryset: List):
+    def combine(queryset: List) -> QuerySet:
         """Used to combine querysets in a list of querysets"""
+
         final_queryset = queryset[0]
         for query in queryset[1:]:
             final_queryset = final_queryset | query
 
         return final_queryset
-
-class PictureCreateView(LoginRequiredMixin, CreateView):
-    login_url = 'core:user_login'
-    fields = ['image']
-    model = Picture
-
-    def form_valid(self, form):
-        thing = Thing.objects.get(id=int(self.kwargs['thing_pk']))
-        form.instance.thing = thing
-        return super().form_valid(form)

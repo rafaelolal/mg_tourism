@@ -1,3 +1,5 @@
+"""Views associated with the creation of Thing children"""
+
 from django.views.generic import CreateView
 
 from core.models import Attraction, Tour, Food, Outdoor, Shopping

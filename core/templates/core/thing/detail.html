@@ -1,5 +1,7 @@
 {% extends 'core/base/base.html' %}
-{% load thing_filters %}
+
+{% load my_filters %}
+{% load my_tags %}
 {% load static %}
 
 {% block base_body %}
@@ -87,9 +89,9 @@
     <div class="col-lg-9 col-12">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-                {% if thing_detail.picture_set.all %}
+                {% if thing_detail.pictures.all %}
 
-                {% for picture in thing_detail.picture_set.all %}
+                {% for picture in thing_detail.pictures.all %}
                 {% if forloop.counter == 1 %}
                 <div class="carousel-item active">
                 {% else %}
@@ -116,7 +118,7 @@
             </a>
         </div>
     
-        <a href=" {% url "core:picture_create" thing_pk=thing_detail.id %}" class='btn btn-dark mt-2'>Add Image</a>
+        <a href=" {% url "core:picture_create" thing_pk=thing_detail.pk %}" class='btn btn-dark mt-2'>Add Image</a>
         {% if user.is_superuser %}
         <a href="{% url 'core:thing_update' pk=thing_detail.pk%}" class='btn btn-warning mt-2'>Update</a>
         <a href="{% url 'core:thing_delete' pk=thing_detail.pk%}" class='btn btn-danger mt-2'>Delete</a>
@@ -132,7 +134,7 @@
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">{{field|add_spaces}}</h5>
                         {% if field == 'stars' %}
-                        <small>{{value}} • {{thing_detail.comment_set.count}}</small>
+                        <small>{{value}} • {{thing_detail.comments.count}}</small>
                         {% endif %}
                     </div>
 
@@ -180,7 +182,7 @@
 <a href="{% url 'core:comment_create' thing_pk=thing_detail.pk %}" class='btn btn-dark'>Add Comment</a>
 {% endif %}
 
-{% for comment in thing_detail.comment_set.all|dictsortreversed:"posted_on" %}
+{% for comment in thing_detail.comments.all|dictsortreversed:"posted_on" %}
 <div class="row my-4 rows-cols-4">
     <div class="col col-3 col-md-2">
         <img src="{{comment.author.profile_pic.url}}" class="img-thumbnail">
@@ -188,11 +190,11 @@
 
     <div class="col col-9 col-md-10">
         <h5>{{comment.author.first_name}} {{comment.author.last_name}} <small> {{comment.posted_on}}{% if comment.is_edited %}, Edited{% endif %}</small></h5>
-        <a href='{% url 'core:user_detail' pk=comment.author.id%}' type="button" class="btn btn-dark btn-sm">Visit Profile</a>
+        <a href='{% url 'core:user_detail' pk=comment.author.pk%}' type="button" class="btn btn-dark btn-sm">Visit Profile</a>
         {% if comment.author.pk == user.pk %}
-        <a href='{% url 'core:comment_update' pk=comment.id thing_pk=thing_detail.id %}' type="button" class="btn btn-warning btn-sm mx-1">Edit</a>
+        <a href='{% url 'core:comment_update' pk=comment.pk thing_pk=thing_detail.pk %}' type="button" class="btn btn-warning btn-sm mx-1">Edit</a>
         {% endif %}
-        <small>{{comment.author.comment_set.count}} comments</small>
+        <small>{{comment.author.comments.count}} comments</small>
         
         <p class="starability-result mt-2" data-rating="{{comment.rating|to_int}}">
             Rated: {{comment.rating|to_int}} stars

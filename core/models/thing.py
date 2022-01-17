@@ -27,7 +27,7 @@ class Thing(models.Model):
 
     def get_picture(self):
         """Returns a random picture from a Thing to use in core:thing_list"""
-        pictures = self.picture_set.all()
+        pictures = self.pictures.all()
         if len(pictures):
             return pictures[randint(0, len(pictures)-1)]
 
@@ -119,7 +119,7 @@ class Shopping(Thing):
     good_for = CharField(max_length=64, choices=tuple_choices)
 
 class Picture(models.Model):
-    thing = ForeignKey(Thing, on_delete=models.CASCADE, null=True)
+    thing = ForeignKey(Thing, on_delete=models.CASCADE, null=True, related_name='pictures')
     image = ImageField(upload_to='thing_pics')
 
     def get_absolute_url(self):
