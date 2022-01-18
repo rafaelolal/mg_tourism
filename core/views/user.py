@@ -13,7 +13,7 @@ from core.models import UserProfile
 from core.forms import UserProfileForm
 from core.mixins import LoginRequiredMixin, IsTheUserMixin
 
-@login_required
+@login_required()
 def user_logout(request: HttpResponse) -> HttpResponse:
     """View to logout user
     Redirects user to index page
@@ -48,7 +48,7 @@ def register(request: HttpResponse) -> HttpResponse:
             user.save()
 
             registered = True
-            messages.success(request, "Thank you for registering, now login to begin experiencing Minas Gerais")
+            messages.success(request, "Thank you for registering, now login to begin experiencing Minas Gerais.")
 
         else:
             print(user_form.errors)

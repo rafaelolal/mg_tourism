@@ -1,0 +1,11 @@
+{% extends 'core/base/base.html' %}
+
+{% block base_body %}
+<div class="p-5 mb-4 bg-dark text-light  rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Server Error</h1>
+        <p class="fs-4">If you believe this was not supposed to happen, contact site administration</p>
+        <a href="{% url 'index' %}" class="btn btn-outline-light btn-lg" type="button">Back Home</a>
+    </div>
+</div>
+{% endblock base_body %}

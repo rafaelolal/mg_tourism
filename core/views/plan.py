@@ -3,8 +3,8 @@
 from django.forms import Form
 
 from django.contrib import messages
-
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView
@@ -28,7 +28,7 @@ def plan_add(request: HttpResponse, plan_pk: int, thing_pk: int) -> HttpResponse
 
     else:
         plan.things.add(thing)
-        messages.success(request, f'Successfully added thing "{thing.name}" to plan "{plan.name}"')
+        messages.success(request, f'Successfully added "{thing.name}" to "{plan.name}"')
 
     return HttpResponseRedirect(reverse('core:thing_detail', kwargs={'pk': thing.pk}))
 
@@ -42,31 +42,32 @@ def plan_remove(request: HttpResponse, plan_pk: int, thing_pk: int) -> HttpRespo
     thing = Thing.objects.get(pk=thing_pk)
     plan.things.remove(thing)
 
-    messages.success(request, f'Successfully removed thing "{thing.name}" from plan "{plan.name}"')
+    messages.success(request, f'Successfully removed "{thing.name}" from "{plan.name}"')
 
-    return HttpResponseRedirect(reverse('core:user_detail', kwargs={'pk': plan.owner.pk}) + "?my_plans")
+    return HttpResponseRedirect(request.GET.get('next'))
 
-@login_required
+@login_required()
 def plan_like(request: HttpResponse, plan_pk: int) -> HttpResponse:
     """Likes or dislikes a plan depending if the user has already liked this plan
-    If the user disliked a plan in another user's detail view, redirects them to that user's "My Plans" tab
-    If the user diliksed a plan in their own detail view, redirects them to their "Liked Plans" tab
+    Redirects user back to the view they liked the plan in
     """
+
+    print(request.GET.get('next'), 'next!')
 
     user = UserProfile.objects.get(pk=request.user.pk)
     plan = Plan.objects.get(pk=plan_pk)
     
     if not plan in user.liked.all():
         user.liked.add(plan)
-        messages.success(request, f'Successfully liked plan "{plan.name}"')
-        return HttpResponseRedirect(reverse('core:user_detail', kwargs={'pk': plan.owner.pk}) + "?my_plans")
+        messages.success(request, f'Successfully liked "{plan.name}"')
 
 
     else:
         user.liked.remove(plan)
-        messages.success(request, f'Successfully disliked plan "{plan.name}"')
-        return HttpResponseRedirect(reverse('core:user_detail', kwargs={'pk': user.pk}) + "?liked_plans")
+        messages.success(request, f'Successfully disliked "{plan.name}"')
 
+    return HttpResponseRedirect(request.GET.get('next'))
+    
 class PlanCreateView(LoginRequiredMixin, CreateView):
     login_url = 'core:user_login'
     fields = ['name', 'description', 'is_public']
@@ -84,7 +85,7 @@ class PlanCreateView(LoginRequiredMixin, CreateView):
         Sends the user back to the Thing detail view they created the project on, else redirects back to their profile view
         """
 
-        messages.success(self.request, f'Successfully created plan "{self.object.name}", now add a thing to it.')
+        messages.success(self.request, f'Successfully created "{self.object.name}", now add something to it.')
 
         thing = self.request.GET.get('thing')
         if thing:

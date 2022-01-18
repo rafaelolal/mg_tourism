@@ -16,29 +16,11 @@
     <div class="col-lg-3 col-12">
         <h3>Description</h3>
         <p>{{thing_detail.long_description}}</p>
-        {% for message in messages %}
-            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-                <div class="toast {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}text-white bg-success{% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}bg-warning{% endif %}"
-                    id="liveToast"
-                    role="alert"aria-live="assertive" aria-atomic="true">
-                    <div class="toast-header">
-                        <strong class="me-auto">MG Tourism</strong>
-                        <small>Just Now</small>
-                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                    </div>
-                    
-                    <div class="toast-body">
-                        {{message}}
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-        <!-- Button trigger modal -->
+
         <button type="button" class="btn btn-dark mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Add to Plan
         </button>
         
-        <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">

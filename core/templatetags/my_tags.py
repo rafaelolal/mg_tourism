@@ -130,9 +130,9 @@ def get_plans(user_pk: int) -> QuerySet:
 
 @register.simple_tag
 def get_top_plans() -> QuerySet:
-    """Returns a queryset of the top 4 plans by likes"""
+    """Returns a QuerySet object of the top 5 plans by likes"""
 
-    return Plan.objects.annotate(liked_count=Count('liked_by')).order_by('-liked_count')[:4]
+    return Plan.objects.annotate(liked_count=Count('liked_by')).order_by('-liked_count')[:5]
 
 @register.simple_tag
 def any_tab_selected(query: Dict[str, str]) -> str:

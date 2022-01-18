@@ -20,6 +20,29 @@
 </head>
 
 <body class="d-flex flex-column h-100">
+    {% for message in messages %}
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div class="toast {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            text-white bg-success
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            text-white bg-danger
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+            bg-warning
+            {% endif %}" id="liveToast" role="alert"aria-live="assertive" aria-atomic="true">
+            
+            <div class="toast-header">
+                <strong class="me-auto">MG Tourism</strong>
+                <small>Just Now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            
+            <div class="toast-body">
+                {{message}}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
     <main class="flex-shrink-0">
         <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
             <div class="container-fluid">

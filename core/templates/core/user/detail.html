@@ -15,35 +15,17 @@
     </symbol>
 </svg>
 
-{% for message in messages %}
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-    <div class="toast {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}text-white bg-success{% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}bg-danger{% endif %}"
-        id="liveToast"
-        role="alert"aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto">MG Tourism</strong>
-            <small>Just Now</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        
-        <div class="toast-body">
-            {{message}}
-        </div>
-    </div>
-</div>
-{% endfor %}
-
 <div class="row">
     <div class="col-lg-3 col-12">
         <div class="p-4 bg-light rounded-3 mb-4">
-            <div class="card mb-4" style="">
+            <div class="card" style="">
                 <img src="{{user_detail.profile_pic.url}}" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">{{user_detail.first_name}} {{user_detail.last_name}}</h5>
                     <p class="card-text">{{user_detail.biography}}</p>
                     {% if user.pk == user_detail.pk %}
-                        <a href="{% url 'core:user_update' pk=user_detail.pk%}" class="btn btn-dark">Edit</a>
-                        <a class='btn btn-dark m-2' href="{% url 'core:plan_create' %}">Create a Plan</a>
+                        <a href="{% url 'core:user_update' pk=user_detail.pk%}" class="btn btn-dark m-1 mb-0">Edit</a>
+                        <a href="{% url 'core:plan_create' %}" class='btn btn-dark m-1 mb-0'>Create a Plan</a>
                     {% endif %}
                 </div>
             </div>
@@ -134,7 +116,7 @@
                             </div>
                         </div>
                             
-                        <div class="alert alert-primary d-flex align-items-center" role="alert">
+                        <div class="alert alert-primary d-flex align-items-center mb-0" role="alert">
                             <a href="{% url 'core:thing_list' %}">
                                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
                             </a>
@@ -159,6 +141,8 @@
                 {% get_visible_plans user_detail.plans.all user.pk user_detail.pk as visible_plans %}
                 {% if visible_plans %}
                     {% for plan in visible_plans %}
+                    <a id="plan{{plan.pk}}"></a>
+                    <a id="plan_order{{forloop.counter}}"></a>
                     <div class="p-4 bg-light rounded-3 mb-4">
                         <div class="card text-center mb-4">
                             <div class="card-header">
@@ -176,16 +160,18 @@
                                     {% if user.is_authenticated %}
                                         {% user_liked user.pk plan.pk as user_liked %}
                                         {% if user_liked %}
-                                        <a class="btn btn-primary" href="{% url 'core:user_detail' pk=user.pk %}?liked_plans">Liked</a>
+                                        <a class="btn btn-danger" href="{% url 'core:plan_like' plan_pk=plan.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?my_plans#plan_order{{forloop.counter}}">Dislike</a>
+                                
                                         {% else %}
-                                        <a class="btn btn-success" href="{% url 'core:plan_like' plan_pk=plan.pk %}">Like</a>
+                                        <a class="btn btn-success" href="{% url 'core:plan_like' plan_pk=plan.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?my_plans#plan{{plan.pk}}">Like</a>
                                         {% endif %}
+                                    
                                     {% else %}
                                     <a class="btn btn-success" href="{% url 'core:plan_like' plan_pk=plan.pk %}">Like</a>
                                     {% endif %}
-
+                                
                                 {% else %}
-                                    <a class="btn btn-dark m-2" href="{% url 'core:plan_update' pk=plan.pk %}">Edit</a>
+                                <a class="btn btn-dark m-2" href="{% url 'core:plan_update' pk=plan.pk %}">Edit</a>
                                 {% endif %}
                             </div>
 
@@ -195,54 +181,68 @@
                         </div>
 
                         {% if plan.things.all %}
-                            <div class="row">
-                                {% for thing in plan.things.all %}
-                                <div class="col-xl-6 col-12 pb-2">
-                                    <div class="card bg-dark text-white">
-                                        {% if thing.get_picture.image.url %}
-                                            <img src={{thing.get_picture.image.url}} class="card-img img-fluid height-25%">
-                                        {% else %}
-                                            <img src="{% static 'thing_default.jpg' %}" class="card-img img-fluid">
-                                        {% endif %}
-                                        
-                                        <div class="card-img-overlay">
-                                            <h5 class="card-title">{{thing.name}}</h5>
-                                            <p class="card-text">{{thing.short_description}}</p>
-                                            <a href="{% url 'core:thing_detail' pk=thing.pk %}" class='btn btn-outline-light m-1'>Visit</a>
-                                            {% if user.pk == user_detail.pk %}
-                                            <a class="btn btn-outline-danger" href="{% url 'core:plan_remove' plan_pk=plan.pk thing_pk=thing.pk %}">Remove</a>
-                                            {% endif %}
-                                        </div>
-                    
-                                        <ul class="list-group text-dark">
-                                            {% if thing.stars %}
-                                            <a class="list-group-item" aria-current="true">
-                                                <div class="d-flex w-100 justify-content-between">
-                                                    <h5 class="mb-1">Stars</h5>
-                                                    <small>{{thing.stars}} • {{thing.comments.count}}</small>
-                                                </div>
+                        <div class="accordion" id="thing_accordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="according_heading{{forloop.counter}}}">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="false" aria-controls="collapse{{forloop.counter}}">
+                                        Things
+                                    </button>
+                                </h2>
+                            </div>
 
-                                                <p class="starability-result mb-1" data-rating="{{thing.stars|to_int}}">
-                                                Rated: {{thing.stars|to_int}} stars
-                                                </p>
-                                            </a>
+                            <div id="collapse{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="according_heading{{forloop.counter}}}" data-bs-parent="#thing_accordion">
+                                <div class="row mt-2">
+                                    {% for thing in plan.things.all %}
+                                    <div class="col-xl-6 col-12 pb-2">
+                                        <div class="card bg-dark text-white">
+                                            {% if thing.get_picture.image.url %}
+                                                <img src={{thing.get_picture.image.url}} class="card-img img-fluid height-25%">
+                                            {% else %}
+                                                <img src="{% static 'thing_default.jpg' %}" class="card-img img-fluid">
                                             {% endif %}
                                             
-                                            <a class="list-group-item" aria-current="true">
-                                                <div class="d-flex w-100 justify-content-between">
-                                                    <h5 class="mb-1">Category</h5>
-                                                </div>
-
-                                                <p>{{thing.category}}</p>
-                                            </a>
-                                        </ul>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            </div>
+                                            <div class="card-img-overlay">
+                                                <h5 class="card-title">{{thing.name}}</h5>
+                                                <p class="card-text">{{thing.short_description}}</p>
+                                                <a href="{% url 'core:thing_detail' pk=thing.pk %}" class='btn btn-outline-light m-1'>Visit</a>
+                                                {% if user.pk == user_detail.pk %}
+                                                <a href="{% url 'core:plan_remove' plan_pk=plan.pk thing_pk=thing.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?my_plans#plan{{forloop.counter}}" class="btn btn-outline-danger">
+                                                    Remove
+                                                </a>
+                                                {% endif %}
+                                            </div>
                         
+                                            <ul class="list-group text-dark">
+                                                {% if thing.stars %}
+                                                <a class="list-group-item" aria-current="true">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h5 class="mb-1">Stars</h5>
+                                                        <small>{{thing.stars}} • {{thing.comments.count}}</small>
+                                                    </div>
+    
+                                                    <p class="starability-result mb-1" data-rating="{{thing.stars|to_int}}">
+                                                    Rated: {{thing.stars|to_int}} stars
+                                                    </p>
+                                                </a>
+                                                {% endif %}
+                                                
+                                                <a class="list-group-item" aria-current="true">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h5 class="mb-1">Category</h5>
+                                                    </div>
+    
+                                                    <p>{{thing.category}}</p>
+                                                </a>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                            
                         {% else %}
-                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                        <div class="alert alert-warning d-flex align-items-center mb-0" role="alert">
                             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                             <div>
                                 This plan is empty.
@@ -258,7 +258,7 @@
                         <div class="alert alert-warning d-flex align-items-center" role="alert">
                             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                             <div>
-                                You have no plans
+                                You have no plans.
                             </div>
                         </div>
 
@@ -286,6 +286,7 @@
             <div class="tab-pane fade {{liked_is_selected}}" id="pills-liked-plans" role="tabpanel" aria-labelledby="pills-liked-plans-tab">
                 {% if user_detail.liked.all %}
                     {% for plan in user_detail.liked.all %}
+                    <a id="liked_plan{{forloop.counter}}"></a>
                     <div class="p-4 bg-light rounded-3 mb-4">
                         <div class="card text-center">
                             <div class="card-header">
@@ -295,13 +296,12 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{plan.name}}</h5>
                                 <p class="card-text">{{plan.description}}</p>
-                                {% if user.is_authenticated and user.pk == user_detail.pk %}
-                                    {% user_liked user.pk plan.pk as user_liked %}
-                                    {% if user_liked %}
-                                    <a class="btn btn-danger" href="{% url 'core:plan_like' plan_pk=plan.pk %}">Dislike</a>
-                                    {% endif %}
+                                {% if user.pk == user_detail.pk %}
+                                    <a class="btn btn-danger" href="{% url 'core:plan_like' plan_pk=plan.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?liked_plans#liked_plan{{forloop.counter|add:"-1"}}">
+                                        Dislike
+                                    </a>
                                 {% endif %}
-                                <a class="btn btn-dark" href="{% url 'core:user_detail' pk=plan.owner.pk %}?my_plans">Visit</a>
+                                <a class="btn btn-dark" href="{% url 'core:user_detail' pk=plan.owner.pk %}?my_plans#plan{{plan.pk}}">Visit</a>
                             </div>
 
                             <div class="card-footer text-muted">
@@ -320,7 +320,7 @@
                             </div>
                         </div>
 
-                        <div class="alert alert-primary d-flex align-items-center" role="alert">
+                        <div class="alert alert-primary d-flex align-items-center mb-0" role="alert">
                             <a href="{% url 'core:thing_list' %}">
                                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
                             </a>

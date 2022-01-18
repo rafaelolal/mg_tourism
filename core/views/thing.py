@@ -44,7 +44,7 @@ class ThingListView(ListView):
 
     def get(self, request: HttpResponse, *args: (Any), **kwargs: Dict[str, Any]) -> HttpResponse:
         """Gets the link to the appropriate view
-        Redirects user to the ThingListView or if there is only one Thing object in the queryset, redirects to that Thing's DetailView
+        Redirects user to the ThingListView or if there is only one Thing object in the QuerySet object, redirects to that Thing's DetailView
         Saves the user time
         """
         
@@ -63,7 +63,7 @@ class ThingListView(ListView):
         categories=self.model.categories)
 
     def get_queryset(self) -> QuerySet:
-        """Gets queryset, all the Thing objects to be displayed
+        """Gets QuerySet object, all the Thing objects to be displayed
         Returns only the Thing objects that fit the filters in the request's querystring
         """
 
@@ -101,7 +101,7 @@ class ThingListView(ListView):
         return query_fields
 
     def query_filter_fields(self, query_fields: Dict[str, str], query_categories: Dict[str, str]) -> QuerySet:
-        """Returns a queryset of all objects that satisfy the querystring parameters in the URL"""
+        """Returns a QuerySet object of all objects that satisfy the querystring parameters in the URL"""
 
         cat_independent_filters = self.get_cat_independent_filters(query_fields)   
         cat_dependent_filters = self.get_cat_dependent_filters(query_fields, query_categories)
@@ -176,7 +176,7 @@ class ThingListView(ListView):
 
     @staticmethod
     def combine(queryset: List) -> QuerySet:
-        """Used to combine querysets in a list of querysets"""
+        """Used to combine QuerySet objects in a list of QuerySet objects"""
 
         final_queryset = queryset[0]
         for query in queryset[1:]:
