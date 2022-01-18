@@ -375,8 +375,7 @@ Sends the user back to the Thing detail view they created the project on, else r
 <dt class="sig sig-object py" id="core.views.plan.plan_like">
 <span class="sig-prename descclassname"><span class="pre">core.views.plan.</span></span><span class="sig-name descname"><span class="pre">plan_like</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">django.http.response.HttpResponse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plan_pk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.http.response.HttpResponse</span></span></span><a class="headerlink" href="#core.views.plan.plan_like" title="Permalink to this definition"></a></dt>
 <dd><p>Likes or dislikes a plan depending if the user has already liked this plan
-If the user disliked a plan in another user’s detail view, redirects them to that user’s “My Plans” tab
-If the user diliksed a plan in their own detail view, redirects them to their “Liked Plans” tab</p>
+Redirects user back to the view they liked the plan in</p>
 </dd></dl>
 
 </section>
@@ -442,14 +441,14 @@ If the user diliksed a plan in their own detail view, redirects them to their �
 <dl class="py method">
 <dt class="sig sig-object py" id="core.views.thing.ThingListView.combine">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">combine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.db.models.query.QuerySet</span></span></span><a class="headerlink" href="#core.views.thing.ThingListView.combine" title="Permalink to this definition"></a></dt>
-<dd><p>Used to combine querysets in a list of querysets</p>
+<dd><p>Used to combine QuerySet objects in a list of QuerySet objects</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="core.views.thing.ThingListView.get">
 <span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">django.http.response.HttpResponse</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.http.response.HttpResponse</span></span></span><a class="headerlink" href="#core.views.thing.ThingListView.get" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the link to the appropriate view
-Redirects user to the ThingListView or if there is only one Thing object in the queryset, redirects to that Thing’s DetailView
+Redirects user to the ThingListView or if there is only one Thing object in the QuerySet object, redirects to that Thing’s DetailView
 Saves the user time</p>
 </dd></dl>
 
@@ -489,7 +488,7 @@ and their values in the querystring of the URL, except categories</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="core.views.thing.ThingListView.get_queryset">
 <span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.db.models.query.QuerySet</span></span></span><a class="headerlink" href="#core.views.thing.ThingListView.get_queryset" title="Permalink to this definition"></a></dt>
-<dd><p>Gets queryset, all the Thing objects to be displayed
+<dd><p>Gets QuerySet object, all the Thing objects to be displayed
 Returns only the Thing objects that fit the filters in the request’s querystring</p>
 </dd></dl>
 
@@ -502,7 +501,7 @@ Returns only the Thing objects that fit the filters in the request’s querystri
 <dl class="py method">
 <dt class="sig sig-object py" id="core.views.thing.ThingListView.query_filter_fields">
 <span class="sig-name descname"><span class="pre">query_filter_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_categories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.db.models.query.QuerySet</span></span></span><a class="headerlink" href="#core.views.thing.ThingListView.query_filter_fields" title="Permalink to this definition"></a></dt>
-<dd><p>Returns a queryset of all objects that satisfy the querystring parameters in the URL</p>
+<dd><p>Returns a QuerySet object of all objects that satisfy the querystring parameters in the URL</p>
 </dd></dl>
 
 <dl class="py attribute">
