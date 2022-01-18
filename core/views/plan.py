@@ -46,13 +46,11 @@ def plan_remove(request: HttpResponse, plan_pk: int, thing_pk: int) -> HttpRespo
 
     return HttpResponseRedirect(request.GET.get('next'))
 
-@login_required()
+@login_required
 def plan_like(request: HttpResponse, plan_pk: int) -> HttpResponse:
     """Likes or dislikes a plan depending if the user has already liked this plan
     Redirects user back to the view they liked the plan in
     """
-
-    print(request.GET.get('next'), 'next!')
 
     user = UserProfile.objects.get(pk=request.user.pk)
     plan = Plan.objects.get(pk=plan_pk)
@@ -66,7 +64,11 @@ def plan_like(request: HttpResponse, plan_pk: int) -> HttpResponse:
         user.liked.remove(plan)
         messages.success(request, f'Successfully disliked "{plan.name}"')
 
+    if request.GET.get('next') == '/':
+        return HttpResponseRedirect(request.GET.get('next') + "#plans")
+
     return HttpResponseRedirect(request.GET.get('next'))
+    
     
 class PlanCreateView(LoginRequiredMixin, CreateView):
     login_url = 'core:user_login'

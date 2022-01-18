@@ -41,7 +41,7 @@ SECRET_KEY = getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-LOGIN_URL = '/core/user/login/'
+LOGIN_URL = 'core:user_login'
 
 ALLOWED_HOSTS = ['arrangement-fixtures-buffer-idol.trycloudflare.com',
     'localhost',
