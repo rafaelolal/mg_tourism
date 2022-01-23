@@ -1,2 +1,4 @@
-500 error when deleting comment and going back on page, trying to delete comment again
-403 custom page
+Possible fixes.... bah dum 
+1.remove comma from sentence in features\visiting things
+2. "tab" is unecessarily hyperlinked in features\adding a comment, features\editing a comment, features\removing a Thing from a play, features\liking a Plan. featu
+3.
