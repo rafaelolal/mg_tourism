@@ -2,3 +2,21 @@ Possible fixes.... bah dum
 1.remove comma from sentence in features\visiting things
 2. "tab" is unecessarily hyperlinked in features\adding a comment, features\editing a comment, features\removing a Thing from a play, features\liking a Plan. featu
 3.
+
+- rate a thing without commenting
+- Name and email not required and bio required
+- disliking a thing means un-liking. No actual dislike
+- maybe change dislike to favorite since there is already a rating system
+- reccommendations should be sorting by rating and not alphabetically
+- search for categories
+- next to someones name add # of reviews instead of # of comments
+- min stars go over 5
+- duration specify units
+- duration while searching for a thing is buggy
+- can't search for plans
+- limited types under each category
+- idk what neighborhood is when creating a thing
+- all filters go into negatives
+- neighborhood shouldn't be required when creating a thing
+- can't search for profiles or things created under that profile
+- you can only search for plans under your own profile but it shows things instead
