@@ -1,3 +1,6 @@
+pip freeze --local > requirements.txt
+pip install -r requirements.txt
+
 python manage.py runserver --insecure
 
 Possible fixes.... bah dum 
