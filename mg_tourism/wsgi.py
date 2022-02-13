@@ -22,8 +22,7 @@ if project_path not in sys.path:
 if project_path2 not in sys.path:
     sys.path.append(project_path2)
 
-from django.core.wsgi import get_wsgi_application
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mg_tourism.settings')
 
+from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
