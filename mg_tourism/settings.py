@@ -22,12 +22,12 @@ TEMPLATE_DIR = BASE_DIR / 'templates'
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_DIR = BASE_DIR / 'static'
-STATIC_URL = 'static/'
+STATIC_URL = '/mg_tourism/static/'
 STATICFILES_DIRS = [STATIC_DIR,]
 
 MEDIA_DIR = BASE_DIR / 'media'
 MEDIA_ROOT = MEDIA_DIR
-MEDIA_URL = '/media/'
+MEDIA_URL = '/mg_tourism/media/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
