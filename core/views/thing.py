@@ -44,7 +44,8 @@ class ThingListView(ListView):
 
     def get(self, request: HttpResponse, *args: (Any), **kwargs: Dict[str, Any]) -> HttpResponse:
         """Gets the link to the appropriate view
-        Redirects user to the ThingListView or if there is only one Thing object in the QuerySet object, redirects to that Thing's DetailView
+        Redirects user to the ThingListView or if there is
+        only one Thing object in the QuerySet object, redirects to that Thing's DetailView
         Saves the user time
         """
         
