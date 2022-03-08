@@ -16,13 +16,7 @@
         
             <div class="col col-6 p-0">
                 <form action="{% url "core:thing_list" %}"class="d-flex">
-                    <input name="name" class="form-control me-2" list="datalistOptions" type="search" placeholder="Search" aria-label="Search">
-                    <datalist id="datalistOptions">
-                        {% get_all_things as things %}
-                        {% for thing in things %}
-                        <option value="{{thing.name}}"></option>
-                        {% endfor %}
-                    </datalist>
+                    <input name="search" class="form-control me-2" list="datalistOptions" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-success" type="submit">Search</button>
                 </form>
             </div>
@@ -31,6 +25,7 @@
     
     <div class="p-4 mb-4 bg-dark text-light rounded-3 ">
         <h1 class="display-5 fw-bold">Categories</h1>
+        <a href="{%url 'core:thing_list'%}"><button type="button" class="btn btn-outline-light m-2 ms-0"><h2>All</h2></button></a>
         <a href="{%url 'core:thing_list'%}?Attraction=on"><button type="button" class="btn btn-outline-light m-2 ms-0"><h2>Attractions</h2></button></a>
         <a href="{%url 'core:thing_list'%}?Food=on"><button type="button" class="btn btn-outline-light m-2 ms-0"><h2>Food</h2></button></a>
         <a href="{%url 'core:thing_list'%}?Outdoor=on"><button type="button" class="btn btn-outline-light m-2 ms-0"><h2>Outdoor Activities</h2></button></a>

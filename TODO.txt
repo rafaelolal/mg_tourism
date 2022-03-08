@@ -8,7 +8,5 @@ Possible fixes.... bah dum
 2. "tab" is unecessarily hyperlinked in features\adding a comment, features\editing a comment, features\removing a Thing from a play, features\liking a Plan. featu
 3.
 
-- rate a thing without commenting
-- search for categories
 - can't search for plans
 - you can only search for plans under your own profile but it shows things instead
