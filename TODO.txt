@@ -22,6 +22,5 @@ Possible fixes.... bah dum
 - limited types under each category
 - idk what neighborhood is when creating a thing
 - all filters go into negatives
-- neighborhood shouldn't be required when creating a thing
 - can't search for profiles or things created under that profile
 - you can only search for plans under your own profile but it shows things instead
