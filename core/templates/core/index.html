@@ -86,7 +86,7 @@
             <div class="h-100 p-4 bg-light rounded-3">
                 <a id="plans"></a>
                 <h2>Top Plans</h2>
-                <p class="fs-4">These are the top 5 plans by likes!</p>
+                <p class="fs-4">These are the top 5 plans by favorites!</p>
                 {% get_top_plans as top_plans %}
                 {% for plan in top_plans %}
                 <div class="rounded-3 mb-4">
@@ -99,20 +99,20 @@
                             <h5 class="card-title">{{plan.name}}</h5>
                             <p class="card-text">{{plan.description}}</p>
                             {% if user.is_authenticated %}
-                            {% user_liked user.pk plan.pk as user_liked %}
-                            {% if user_liked %}
-                            <a class="btn btn-danger" href="{% url 'core:plan_like' plan_pk=plan.pk %}?next={% url 'index' %}#plans">Dislike</a>
+                            {% user_favorited user.pk plan.pk as user_favorited %}
+                            {% if user_favorited %}
+                            <a class="btn btn-danger" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}?next={% url 'index' %}#plans">Unfavorite</a>
                             {% else %}
-                            <a class="btn btn-success" href="{% url 'core:plan_like' plan_pk=plan.pk %}?next={% url 'index' %}#plans">Like</a>
+                            <a class="btn btn-success" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}?next={% url 'index' %}#plans">Favorite</a>
                             {% endif %}
                             {% else %}
-                            <a class="btn btn-success" href="{% url 'core:plan_like' plan_pk=plan.pk %}?next={% url 'index' %}#plans">Like</a>
+                            <a class="btn btn-success" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}?next={% url 'index' %}#plans">Favorite</a>
                             {% endif %}
                             <a class="btn btn-dark" href="{% url 'core:user_detail' pk=plan.owner.pk %}?my_plans#plan{{plan.pk}}">Visit</a>
                         </div>
 
                         <div class="card-footer text-muted">
-                            {{plan.liked_by.all.count}} people liked this plan
+                            {{plan.favorited_by.all.count}} people favorited this plan
                         </div>
                     </div>
                 </div>

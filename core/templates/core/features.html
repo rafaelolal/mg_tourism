@@ -161,7 +161,7 @@
                         <div id="panelsStayOpen-collapseTen" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
                             <div class="accordion-body">
                                 After logging in, you can <a href="{% url 'core:plan_create' %}">create a plan</a>. You can create a plan within your profile or in the detail page of a thing by pressing the "Add to Plan" button.
-                                Plans can be public or private. Public plans are visible to all other users and can be liked by them.
+                                Plans can be public or private. Public plans are visible to all other users and can be favorited by them.
                             </div>
                         </div>
                     </div>
@@ -192,24 +192,24 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="panelsStayOpen-headingThree">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThirteen" aria-expanded="false" aria-controls="panelsStayOpen-collapseThirteen">
-                                Liking a Plan
+                                Favoriting a Plan
                             </button>
                         </h2>
                         <div id="panelsStayOpen-collapseThirteen" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
                             <div class="accordion-body">
-                                To like a plan, visit someone's profile, go under their plans tab and click the like button. You can only see and like plans that are public, and after liking a plan, it will be visible under your <a href="{% url 'core:user_detail' pk=user.pk %}?my_plans">"Liked Plans" tab</a> in your profile.
+                                To favorite a plan, visit someone's profile, go under their plans tab and click the favorite button. You can only see and favorite plans that are public, and after favoriting a plan, it will be visible under your <a href="{% url 'core:user_detail' pk=user.pk %}?my_plans">"Favorited Plans" tab</a> in your profile.
                             </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="panelsStayOpen-headingThree">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFourteen" aria-expanded="false" aria-controls="panelsStayOpen-collapseFourteen">
-                                Disliking a Plan
+                                Unfavoriting a Plan
                             </button>
                         </h2>
                         <div id="panelsStayOpen-collapseFourteen" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
                             <div class="accordion-body">
-                                You can dislike a plan by going to the <a href="{% url 'core:user_detail' pk=user.pk %}?my_plans">"Liked Plans" tab</a> of your profile and pressing the "Dislike" button.
+                                You can unfavorite a plan by going to the <a href="{% url 'core:user_detail' pk=user.pk %}?favorited_plans">"Favorited Plans" tab</a> of your profile and pressing the "Unfavorite" button.
                             </div>
                         </div>
                     </div>

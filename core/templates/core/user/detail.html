@@ -47,8 +47,8 @@
             </li>
             
             <li class="nav-item" role="presentation">
-                {% is_tab_selected "liked_plans" request.GET as liked_is_selected %}
-                <button class="nav-link {{liked_is_selected}}" id="pills-liked-plans-tab" data-bs-toggle="pill" data-bs-target="#pills-liked-plans" type="button" role="tab" aria-controls="pills-liked-plans">Liked Plans</button>
+                {% is_tab_selected "favorited_plans" request.GET as favorited_is_selected %}
+                <button class="nav-link {{favorited_is_selected}}" id="pills-favorited-plans-tab" data-bs-toggle="pill" data-bs-target="#pills-favorited-plans" type="button" role="tab" aria-controls="pills-favorited-plans">Favorited Plans</button>
             </li>
         </ul>
             
@@ -158,16 +158,16 @@
                                 <p class="card-text">{{plan.description}}</p>
                                 {% if user.pk != user_detail.pk %}
                                     {% if user.is_authenticated %}
-                                        {% user_liked user.pk plan.pk as user_liked %}
-                                        {% if user_liked %}
-                                        <a class="btn btn-danger" href="{% url 'core:plan_like' plan_pk=plan.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?my_plans#plan_order{{forloop.counter}}">Dislike</a>
+                                        {% user_favorited user.pk plan.pk as user_favorited %}
+                                        {% if user_favorited %}
+                                        <a class="btn btn-danger" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?my_plans#plan_order{{forloop.counter}}">Unfavorite</a>
                                 
                                         {% else %}
-                                        <a class="btn btn-success" href="{% url 'core:plan_like' plan_pk=plan.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?my_plans#plan{{plan.pk}}">Like</a>
+                                        <a class="btn btn-success" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?my_plans#plan{{plan.pk}}">favorite</a>
                                         {% endif %}
                                     
                                     {% else %}
-                                    <a class="btn btn-success" href="{% url 'core:plan_like' plan_pk=plan.pk %}">Like</a>
+                                    <a class="btn btn-success" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}">favorite</a>
                                     {% endif %}
                                 
                                 {% else %}
@@ -176,7 +176,7 @@
                             </div>
 
                             <div class="card-footer text-muted">
-                                {{plan.liked_by.all.count}} people liked this plan
+                                {{plan.favorited_by.all.count}} people favorited this plan
                             </div>
                         </div>
 
@@ -283,10 +283,10 @@
                 {% endif %}
             </div>
 
-            <div class="tab-pane fade {{liked_is_selected}}" id="pills-liked-plans" role="tabpanel" aria-labelledby="pills-liked-plans-tab">
-                {% if user_detail.liked.all %}
-                    {% for plan in user_detail.liked.all %}
-                    <a id="liked_plan{{forloop.counter}}"></a>
+            <div class="tab-pane fade {{favorited_is_selected}}" id="pills-favorited-plans" role="tabpanel" aria-labelledby="pills-favorited-plans-tab">
+                {% if user_detail.favorited.all %}
+                    {% for plan in user_detail.favorited.all %}
+                    <a id="favorited_plan{{forloop.counter}}"></a>
                     <div class="p-4 bg-light rounded-3 mb-4">
                         <div class="card text-center">
                             <div class="card-header">
@@ -297,15 +297,15 @@
                                 <h5 class="card-title">{{plan.name}}</h5>
                                 <p class="card-text">{{plan.description}}</p>
                                 {% if user.pk == user_detail.pk %}
-                                    <a class="btn btn-danger" href="{% url 'core:plan_like' plan_pk=plan.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?liked_plans#liked_plan{{forloop.counter|add:"-1"}}">
-                                        Dislike
+                                    <a class="btn btn-danger" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?favorited_plans#favorited_plan{{forloop.counter|add:"-1"}}">
+                                        Unfavorite
                                     </a>
                                 {% endif %}
                                 <a class="btn btn-dark" href="{% url 'core:user_detail' pk=plan.owner.pk %}?my_plans#plan{{plan.pk}}">Visit</a>
                             </div>
 
                             <div class="card-footer text-muted">
-                                {{plan.liked_by.all.count}} people liked this plan
+                                {{plan.favorited_by.all.count}} people favorited this plan
                             </div>
                         </div>
                     </div>
@@ -316,7 +316,7 @@
                         <div class="alert alert-warning d-flex align-items-center" role="alert">
                             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                             <div>
-                                You haven't liked any plans.
+                                You haven't favorited any plans.
                             </div>
                         </div>
 
@@ -333,7 +333,7 @@
                         <div class="alert alert-warning d-flex align-items-center" role="alert">
                             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                             <div>
-                                {{user_detail.first_name}} hasn't liked any plans
+                                {{user_detail.first_name}} hasn't favorited any plans
                             </div>
                         </div>
                         {% endif %}

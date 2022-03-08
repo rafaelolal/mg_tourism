@@ -114,10 +114,10 @@ def user_commented(user_pk: int, thing_pk: int) -> bool:
     return False
 
 @register.simple_tag
-def user_liked(user_pk: int, plan_pk: int) -> bool:
-    """Checks wether a user has liked a plan"""
+def user_favorited(user_pk: int, plan_pk: int) -> bool:
+    """Checks wether a user has favorited a plan"""
 
-    if Plan.objects.get(pk=plan_pk) in UserProfile.objects.get(pk=user_pk).liked.all():
+    if Plan.objects.get(pk=plan_pk) in UserProfile.objects.get(pk=user_pk).favorited.all():
         return True
 
     return False
@@ -130,15 +130,15 @@ def get_plans(user_pk: int) -> QuerySet:
 
 @register.simple_tag
 def get_top_plans() -> QuerySet:
-    """Returns a QuerySet object of the top 5 plans by likes"""
+    """Returns a QuerySet object of the top 5 plans by favorites"""
 
-    return Plan.objects.annotate(liked_count=Count('liked_by')).order_by('-liked_count')[:5]
+    return Plan.objects.annotate(favorited_count=Count('favorited_by')).order_by('-favorited_count')[:5]
 
 @register.simple_tag
 def any_tab_selected(query: Dict[str, str]) -> str:
     """Checks wether the user is looking at a tab other than the main "Visited" tab on a UserProfile detail view"""
 
-    if 'my_plans' in query or 'liked_plans' in query:
+    if 'my_plans' in query or 'favorited_plans' in query:
         return ""
     
     return 'show active'

@@ -33,7 +33,7 @@ urlpatterns = [
     path('plan/<str:plan_pk>/remove/thing/<str:thing_pk>/', views.plan_remove, name="plan_remove"),
     path('delete/plan/<str:pk>/', views.PlanDeleteView.as_view(), name='plan_delete'),
     path('update/plan/<str:pk>/', views.PlanUpdateView.as_view(), name='plan_update'),
-    path('like/plan/<str:plan_pk>/', views.plan_like, name="plan_like"),
+    path('favorite/plan/<str:plan_pk>/', views.plan_favorite, name="plan_favorite"),
 
     path('create/picture/thing/<str:thing_pk>/', views.PictureCreateView.as_view(), name='picture_create'),
 ]
