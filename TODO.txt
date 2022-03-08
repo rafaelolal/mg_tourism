@@ -9,16 +9,6 @@ Possible fixes.... bah dum
 3.
 
 - rate a thing without commenting
-- Name and email not required and bio required
-- reccommendations should be sorting by rating and not alphabetically
 - search for categories
-- next to someones name add # of reviews instead of # of comments
-- min stars go over 5
-- duration specify units
-- duration while searching for a thing is buggy
 - can't search for plans
-- limited types under each category
-- idk what neighborhood is when creating a thing
-- all filters go into negatives
-- can't search for profiles or things created under that profile
 - you can only search for plans under your own profile but it shows things instead
