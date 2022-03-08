@@ -10,8 +10,6 @@ Possible fixes.... bah dum
 
 - rate a thing without commenting
 - Name and email not required and bio required
-- disliking a thing means un-liking. No actual dislike
-- maybe change dislike to favorite since there is already a rating system
 - reccommendations should be sorting by rating and not alphabetically
 - search for categories
 - next to someones name add # of reviews instead of # of comments
