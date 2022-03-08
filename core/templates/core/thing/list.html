@@ -15,13 +15,13 @@
             <p>Remember to apply changes.</p>
             <form class='py-2 text-dark'>
                 <div class="form-floating mb-2">
-                    {% get_param_value 'name' request.GET as name_selected %}
-                    {% if name_selected %}
-                        <input value="{{name_selected}}" name="name" type="text" class="form-control" id="name_text">
+                    {% get_param_value 'search' request.GET as search_selected %}
+                    {% if search_selected %}
+                        <input value="{{search_selected}}" name="search" type="text" class="form-control" id="search_text">
                     {% else %}
-                        <input name="name" type="text" class="form-control" id="name_text">
+                        <input name="search" type="text" class="form-control" id="search_text">
                     {% endif %}
-                    <label for="name_text">Name</label>
+                    <label for="search_text">Search</label>
                 </div>
 
                 {% for category in categories %}
@@ -128,6 +128,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-outline-light">Apply Filters</button>
+                <a class="btn btn-outline-light" href="{% url 'core:thing_list' %}">Clear Filters</a>
             </form>
         </div>
     </div>

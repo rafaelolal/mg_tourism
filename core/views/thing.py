@@ -4,6 +4,7 @@ from datetime import timedelta
 
 from typing import Any, Dict, List
 from django.db.models.query import QuerySet
+from django.db.models import Q
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -104,10 +105,32 @@ class ThingListView(ListView):
     def query_filter_fields(self, query_fields: Dict[str, str], query_categories: Dict[str, str]) -> QuerySet:
         """Returns a QuerySet object of all objects that satisfy the querystring parameters in the URL"""
 
+        search_filters = self.get_search_filters(query_fields, query_categories)
         cat_independent_filters = self.get_cat_independent_filters(query_fields)   
         cat_dependent_filters = self.get_cat_dependent_filters(query_fields, query_categories)
 
-        things = self.model.objects.all().filter(**cat_independent_filters)
+        ###########################
+
+        things = None
+        or_filters = list(search_filters.items())
+        if search_filters:
+            for i, f in enumerate(search_filters):
+                try:
+                    if not things:
+                        things = self.model.objects.all().filter(**dict(or_filters[i:i+1]))
+
+                    else:
+                        things |= self.model.objects.all().filter(**dict(or_filters[i:i+1]))
+                except:
+                    pass
+
+        else:
+            things = self.model.objects.all()
+
+        things = things.filter(**cat_independent_filters)
+
+        ###########################
+
         query_sets = []
         for category in query_categories:
             apply_on = things.filter(category=category)
@@ -129,6 +152,26 @@ class ThingListView(ListView):
         else:
             return things
 
+
+    @staticmethod
+    def get_search_filters(query_fields, query_categories):
+        search_filters = {}
+
+        if 'search' in query_fields:
+            search_filters[f'name__contains'] = query_fields['search']
+            search_filters[f'address__contains'] = query_fields['search']
+            search_filters[f'category__contains'] = query_fields['search']
+            search_filters[f'short_description__contains'] = query_fields['search']
+
+            for category in query_categories:
+                for field, field_type in [(field.name, field.get_internal_type()) for field in eval(f'{category}._meta.fields')]:
+                    if field != 'long_description':
+                        search_filters[f'{category.lower()}__{field}__contains'] = query_fields['search']                  
+                
+            del query_fields['search']
+
+        return search_filters
+
     @staticmethod
     def get_cat_independent_filters(query_fields: Dict[str, str]) -> Dict[str, Any]:
         """Returns a dictionary of all the filters in the querystring
@@ -143,10 +186,6 @@ class ThingListView(ListView):
         if 'stars' in query_fields:
             cat_independent_filters[f'stars__gte'] = float(query_fields['stars'])
             del query_fields['stars']
-
-        if 'name' in query_fields:
-            cat_independent_filters[f'name__contains'] = query_fields['name']
-            del query_fields['name']
 
         return cat_independent_filters
 
