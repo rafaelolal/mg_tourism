@@ -12,24 +12,24 @@ from django.db.models.fields.related import ForeignKey
 from .thing import Thing
 from .user import UserProfile
 
-class Comment(models.Model):
+class Review(models.Model):
     title = CharField(max_length=128)
     content = TextField(max_length=4096)
     rating = SmallIntegerField(validators=[MaxValueValidator(limit_value=5), MinValueValidator(limit_value=1)])    
     posted_on = DateField(default=timezone.now)
     is_edited = BooleanField(default=False)
 
-    thing = ForeignKey(Thing, on_delete=models.CASCADE, related_name="comments")
-    author = ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="comments")
+    thing = ForeignKey(Thing, on_delete=models.CASCADE, related_name="reviews")
+    author = ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="reviews")
 
     def save(self, *args, **kwargs) -> None:
-        """Updates the average rating of a Thing when a new comment is created"""
+        """Updates the average rating of a Thing when a new review is created"""
 
-        if Comment.objects.filter(pk=self.pk).exists():
-            average = mean([getattr(comment, 'rating') for comment in self.thing.comments.exclude(pk=self.pk)] + [self.rating])
+        if Review.objects.filter(pk=self.pk).exists():
+            average = mean([getattr(review, 'rating') for review in self.thing.reviews.exclude(pk=self.pk)] + [self.rating])
 
         else:
-            average = mean([getattr(comment, 'rating') for comment in self.thing.comments.all()] + [self.rating])
+            average = mean([getattr(review, 'rating') for review in self.thing.reviews.all()] + [self.rating])
         
         self.thing.stars = average
         self.thing.save()

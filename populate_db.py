@@ -10,7 +10,7 @@ django.setup()
 
 from core.models import (Thing,
     Tour, Attraction, Food, Outdoor, Shopping,
-    Picture, UserProfile, Comment, Plan)
+    Picture, UserProfile, Review, Plan)
 
 from django.core.files import File
 from faker import Faker
@@ -206,19 +206,19 @@ class FakeUserGenerator:
 
         user.save()
 
-class FakeCommentGenerator:
+class FakeReviewGenerator:
     def __init__(self, users):
         self.users = users
 
     def generate(self) -> None:
-        """Generates fake comments for every user"""
+        """Generates fake reviews for every user"""
 
         for user in self.users:
-            FakeCommentGenerator.create(user)
+            FakeReviewGenerator.create(user)
 
     @staticmethod
     def create(user: UserProfile, max_n: int = 5) -> None:
-        """Creates a random amount of fake comments on unique things"""
+        """Creates a random amount of fake reviews on unique things"""
 
         n = random.randint(1, max_n)
         things = random.choices(Thing.objects.all(), k=n)
@@ -227,7 +227,7 @@ class FakeCommentGenerator:
             content = f_us.paragraph(nb_sentences=24)
             rating = random.randint(1, 5)
 
-            comment = Comment.objects.get_or_create(title=title,
+            review = Review.objects.get_or_create(title=title,
                 content=content,
                 rating=rating,
                 thing=thing,
@@ -235,7 +235,7 @@ class FakeCommentGenerator:
                 is_edited=random.choice([False, False, True]),
                 posted_on=datetime.date(year=2020, month=1, day=1) + datetime.timedelta(days=random.randint(0, 741)))[0]
 
-            comment.save()
+            review.save()
 
 class FakePlanGenerator:
     def __init__(self, users):
@@ -294,7 +294,7 @@ if __name__ == "__main__":
     
     # FakeThingGenerator(N=20).generate()
     FakeUserGenerator().generate()
-    FakeCommentGenerator(UserProfile.objects.all()).generate()
+    FakeReviewGenerator(UserProfile.objects.all()).generate()
     FakePlanGenerator(UserProfile.objects.all()).generate()
     
     print("Finished populating.")

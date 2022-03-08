@@ -22,9 +22,9 @@ def get_all_things() -> QuerySet:
 
 @register.simple_tag
 def get_top_things() -> QuerySet:
-    """Returns a QuerySet object with the top 3 things by comment count"""
+    """Returns a QuerySet object with the top 3 things by review count"""
 
-    return Thing.objects.annotate(comment_count=Count('comments')).order_by('-comment_count')[:3]
+    return Thing.objects.annotate(review_count=Count('reviews')).order_by('-review_count')[:3]
 
 @register.simple_tag
 def is_checked(select_filter: str, checked: Dict[str, str]) -> Union[None, str]:
@@ -105,10 +105,10 @@ def get_owner(pk: int) -> UserProfile:
     return UserProfile.objects.get(pk=pk)
 
 @register.simple_tag
-def user_commented(user_pk: int, thing_pk: int) -> bool:
-    """Checks wether a user has commented on a thing"""
+def user_reviewed(user_pk: int, thing_pk: int) -> bool:
+    """Checks wether a user has reviewed on a thing"""
 
-    if UserProfile.objects.get(pk=user_pk).comments.filter(thing__pk=thing_pk).exists():
+    if UserProfile.objects.get(pk=user_pk).reviews.filter(thing__pk=thing_pk).exists():
         return True
 
     return False

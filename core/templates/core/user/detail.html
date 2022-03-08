@@ -55,33 +55,33 @@
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade {{tab_selected}}" id="pills-visited" role="tabpanel" aria-labelledby="pills-visited-tab">
                 <div class="p-4 bg-light rounded-3">
-                    {% if user_detail.comments.all %}
+                    {% if user_detail.reviews.all %}
                     <h1>Places Visited</h1>
                     <div class="row">
-                    {% for comment in user_detail.comments.all|dictsortreversed:'posted_on' %}
+                    {% for review in user_detail.reviews.all|dictsortreversed:'posted_on' %}
                         <div class="col-xl-6 col-12 pb-2">
                             <div class="card bg-dark text-white">
-                                {% if comment.thing.get_picture.image.url %}
-                                    <img src={{comment.thing.get_picture.image.url}} class="card-img img-fluid height-25%">
+                                {% if review.thing.get_picture.image.url %}
+                                    <img src={{review.thing.get_picture.image.url}} class="card-img img-fluid height-25%">
                                 {% else %}
                                     <img src="{% static 'thing_default.jpg' %}" class="card-img img-fluid">
                                 {% endif %}
                                 
                                 <div class="card-img-overlay">
-                                    <h5 class="card-title">{{comment.thing.name}}</h5>
-                                    <p class="card-text">{{comment.thing.short_description}}</p>
-                                    <a href="{% url 'core:thing_detail' pk=comment.thing.pk %}" class='btn btn-outline-light m-1'>Visit</a>                                        
+                                    <h5 class="card-title">{{review.thing.name}}</h5>
+                                    <p class="card-text">{{review.thing.short_description}}</p>
+                                    <a href="{% url 'core:thing_detail' pk=review.thing.pk %}" class='btn btn-outline-light m-1'>Visit</a>                                        
                                 </div>
             
                                 <ul class="list-group text-dark">
                                     <a class="list-group-item" aria-current="true">
                                         <div class="d-flex w-100 justify-content-between">
                                           <h5 class="mb-1">Stars</h5>
-                                          <small>{{comment.thing.stars}} • {{comment.thing.comments.count}}</small>
+                                          <small>{{review.thing.stars}} • {{review.thing.reviews.count}}</small>
                                         </div>
 
-                                        <p class="starability-result mb-1" data-rating="{{comment.thing.stars|to_int}}">
-                                        Rated: {{comment.thing.stars|to_int}} stars
+                                        <p class="starability-result mb-1" data-rating="{{review.thing.stars|to_int}}">
+                                        Rated: {{review.thing.stars|to_int}} stars
                                         </p>
                                     </a>
                                     
@@ -90,8 +90,8 @@
                                           <h5 class="mb-1">{{ user_detail.first_name|make_possessive }} rating</h5>
                                         </div>
 
-                                        <p class="starability-result mb-1" data-rating="{{comment.rating|to_int}}">
-                                        Rated: {{comment.rating|to_int}} stars
+                                        <p class="starability-result mb-1" data-rating="{{review.rating|to_int}}">
+                                        Rated: {{review.rating|to_int}} stars
                                         </p>
                                     </a>
     
@@ -100,7 +100,7 @@
                                           <h5 class="mb-1">Category</h5>
                                         </div>
 
-                                        <p>{{comment.thing.category}}</p>
+                                        <p>{{review.thing.category}}</p>
                                     </a>
                                 </ul>
                             </div>
@@ -217,7 +217,7 @@
                                                 <a class="list-group-item" aria-current="true">
                                                     <div class="d-flex w-100 justify-content-between">
                                                         <h5 class="mb-1">Stars</h5>
-                                                        <small>{{thing.stars}} • {{thing.comments.count}}</small>
+                                                        <small>{{thing.stars}} • {{thing.reviews.count}}</small>
                                                     </div>
     
                                                     <p class="starability-result mb-1" data-rating="{{thing.stars|to_int}}">
