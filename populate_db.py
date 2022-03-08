@@ -292,7 +292,7 @@ categories = {'Tour': FakeThingGenerator.generate_tour_specific_fields,
 if __name__ == "__main__":
     print("Started populating.")
     
-    # FakeThingGenerator(N=20).generate()
+    FakeThingGenerator(N=20).generate()
     FakeUserGenerator().generate()
     FakeReviewGenerator(UserProfile.objects.all()).generate()
     FakePlanGenerator(UserProfile.objects.all()).generate()
