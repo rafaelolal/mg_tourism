@@ -100,6 +100,21 @@ def get_thing(pk: int) -> Thing:
     return Thing.objects.get(pk=pk)
 
 @register.simple_tag
+def get_things_near(thing: Thing) -> Thing:
+    """Returns up to 5 Thing objects that match the given neighborhood"""
+
+    categories = Thing.categories.copy()
+    categories.remove('Tour')
+    things = None
+    for category in categories:
+        if not things:
+            things = Thing.objects.all().filter(**{f'{category.lower()}__neighborhood': eval(f'thing.{thing.category.lower()}.neighborhood')})
+        else:
+            things |= Thing.objects.all().filter(**{f'{category.lower()}__neighborhood': eval(f'thing.{thing.category.lower()}.neighborhood')})
+    
+    return things.exclude(pk=thing.pk)
+
+@register.simple_tag
 def get_owner(pk: int) -> UserProfile:
     """Returns a UserProfile object with the given pk"""
     return UserProfile.objects.get(pk=pk)
@@ -161,3 +176,29 @@ def get_visible_plans(plans: QuerySet, user_viewing_pk: int, user_detail_pk: int
     
     else:
         return plans.exclude(is_public=False)
+
+@register.simple_tag
+def get_sorts() -> List[str]:
+    """Returns all sorts possible"""
+
+    sorts = ['Quality', 'Popularity']
+    return sorts
+
+@register.simple_tag
+def things_sorted_by(sort_by: str) -> QuerySet:
+    """Converts a sort option to the corresponding Thing field"""
+    
+    conversions = {'Name': 'name', 'Quality': 'stars', 'Popularity': 'reviews.count'}
+    if not sort_by:
+        things = Thing.objects.order_by('name')
+
+    elif sort_by == 'Popularity':
+        things = Thing.objects.annotate(review_count=Count('reviews')).order_by('review_count')
+    
+    else:
+        things = Thing.objects.order_by(conversions[sort_by])
+    
+    if sort_by in ('Quality', 'Popularity'):
+        return things.reverse()
+
+    return things
