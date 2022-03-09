@@ -25,7 +25,6 @@
                     <p class="card-text">{{user_detail.biography}}</p>
                     {% if user.pk == user_detail.pk %}
                         <a href="{% url 'core:user_update' pk=user_detail.pk%}" class="btn btn-dark m-1 mb-0">Edit</a>
-                        <a href="{% url 'core:plan_create' %}" class='btn btn-dark m-1 mb-0'>Create a Plan</a>
                     {% endif %}
                 </div>
             </div>
@@ -138,6 +137,9 @@
             </div>
 
             <div class="tab-pane fade {{my_is_selected}}" id="pills-my-plans" role="tabpanel" aria-labelledby="pills-my-plans-tab">
+                {% if user.pk == user_detail.pk %}
+                <a href="{% url 'core:plan_create' %}" class='btn btn-dark m-4'>Create a Plan</a>
+                {% endif %}
                 {% get_visible_plans user_detail.plans.all user.pk user_detail.pk as visible_plans %}
                 {% if visible_plans %}
                     {% for plan in visible_plans %}
@@ -245,7 +247,7 @@
                         <div class="alert alert-warning d-flex align-items-center mb-0" role="alert">
                             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                             <div>
-                                This plan is empty.
+                                Visit a thing and click the "Add Plan" button.
                             </div>
                         </div>
                         {% endif %}
