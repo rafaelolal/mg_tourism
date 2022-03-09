@@ -24,6 +24,28 @@
                     <label for="search_text">Search</label>
                 </div>
 
+                <div class="form-floating">
+                    <select name="sort" class="form-select mb-2" id="sort_select">
+                        {% get_param_value 'sort' request.GET as sort_selected %}
+                        {% if sort_selected %}
+                            <option>Name</option>
+                        {% else %}
+                            <option selected>Name</option>
+                        {% endif %}
+    
+                        {% get_sorts as sorts %}
+                        {% for sort in sorts %}
+                            {% if sort_selected == sort %}
+                                <option selected value="{{sort}}">{{sort}}</option>
+                            {% else %}
+                                <option value="{{sort}}">{{sort}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <label for="sort_select">Sort By</label>
+                    
+                </div>
+
                 {% for category in categories %}
                     <div class="form-check text-light form-switch">
                         <input {% is_checked category request.GET %} name="{{category}}" id="switch{{forloop.counter}}" class="form-check-input" type="checkbox" role="switch">
@@ -127,8 +149,8 @@
                     </label>
                 </div>
 
-                <button type="submit" class="btn btn-outline-light">Apply Filters</button>
-                <a class="btn btn-outline-light" href="{% url 'core:thing_list' %}">Clear Filters</a>
+                <button type="submit" class="btn btn-outline-light">Apply</button>
+                <a class="btn btn-outline-light" href="{% url 'core:thing_list' %}">Clear</a>
             </form>
         </div>
     </div>
@@ -137,7 +159,9 @@
         <div class="p-4 bg-light rounded-3">
             <div class="row">
                 {% if thing_list %}
-                {% for thing in thing_list|dictsort:"name" %}
+                {% get_param_value 'sort' request.GET as sort_selected %}
+                {% things_sorted_by sort_selected as sorted_things %}
+                {% for thing in sorted_things %}
                 <div class="col-lg-6 col-12 pb-2">
                     <div class="card bg-dark text-white">
                         {% if thing.get_picture.image.url %}
