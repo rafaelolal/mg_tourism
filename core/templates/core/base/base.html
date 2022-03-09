@@ -44,7 +44,7 @@
     {% endfor %}
 
     <main class="flex-shrink-0">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{%url 'index'%}">MG Tourism</a>
                 
@@ -130,7 +130,7 @@
         </nav>
     </main>
       
-    <div class="container py-4">
+    <div class="container py-4 mt-5">
         {% block base_body %}
         {% endblock base_body %}
     </div>

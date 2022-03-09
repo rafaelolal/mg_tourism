@@ -1,0 +1,9 @@
+{% extends 'core/base/confirm_delete.html' %}
+
+{% block delete_body %}
+<h1>Delete the review "{{review.title}}" on "{{review.thing.name}}"?</h1>
+{% endblock delete_body %}
+
+{% block cancel_button %}
+<a href="{%url 'core:review_update' pk=review.pk thing_pk=review.thing.pk %}" class="btn btn-success">Cancel</a>
+{% endblock cancel_button %}

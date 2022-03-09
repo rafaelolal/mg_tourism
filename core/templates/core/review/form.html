@@ -1,0 +1,28 @@
+{% extends 'core/base/form.html' %}
+
+{% load my_tags %}
+
+
+{% block form_body %}
+{% get_thing view.kwargs.thing_pk as thing %}
+<h1>Review on "{{thing.name}}"</h1>
+
+{% get_thing view.kwargs.thing_pk as thing %}
+<a href="{% url 'core:thing_detail' pk=thing.pk%}"><button class="btn btn-warning mb-2" type="button">Cancel</button></a>
+{% if review %}
+<a href="{%url 'core:review_delete' pk=review.pk%}" class="btn btn-danger mb-2" type="button">Delete</a>
+{% endif %}
+{% endblock form_body %}
+
+{% block form_fields %}
+
+<fieldset class="starability-basic">
+    <h6>Rating*</h6>
+    <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" {% if not review %}checked{% endif %} aria-label="No rating." />
+    {% for i in '12345'|make_list %}
+    <input type="radio" id="first-rate{{forloop.counter}}" name="rating" value="{{forloop.counter}}" {% if review and review.rating == forloop.counter %}checked{% endif %} />
+    <label for="first-rate{{forloop.counter}}">{{forloop.counter}} star</label>
+    {% endfor %}
+</fieldset>
+
+{% endblock form_fields %}

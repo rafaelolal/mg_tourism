@@ -16,13 +16,7 @@
         
             <div class="col col-6 p-0">
                 <form action="{% url "core:thing_list" %}"class="d-flex">
-                    <input name="name" class="form-control me-2" list="datalistOptions" type="search" placeholder="Search" aria-label="Search">
-                    <datalist id="datalistOptions">
-                        {% get_all_things as things %}
-                        {% for thing in things %}
-                        <option value="{{thing.name}}"></option>
-                        {% endfor %}
-                    </datalist>
+                    <input name="search" class="form-control me-2" list="datalistOptions" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-success" type="submit">Search</button>
                 </form>
             </div>
@@ -31,6 +25,7 @@
     
     <div class="p-4 mb-4 bg-dark text-light rounded-3 ">
         <h1 class="display-5 fw-bold">Categories</h1>
+        <a href="{%url 'core:thing_list'%}"><button type="button" class="btn btn-outline-light m-2 ms-0"><h2>All</h2></button></a>
         <a href="{%url 'core:thing_list'%}?Attraction=on"><button type="button" class="btn btn-outline-light m-2 ms-0"><h2>Attractions</h2></button></a>
         <a href="{%url 'core:thing_list'%}?Food=on"><button type="button" class="btn btn-outline-light m-2 ms-0"><h2>Food</h2></button></a>
         <a href="{%url 'core:thing_list'%}?Outdoor=on"><button type="button" class="btn btn-outline-light m-2 ms-0"><h2>Outdoor Activities</h2></button></a>
@@ -41,7 +36,7 @@
     <div class="row align-items-md-stretch">
         <div class="col-xl-6 col-12 mb-4">
             <div class="h-100 p-4 bg-light rounded-3">
-                <h2>Popular Things</h2>
+                <h2>Popular Things <a href="{%url 'core:thing_list'%}?sort=Popularity"><button type="button" class="btn btn-sm btn-outline-dark m-2 ms-0">See All</button></a></h2>
                 <p class="fs-4">These are the top 3 things by rating amount!</p>
                 {% get_top_things as top_things %}
                 {% for thing in top_things %}
@@ -62,7 +57,7 @@
                         <a class="list-group-item text-dark" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">Stars</h5>
-                                <small>{{thing.stars}} • {{thing.comments.count}}</small>
+                                <small>{{thing.stars}} • {{thing.reviews.count}}</small>
                             </div>
 
                             <p class="starability-result mb-1" data-rating="{{thing.stars|to_int}}">
@@ -86,7 +81,7 @@
             <div class="h-100 p-4 bg-light rounded-3">
                 <a id="plans"></a>
                 <h2>Top Plans</h2>
-                <p class="fs-4">These are the top 5 plans by likes!</p>
+                <p class="fs-4">These are the top 5 plans by favorites!</p>
                 {% get_top_plans as top_plans %}
                 {% for plan in top_plans %}
                 <div class="rounded-3 mb-4">
@@ -99,20 +94,20 @@
                             <h5 class="card-title">{{plan.name}}</h5>
                             <p class="card-text">{{plan.description}}</p>
                             {% if user.is_authenticated %}
-                            {% user_liked user.pk plan.pk as user_liked %}
-                            {% if user_liked %}
-                            <a class="btn btn-danger" href="{% url 'core:plan_like' plan_pk=plan.pk %}?next={% url 'index' %}#plans">Dislike</a>
+                            {% user_favorited user.pk plan.pk as user_favorited %}
+                            {% if user_favorited %}
+                            <a class="btn btn-danger" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}?next={% url 'index' %}#plans">Unfavorite</a>
                             {% else %}
-                            <a class="btn btn-success" href="{% url 'core:plan_like' plan_pk=plan.pk %}?next={% url 'index' %}#plans">Like</a>
+                            <a class="btn btn-success" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}?next={% url 'index' %}#plans">Favorite</a>
                             {% endif %}
                             {% else %}
-                            <a class="btn btn-success" href="{% url 'core:plan_like' plan_pk=plan.pk %}?next={% url 'index' %}#plans">Like</a>
+                            <a class="btn btn-success" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}?next={% url 'index' %}#plans">Favorite</a>
                             {% endif %}
                             <a class="btn btn-dark" href="{% url 'core:user_detail' pk=plan.owner.pk %}?my_plans#plan{{plan.pk}}">Visit</a>
                         </div>
 
                         <div class="card-footer text-muted">
-                            {{plan.liked_by.all.count}} people liked this plan
+                            {{plan.favorited_by.all.count}} people favorited this plan
                         </div>
                     </div>
                 </div>

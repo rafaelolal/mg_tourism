@@ -22,9 +22,9 @@ def get_all_things() -> QuerySet:
 
 @register.simple_tag
 def get_top_things() -> QuerySet:
-    """Returns a QuerySet object with the top 3 things by comment count"""
+    """Returns a QuerySet object with the top 3 things by review count"""
 
-    return Thing.objects.annotate(comment_count=Count('comments')).order_by('-comment_count')[:3]
+    return Thing.objects.annotate(review_count=Count('reviews')).order_by('-review_count')[:3]
 
 @register.simple_tag
 def is_checked(select_filter: str, checked: Dict[str, str]) -> Union[None, str]:
@@ -100,24 +100,39 @@ def get_thing(pk: int) -> Thing:
     return Thing.objects.get(pk=pk)
 
 @register.simple_tag
+def get_things_near(thing: Thing) -> QuerySet:
+    """Returns up to 5 Thing objects that match the given neighborhood"""
+
+    categories = Thing.categories.copy()
+    categories.remove('Tour')
+    things = None
+    for category in categories:
+        if not things:
+            things = Thing.objects.all().filter(**{f'{category.lower()}__neighborhood': eval(f'thing.{thing.category.lower()}.neighborhood')})
+        else:
+            things |= Thing.objects.all().filter(**{f'{category.lower()}__neighborhood': eval(f'thing.{thing.category.lower()}.neighborhood')})
+    
+    return things.exclude(pk=thing.pk)
+
+@register.simple_tag
 def get_owner(pk: int) -> UserProfile:
     """Returns a UserProfile object with the given pk"""
     return UserProfile.objects.get(pk=pk)
 
 @register.simple_tag
-def user_commented(user_pk: int, thing_pk: int) -> bool:
-    """Checks wether a user has commented on a thing"""
+def user_reviewed(user_pk: int, thing_pk: int) -> bool:
+    """Checks wether a user has reviewed on a thing"""
 
-    if UserProfile.objects.get(pk=user_pk).comments.filter(thing__pk=thing_pk).exists():
+    if UserProfile.objects.get(pk=user_pk).reviews.filter(thing__pk=thing_pk).exists():
         return True
 
     return False
 
 @register.simple_tag
-def user_liked(user_pk: int, plan_pk: int) -> bool:
-    """Checks wether a user has liked a plan"""
+def user_favorited(user_pk: int, plan_pk: int) -> bool:
+    """Checks wether a user has favorited a plan"""
 
-    if Plan.objects.get(pk=plan_pk) in UserProfile.objects.get(pk=user_pk).liked.all():
+    if Plan.objects.get(pk=plan_pk) in UserProfile.objects.get(pk=user_pk).favorited.all():
         return True
 
     return False
@@ -130,15 +145,15 @@ def get_plans(user_pk: int) -> QuerySet:
 
 @register.simple_tag
 def get_top_plans() -> QuerySet:
-    """Returns a QuerySet object of the top 5 plans by likes"""
+    """Returns a QuerySet object of the top 5 plans by favorites"""
 
-    return Plan.objects.annotate(liked_count=Count('liked_by')).order_by('-liked_count')[:5]
+    return Plan.objects.annotate(favorited_count=Count('favorited_by')).order_by('-favorited_count')[:5]
 
 @register.simple_tag
 def any_tab_selected(query: Dict[str, str]) -> str:
     """Checks wether the user is looking at a tab other than the main "Visited" tab on a UserProfile detail view"""
 
-    if 'my_plans' in query or 'liked_plans' in query:
+    if 'my_plans' in query or 'favorited_plans' in query:
         return ""
     
     return 'show active'
@@ -161,3 +176,29 @@ def get_visible_plans(plans: QuerySet, user_viewing_pk: int, user_detail_pk: int
     
     else:
         return plans.exclude(is_public=False)
+
+@register.simple_tag
+def get_sorts() -> List[str]:
+    """Returns all sorts possible"""
+
+    sorts = ['Quality', 'Popularity']
+    return sorts
+
+@register.simple_tag
+def things_sorted_by(sort_by: str, things: QuerySet) -> QuerySet:
+    """Converts a sort option to the corresponding Thing field"""
+    
+    conversions = {'Name': 'name', 'Quality': 'stars', 'Popularity': 'reviews.count'}
+    if not sort_by:
+        things = things.order_by('name')
+
+    elif sort_by == 'Popularity':
+        things = things.annotate(review_count=Count('reviews')).order_by('review_count')
+    
+    else:
+        things = things.order_by(conversions[sort_by])
+    
+    if sort_by in ('Quality', 'Popularity'):
+        return things.reverse()
+
+    return things

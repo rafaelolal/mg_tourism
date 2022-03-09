@@ -15,18 +15,40 @@
             <p>Remember to apply changes.</p>
             <form class='py-2 text-dark'>
                 <div class="form-floating mb-2">
-                    {% get_param_value 'name' request.GET as name_selected %}
-                    {% if name_selected %}
-                        <input value="{{name_selected}}" name="name" type="text" class="form-control" id="name_text">
+                    {% get_param_value 'search' request.GET as search_selected %}
+                    {% if search_selected %}
+                        <input value="{{search_selected}}" name="search" type="text" class="form-control" id="search_text">
                     {% else %}
-                        <input name="name" type="text" class="form-control" id="name_text">
+                        <input name="search" type="text" class="form-control" id="search_text">
                     {% endif %}
-                    <label for="name_text">Name</label>
+                    <label for="search_text">Search</label>
+                </div>
+
+                <div class="form-floating">
+                    <select onchange="this.form.submit()" name="sort" class="form-select mb-2" id="sort_select">
+                        {% get_param_value 'sort' request.GET as sort_selected %}
+                        {% if sort_selected %}
+                            <option>Name</option>
+                        {% else %}
+                            <option selected>Name</option>
+                        {% endif %}
+    
+                        {% get_sorts as sorts %}
+                        {% for sort in sorts %}
+                            {% if sort_selected == sort %}
+                                <option selected value="{{sort}}">{{sort}}</option>
+                            {% else %}
+                                <option value="{{sort}}">{{sort}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <label for="sort_select">Sort By</label>
+                    
                 </div>
 
                 {% for category in categories %}
                     <div class="form-check text-light form-switch">
-                        <input {% is_checked category request.GET %} name="{{category}}" id="switch{{forloop.counter}}" class="form-check-input" type="checkbox" role="switch">
+                        <input onchange="this.form.submit()" {% is_checked category request.GET %} name="{{category}}" id="switch{{forloop.counter}}" class="form-check-input" type="checkbox" role="switch">
                         <label class="form-check-label" for="switch{{forloop.counter}}">{{category}}</label>
                     </div>
                 {% endfor %}
@@ -43,7 +65,7 @@
             
                 
                 <div class="form-floating">
-                    <select name="type" class="form-select mb-2" id="type_select">
+                    <select onchange="this.form.submit()" name="type" class="form-select mb-2" id="type_select">
                     {% get_param_value 'type' request.GET as type_selected %}
                     {% if type_selected %}
                         <option>Any</option>
@@ -76,7 +98,7 @@
                     </div>
 
                     <div class="form-floating">
-                        <select name="good_for" class="form-select mb-2" id="good_for_select">
+                        <select onchange="this.form.submit()" name="good_for" class="form-select mb-2" id="good_for_select">
                         {% get_param_value 'good_for' request.GET as good_for_selected %}
                         {% if good_for_selected %}
                             <option>Any</option>
@@ -115,19 +137,21 @@
                         {% else %}
                             <input name="duration" type="number" class="form-control" id="duration">
                         {% endif %}
-                        <label for="duration">Max Duration</label>
+                        <label for="duration">Max Duration <small>in hours</small></label>
                     </div>
                 {% endif %}
 
                 <div class="form-check text-light mb-2">
                     {% get_param_value 'covid_safe' request.GET as covid_safe_selected%}
-                    <input {% is_checked 'covid_safe' request.GET %} name='covid_safe' class="form-check-input" type="checkbox" id="covid_safe">
+                    <input onchange="this.form.submit()" {% is_checked 'covid_safe' request.GET %} name='covid_safe' class="form-check-input" type="checkbox" id="covid_safe">
                     <label class="form-check-label" for="covid_safe">
                     Covid Safe
                     </label>
                 </div>
 
-                <button type="submit" class="btn btn-outline-light">Apply Filters</button>
+                <button type="submit" class="btn btn-outline-light">Apply</button>
+                <a class="btn btn-outline-light" href="{% url 'core:thing_list' %}">Clear</a>
+                <p class="mt-3 mb-0 text-white">Viewing {{thing_list.count}} things</p>
             </form>
         </div>
     </div>
@@ -136,63 +160,65 @@
         <div class="p-4 bg-light rounded-3">
             <div class="row">
                 {% if thing_list %}
-                {% for thing in thing_list|dictsort:"name" %}
-                    <div class="col-lg-6 col-12 pb-2">
-                        <div class="card bg-dark text-white">
-                            {% if thing.get_picture.image.url %}
-                                <img src="{{thing.get_picture.image.url}}" class="card-img img-fluid height-25%">
-                            {% else %}
-                                <img src="{% static 'thing_default.jpg' %}">
-                            {% endif %}
-                            
-                            <div class="card-img-overlay">
-                                <h5 class="card-title">{{thing.name}}</h5>
-                                <p class="card-text">{{thing.short_description}}</p>
-                                <a href="{% url "core:thing_detail" pk=thing.pk%}" class='btn btn-outline-light'>Visit</a>
-                            </div>
-        
-                            <ul class="list-group">
-                            {% for field, value in thing.get_fields.items %}
-                                {% if value != 'None' %}
-                                <a class="list-group-item text-dark" aria-current="true">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">{{field|add_spaces}}</h5>
-                                        {% if field == 'stars' %}
-                                        <small>{{value}} • {{thing.comments.count}}</small>
-                                        {% endif %}
-                                    </div>
-                                    
-                                    {% if field == 'address' %}
-                                    <small>{{value}}</small>
-                                    
-                                    {% elif field == 'stars' %}
-                                    <p class="starability-result mb-1" data-rating="{{value|to_int}}">
-                                        Rated: {{value|to_int}} stars
-                                    </p>
-                                    
-                                    {% elif field == 'price' %}
-                                    <p>${{value}}</p>
-                                    
-                                    {% elif field == 'covid_safe' %}
-                                        {% if value %}
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgb(15,81,50)" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                        </svg>
-                                        {% else %}
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgb(132,32,41)" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                                        </svg>
-                                        {% endif %}
-                                    
-                                    {% else %}
-                                    <p class="mb-1">{{value}}</p>
-                                    {% endif %}
-                                {% endif %}
-                                </a>
-                            {% endfor %}
-                            </ul>
+                {% get_param_value 'sort' request.GET as sort_selected %}
+                {% things_sorted_by sort_selected thing_list as sorted_things %}
+                {% for thing in sorted_things %}
+                <div class="col-lg-6 col-12 pb-2">
+                    <div class="card bg-dark text-white">
+                        {% if thing.get_picture.image.url %}
+                            <img src="{{thing.get_picture.image.url}}" class="card-img img-fluid height-25%">
+                        {% else %}
+                            <img src="{% static 'thing_default.jpg' %}">
+                        {% endif %}
+                        
+                        <div class="card-img-overlay">
+                            <h5 class="card-title">{{thing.name}}</h5>
+                            <p class="card-text">{{thing.short_description}}</p>
+                            <a href="{% url "core:thing_detail" pk=thing.pk%}" class='btn btn-outline-light'>Visit</a>
                         </div>
+                
+                        <ul class="list-group">
+                        {% for field, value in thing.get_fields.items %}
+                            {% if value != 'None' %}
+                            <a class="list-group-item text-dark" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{field|add_spaces}}</h5>
+                                    {% if field == 'stars' %}
+                                    <small>{{value}} • {{thing.reviews.count}}</small>
+                                    {% endif %}
+                                </div>
+                                
+                                {% if field == 'address' %}
+                                <small>{{value}}</small>
+                                
+                                {% elif field == 'stars' %}
+                                <p class="starability-result mb-1" data-rating="{{value|to_int}}">
+                                    Rated: {{value|to_int}} stars
+                                </p>
+                                
+                                {% elif field == 'price' %}
+                                <p>${{value}}</p>
+                                
+                                {% elif field == 'covid_safe' %}
+                                    {% if value == 'True' %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgb(15,81,50)" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                    </svg>
+                                    {% else %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgb(132,32,41)" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                    </svg>
+                                    {% endif %}
+                                
+                                {% else %}
+                                <p class="mb-1">{% get_field_value field thing %}</p>
+                                {% endif %}
+                            {% endif %}
+                            </a>
+                        {% endfor %}
+                        </ul>
                     </div>
+                </div>
                 {% endfor %}
                 {% else %}
                     <h1>There's nowhere so specific!</h1>

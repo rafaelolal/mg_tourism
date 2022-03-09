@@ -1,4 +1,4 @@
-from .comment import *
+from .review import *
 from .thing_create import *
 from .thing import *
 from .user import *

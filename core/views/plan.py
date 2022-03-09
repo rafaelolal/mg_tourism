@@ -47,22 +47,22 @@ def plan_remove(request: HttpResponse, plan_pk: int, thing_pk: int) -> HttpRespo
     return HttpResponseRedirect(request.GET.get('next'))
 
 @login_required
-def plan_like(request: HttpResponse, plan_pk: int) -> HttpResponse:
-    """Likes or dislikes a plan depending if the user has already liked this plan
-    Redirects user back to the view they liked the plan in
+def plan_favorite(request: HttpResponse, plan_pk: int) -> HttpResponse:
+    """Favorites or unfavorites a plan depending if the user has already favorited this plan
+    Redirects user back to the view they favorited the plan in
     """
 
     user = UserProfile.objects.get(pk=request.user.pk)
     plan = Plan.objects.get(pk=plan_pk)
     
-    if not plan in user.liked.all():
-        user.liked.add(plan)
-        messages.success(request, f'Successfully liked "{plan.name}"')
+    if not plan in user.favorited.all():
+        user.favorited.add(plan)
+        messages.success(request, f'Successfully favorited "{plan.name}"')
 
 
     else:
-        user.liked.remove(plan)
-        messages.success(request, f'Successfully disliked "{plan.name}"')
+        user.favorited.remove(plan)
+        messages.success(request, f'Successfully disfavorited "{plan.name}"')
 
     if request.GET.get('next') == '/':
         return HttpResponseRedirect(request.GET.get('next') + "#plans")
@@ -102,10 +102,10 @@ class PlanUpdateView(IsThePlanOwner, UpdateView):
     template_name = 'core/plan/form.html'
 
     def form_valid(self, form: Form) -> HttpResponse:
-        """Checks if the plan is no longer public and removes all UserProfile objects which liked it"""
+        """Checks if the plan is no longer public and removes all UserProfile objects which favorited it"""
 
         if not form.instance.is_public:
-            form.instance.liked_by.clear()
+            form.instance.favorited_by.clear()
 
         return super().form_valid(form)
 
