@@ -100,7 +100,7 @@ def get_thing(pk: int) -> Thing:
     return Thing.objects.get(pk=pk)
 
 @register.simple_tag
-def get_things_near(thing: Thing) -> Thing:
+def get_things_near(thing: Thing) -> QuerySet:
     """Returns up to 5 Thing objects that match the given neighborhood"""
 
     categories = Thing.categories.copy()

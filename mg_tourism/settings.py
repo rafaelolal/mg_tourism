@@ -36,6 +36,7 @@ MEDIA_URL = '/mg_tourism/media/'
 from dotenv import load_dotenv
 from os import getenv
 load_dotenv()
+# TODO dotenv not working
 SECRET_KEY = 'django-insecure-y%&4gfos-g(1e+)_7et0q0jaw885s+37de%$la7ket5+3--uej'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -45,7 +46,7 @@ LOGIN_URL = 'core:user_login'
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://arrangement-fixtures-buffer-idol.trycloudflare.com']
+# CSRF_TRUSTED_ORIGINS = []
 
 # Application definition
 
