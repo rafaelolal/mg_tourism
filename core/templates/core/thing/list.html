@@ -8,12 +8,12 @@
 
 <a id="#top"></a>
 
-<div class="row">
+<div class="pt-3 row">
     <div class="col-xl-3 col-lg-12">
-        <div class="p-4 bg-dark text-light rounded-3 mb-4">
+        <div class="p-4 bg-dark text-white rounded-3 mb-4">
             <h1>Filters</h1>
             <p>Remember to apply changes.</p>
-            <form class='py-2 text-dark'>
+            <form class='py-2 text-black'>
                 <div class="form-floating mb-2">
                     {% get_param_value 'search' request.GET as search_selected %}
                     {% if search_selected %}
@@ -47,7 +47,7 @@
                 </div>
 
                 {% for category in categories %}
-                    <div class="form-check text-light form-switch">
+                    <div class="form-check text-white form-switch">
                         <input onchange="this.form.submit()" {% is_checked category request.GET %} name="{{category}}" id="switch{{forloop.counter}}" class="form-check-input" type="checkbox" role="switch">
                         <label class="form-check-label" for="switch{{forloop.counter}}">{{category}}</label>
                     </div>
@@ -141,7 +141,7 @@
                     </div>
                 {% endif %}
 
-                <div class="form-check text-light mb-2">
+                <div class="form-check text-white mb-2">
                     {% get_param_value 'covid_safe' request.GET as covid_safe_selected%}
                     <input onchange="this.form.submit()" {% is_checked 'covid_safe' request.GET %} name='covid_safe' class="form-check-input" type="checkbox" id="covid_safe">
                     <label class="form-check-label" for="covid_safe">
@@ -157,13 +157,13 @@
     </div>
     
     <div class="col-xl-9 col-lg-12" id="main">
-        <div class="p-4 bg-light rounded-3">
+        <div class="p-4 mb-2 bg-light rounded-3">
             <div class="row">
                 {% if thing_list %}
                 {% get_param_value 'sort' request.GET as sort_selected %}
                 {% things_sorted_by sort_selected thing_list as sorted_things %}
                 {% for thing in sorted_things %}
-                <div class="col-lg-6 col-12 pb-2">
+                <div class="col-lg-6 col-12 pb-4">
                     <div class="card bg-dark text-white">
                         {% if thing.get_picture.image.url %}
                             <img src="{{thing.get_picture.image.url}}" class="card-img img-fluid height-25%">
@@ -180,7 +180,7 @@
                         <ul class="list-group">
                         {% for field, value in thing.get_fields.items %}
                             {% if value != 'None' %}
-                            <a class="list-group-item text-dark" aria-current="true">
+                            <a class="list-group-item text-black" aria-current="true">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">{{field|add_spaces}}</h5>
                                     {% if field == 'stars' %}

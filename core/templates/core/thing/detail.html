@@ -5,22 +5,18 @@
 {% load static %}
 
 {% block base_body %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <h1>{{thing_detail.name}}</h1>
 
 <div class="row my-4">
-    <div class="col-lg-3 col-12">
-        <h3>Description</h3>
-        <p>{{thing_detail.long_description}}</p>
+    <div class="col-xl-3 col-md-4 col-12">
+        <div class="p-4 bg-light rounded-3 mb-4">
+            <h3>Description</h3>
+            <p>{{thing_detail.long_description}}</p>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add to Plan
+            </button>
+        </div>
 
-        <button type="button" class="btn btn-dark mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Add to Plan
-        </button>
-        
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -48,7 +44,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <a href="{% url "core:plan_create" %}?thing={{thing_detail.pk}}" class='btn btn-dark'>Create a Plan</a>
+                        <a href="{% url "core:plan_create" %}?thing={{thing_detail.pk}}" class='btn btn-primary'>Create a Plan</a>
                     </div>
 
                     {% else %}
@@ -71,8 +67,8 @@
         </div>
     </div>
 
-    <div class="col-lg-9 col-12">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div class="col-xl-9 col-md-8 col-12">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 {% if thing_detail.pictures.all %}
 
@@ -92,18 +88,17 @@
                 </div>
                 {% endif %}
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     
-        <a href=" {% url "core:picture_create" thing_pk=thing_detail.pk %}" class='btn btn-dark mt-2'>Add Image</a>
+        <a href=" {% url "core:picture_create" thing_pk=thing_detail.pk %}" class='btn btn-primary mt-2'>Add Image</a>
         {% if user.is_superuser %}
         <a href="{% url 'core:thing_update' pk=thing_detail.pk%}" class='btn btn-warning mt-2'>Update</a>
         <a href="{% url 'core:thing_delete' pk=thing_detail.pk%}" class='btn btn-danger mt-2'>Delete</a>
@@ -111,7 +106,8 @@
     </div>
 </div>
 
-<div class="row my-4">
+<div class="p-4 bg-light rounded-3 mb-4">
+<div class="row">
     {% for field, value in thing_detail.get_fields.items %}
         {% if field != 'category' and value != 'None' %}
             <div class="col-lg-4 col-6">
@@ -154,17 +150,18 @@
         {% endif %}
     {% endfor %}
 </div>
+</div>
 
 {% if user.is_authenticated %}
     {% user_reviewed user.pk thing_detail.pk as reviewed %}
     {% if reviewed %}
-    <button type="button" class="btn btn-dark" data-bs-toggle="popover"  data-bs-trigger="focus" title="Not Allowed" data-bs-content="Edit your first review instead.">Add Review</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="popover"  data-bs-trigger="focus" title="Not Allowed" data-bs-content="Edit your first review instead.">Add Review</button>
     {% else %}
-    <a href="{% url 'core:review_create' thing_pk=thing_detail.pk %}" class='btn btn-dark'>Add Review</a>
+    <a href="{% url 'core:review_create' thing_pk=thing_detail.pk %}" class='btn btn-primary'>Add Review</a>
     {% endif %}
 
 {% else %}
-<a href="{% url 'core:review_create' thing_pk=thing_detail.pk %}" class='btn btn-dark'>Add Review</a>
+<a href="{% url 'core:review_create' thing_pk=thing_detail.pk %}" class='btn btn-primary'>Add Review</a>
 {% endif %}
 
 {% for review in thing_detail.reviews.all|dictsortreversed:"posted_on" %}
@@ -175,7 +172,7 @@
     
         <div class="col col-9 col-md-10">
             <h5>{{review.author.first_name}} {{review.author.last_name}} <small> {{review.posted_on}}{% if review.is_edited %}, Edited{% endif %}</small></h5>
-            <a href='{% url 'core:user_detail' pk=review.author.pk%}' type="button" class="btn btn-dark btn-sm">Visit Profile</a>
+            <a href='{% url 'core:user_detail' pk=review.author.pk%}' type="button" class="btn btn-primary btn-sm">Visit Profile</a>
             {% if review.author.pk == user.pk %}
             <a href='{% url 'core:review_update' pk=review.pk thing_pk=thing_detail.pk %}' type="button" class="btn btn-warning btn-sm mx-1">Edit</a>
             {% endif %}
@@ -221,6 +218,7 @@
     }   
 </style>
 
+<div class="p-4 bg-light rounded-3 mb-4">
 <h1 class="mb-3">Other Things Nearby</h1>
 
 <div class="container testimonial-group">
@@ -243,7 +241,7 @@
 
                 <ul class="list-group">
                     {% if thing.stars %}
-                    <a class="list-group-item text-dark" aria-current="true">
+                    <a class="list-group-item text-black" aria-current="true">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Stars</h5>
                             <small>{{thing.stars}} • {{thing.reviews.count}}</small>
@@ -256,7 +254,7 @@
                     </a>
                     {% endif %}
                     
-                    <a class="list-group-item text-dark" aria-current="true">
+                    <a class="list-group-item text-black" aria-current="true">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Category</h5>
                         </div>
@@ -267,6 +265,7 @@
         </div>
         {% endfor %}
     </div>
+</div>
 </div>
 {% endif %}
 
