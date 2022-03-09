@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="form-floating">
-                    <select name="sort" class="form-select mb-2" id="sort_select">
+                    <select onchange="this.form.submit()" name="sort" class="form-select mb-2" id="sort_select">
                         {% get_param_value 'sort' request.GET as sort_selected %}
                         {% if sort_selected %}
                             <option>Name</option>
@@ -48,7 +48,7 @@
 
                 {% for category in categories %}
                     <div class="form-check text-light form-switch">
-                        <input {% is_checked category request.GET %} name="{{category}}" id="switch{{forloop.counter}}" class="form-check-input" type="checkbox" role="switch">
+                        <input onchange="this.form.submit()" {% is_checked category request.GET %} name="{{category}}" id="switch{{forloop.counter}}" class="form-check-input" type="checkbox" role="switch">
                         <label class="form-check-label" for="switch{{forloop.counter}}">{{category}}</label>
                     </div>
                 {% endfor %}
@@ -65,7 +65,7 @@
             
                 
                 <div class="form-floating">
-                    <select name="type" class="form-select mb-2" id="type_select">
+                    <select onchange="this.form.submit()" name="type" class="form-select mb-2" id="type_select">
                     {% get_param_value 'type' request.GET as type_selected %}
                     {% if type_selected %}
                         <option>Any</option>
@@ -98,7 +98,7 @@
                     </div>
 
                     <div class="form-floating">
-                        <select name="good_for" class="form-select mb-2" id="good_for_select">
+                        <select onchange="this.form.submit()" name="good_for" class="form-select mb-2" id="good_for_select">
                         {% get_param_value 'good_for' request.GET as good_for_selected %}
                         {% if good_for_selected %}
                             <option>Any</option>
@@ -143,7 +143,7 @@
 
                 <div class="form-check text-light mb-2">
                     {% get_param_value 'covid_safe' request.GET as covid_safe_selected%}
-                    <input {% is_checked 'covid_safe' request.GET %} name='covid_safe' class="form-check-input" type="checkbox" id="covid_safe">
+                    <input onchange="this.form.submit()" {% is_checked 'covid_safe' request.GET %} name='covid_safe' class="form-check-input" type="checkbox" id="covid_safe">
                     <label class="form-check-label" for="covid_safe">
                     Covid Safe
                     </label>
@@ -160,7 +160,7 @@
             <div class="row">
                 {% if thing_list %}
                 {% get_param_value 'sort' request.GET as sort_selected %}
-                {% things_sorted_by sort_selected as sorted_things %}
+                {% things_sorted_by sort_selected thing_list as sorted_things %}
                 {% for thing in sorted_things %}
                 <div class="col-lg-6 col-12 pb-2">
                     <div class="card bg-dark text-white">
