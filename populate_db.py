@@ -1,5 +1,6 @@
 """Generates fake data for the database"""
 
+import pathlib
 import os
 from typing import Any, Dict, Tuple
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mg_tourism.settings')
@@ -9,7 +10,7 @@ django.setup()
 
 from core.models import (Thing,
     Tour, Attraction, Food, Outdoor, Shopping,
-    Picture, UserProfile, Comment, Plan)
+    Picture, UserProfile, Review, Plan)
 
 from django.core.files import File
 from faker import Faker
@@ -18,6 +19,8 @@ import datetime
 import requests
 import shutil
 import random
+
+PATH = pathlib.Path().resolve()
 
 class FakeThingGenerator:
 
@@ -139,7 +142,7 @@ class FakeThingGenerator:
     def get_choices(field: str) -> Tuple[str]:
         """Gets the possible choices for a field in a Thing or Thing children objects"""
 
-        return (choice[1] for choice in field.choices)
+        return [choice[1] for choice in field.choices]
 
     @staticmethod
     def get_address() -> str:
@@ -150,9 +153,10 @@ class FakeThingGenerator:
                 return address.replace('\n', ' ')
 
     @staticmethod
-    def add_pics(thing: Thing, N: int = random.randint(0, 3)) -> None:
+    def add_pics(thing: Thing, max_n: int = 3) -> None:
         """Adds a random number of pictures to a Thing child object"""
 
+        N = random.randint(0, max_n)
         for _ in range(N):
             FakeThingGenerator.download_thing_pic()
             picture = Picture.objects.get_or_create(
@@ -174,14 +178,14 @@ class FakeThingGenerator:
                 shutil.copyfileobj(r.raw, f)
 
 class FakeUserGenerator:
-    def __init__(self, profile_pics_path="fake_profile_pics"):
+    def __init__(self, profile_pics_path=PATH/'fake_profile_pics'):
         self.profile_pics_path = profile_pics_path
 
     def generate(self) -> None:
         """Generates a user for every profile picture in the profile_pics_path path"""
         
         for picture in os.listdir(self.profile_pics_path):
-            FakeUserGenerator.create(picture)
+            FakeUserGenerator.create(f'fake_profile_pics/{picture}')
 
     @staticmethod
     def create(picture: str, biography_length: int = 7) -> None:
@@ -198,24 +202,24 @@ class FakeUserGenerator:
             email=email,
             password=str(random.randint(10000000, 99999999)),
             biography=f_us.paragraph(nb_sentences=biography_length),
-            profile_pic=File(open(f"fake_profile_pics/{picture}", 'rb')),
+            profile_pic=File(open(picture, 'rb')),
             )[0]
 
         user.save()
 
-class FakeCommentGenerator:
+class FakeReviewGenerator:
     def __init__(self, users):
         self.users = users
 
     def generate(self) -> None:
-        """Generates fake comments for every user"""
+        """Generates fake reviews for every user"""
 
         for user in self.users:
-            FakeCommentGenerator.create(user)
+            FakeReviewGenerator.create(user)
 
     @staticmethod
     def create(user: UserProfile, max_n: int = 5) -> None:
-        """Creates a random amount of fake comments on unique things"""
+        """Creates a random amount of fake reviews on unique things"""
 
         n = random.randint(1, max_n)
         things = random.choices(Thing.objects.all(), k=n)
@@ -224,7 +228,7 @@ class FakeCommentGenerator:
             content = f_us.paragraph(nb_sentences=24)
             rating = random.randint(1, 5)
 
-            comment = Comment.objects.get_or_create(title=title,
+            review = Review.objects.get_or_create(title=title,
                 content=content,
                 rating=rating,
                 thing=thing,
@@ -232,7 +236,7 @@ class FakeCommentGenerator:
                 is_edited=random.choice([False, False, True]),
                 posted_on=datetime.date(year=2020, month=1, day=1) + datetime.timedelta(days=random.randint(0, 741)))[0]
 
-            comment.save()
+            review.save()
 
 class FakePlanGenerator:
     def __init__(self, users):
@@ -259,7 +263,7 @@ class FakePlanGenerator:
             plan.save()
 
             FakePlanGenerator.add_things(plan)
-            FakePlanGenerator.add_likes(plan)
+            FakePlanGenerator.add_favorites(plan)
 
     @staticmethod
     def add_things(plan: Plan, max_n: int = 5) -> None:
@@ -270,12 +274,12 @@ class FakePlanGenerator:
             plan.things.add(thing)
 
     @staticmethod
-    def add_likes(plan: Plan, max_n: int = 30) -> None:
-        """Adds a random number of UserProfile objects to a plan's liked_by attribute"""
+    def add_favorites(plan: Plan, max_n: int = 30) -> None:
+        """Adds a random number of UserProfile objects to a plan's favorited_by attribute"""
 
         n = random.randint(0, max_n)
         for thing in random.choices(UserProfile.objects.all(), k=n):
-            plan.liked_by.add(thing)
+            plan.favorited_by.add(thing)
 
 f_br = Faker('pt_BR')
 f_us = Faker('en_US')
@@ -289,9 +293,9 @@ categories = {'Tour': FakeThingGenerator.generate_tour_specific_fields,
 if __name__ == "__main__":
     print("Started populating.")
     
-    # FakeThingGenerator().generate()
-    # FakeUserGenerator().generate()
-    # FakeCommentGenerator(UserProfile.objects.all()).generate()
-    # FakePlanGenerator(UserProfile.objects.all()).generate()
+    FakeThingGenerator(N=60).generate()
+    FakeUserGenerator().generate()
+    FakeReviewGenerator(UserProfile.objects.all()).generate()
+    FakePlanGenerator(UserProfile.objects.all()).generate()
     
     print("Finished populating.")
