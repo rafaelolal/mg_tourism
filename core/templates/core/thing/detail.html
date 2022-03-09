@@ -217,7 +217,7 @@
     .tall-img {
         object-fit: cover;
         max-width: auto;
-        height: 25vh;
+        height: 30vh;
     }   
 </style>
 
@@ -230,13 +230,13 @@
         <div class="col-9 col-lg-4 col-md-6">
             <div class="card text-white mb-3">
                 {% if thing.get_picture.image.url %}
-                    <img src="{{thing.get_picture.image.url}}" class="card-img img-fluid height-25%">
+                    <img src="{{thing.get_picture.image.url}}" class="tall-img card-img img-fluid height-25%">
                 {% else %}
                     <img src="{% static 'thing_default.jpg' %}" class="tall-img">
                 {% endif %}
                 
                 <div class="card-img-overlay">
-                    <h5 class="card-title">{{thing.name}}</h5>
+                    <h5 style="white-space: normal;" class="card-title">{{thing.name}}</h5>
                     <p style="white-space: normal;" class="card-text">{{thing.short_description}}</p>
                     <a href="{% url "core:thing_detail" pk=thing.pk%}" class='btn btn-outline-light'>Visit</a>
                 </div>
