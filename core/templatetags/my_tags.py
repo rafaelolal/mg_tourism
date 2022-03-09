@@ -185,18 +185,18 @@ def get_sorts() -> List[str]:
     return sorts
 
 @register.simple_tag
-def things_sorted_by(sort_by: str) -> QuerySet:
+def things_sorted_by(sort_by: str, things: QuerySet) -> QuerySet:
     """Converts a sort option to the corresponding Thing field"""
     
     conversions = {'Name': 'name', 'Quality': 'stars', 'Popularity': 'reviews.count'}
     if not sort_by:
-        things = Thing.objects.order_by('name')
+        things = things.order_by('name')
 
     elif sort_by == 'Popularity':
-        things = Thing.objects.annotate(review_count=Count('reviews')).order_by('review_count')
+        things = things.annotate(review_count=Count('reviews')).order_by('review_count')
     
     else:
-        things = Thing.objects.order_by(conversions[sort_by])
+        things = things.order_by(conversions[sort_by])
     
     if sort_by in ('Quality', 'Popularity'):
         return things.reverse()
