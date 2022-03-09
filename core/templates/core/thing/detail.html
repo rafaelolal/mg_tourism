@@ -155,6 +155,67 @@
     {% endfor %}
 </div>
 
+<style>
+    .testimonial-group > .row {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    .testimonial-group > .row > .col-lg-4, .col-md-6, col-9 {
+        display: inline-block;
+    }   
+    .tall-img {
+        object-fit: cover;
+        max-width: auto;
+        height: 25vh;
+    }   
+</style>
+
+<h1 class="mb-3">Other Things Nearby</h1>
+
+<div class="container testimonial-group">
+    <div class="row mb-4">
+        {% get_things_near thing_detail as nearby %}
+        {% for thing in nearby  %}
+        <div class="col-9 col-lg-4 col-md-6">
+            <div class="card text-white mb-3">
+                {% if thing.get_picture.image.url %}
+                    <img src="{{thing.get_picture.image.url}}" class="card-img img-fluid height-25%">
+                {% else %}
+                    <img src="{% static 'thing_default.jpg' %}" class="tall-img">
+                {% endif %}
+                
+                <div class="card-img-overlay">
+                    <h5 class="card-title">{{thing.name}}</h5>
+                    <p style="white-space: normal;" class="card-text">{{thing.short_description}}</p>
+                    <a href="{% url "core:thing_detail" pk=thing.pk%}" class='btn btn-outline-light'>Visit</a>
+                </div>
+
+                <ul class="list-group">
+                    <a class="list-group-item text-dark" aria-current="true">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Stars</h5>
+                            <small>{{thing.stars}} • {{thing.reviews.count}}</small>
+                        </div>
+
+                        <p class="starability-result mb-1" data-rating="{{thing.stars|to_int}}">
+                            Rated: {{thing.stars|to_int}} stars
+                        </p>
+                        
+                    </a>
+                    <a class="list-group-item text-dark" aria-current="true">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Category</h5>
+                        </div>
+                        <p class="mb-1">{{thing.category}}</p>
+                    </a>
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+
 {% if user.is_authenticated %}
     {% user_reviewed user.pk thing_detail.pk as reviewed %}
     {% if reviewed %}
