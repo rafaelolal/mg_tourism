@@ -36,7 +36,7 @@
     <div class="row align-items-md-stretch">
         <div class="col-xl-6 col-12 mb-4">
             <div class="h-100 p-4 bg-light rounded-3">
-                <h2>Popular Things</h2>
+                <h2>Popular Things <a href="{%url 'core:thing_list'%}?sort=Popularity"><button type="button" class="btn btn-sm btn-outline-dark m-2 ms-0">See All</button></a></h2>
                 <p class="fs-4">These are the top 3 things by rating amount!</p>
                 {% get_top_things as top_things %}
                 {% for thing in top_things %}
