@@ -155,6 +155,56 @@
     {% endfor %}
 </div>
 
+{% if user.is_authenticated %}
+    {% user_reviewed user.pk thing_detail.pk as reviewed %}
+    {% if reviewed %}
+    <button type="button" class="btn btn-dark" data-bs-toggle="popover"  data-bs-trigger="focus" title="Not Allowed" data-bs-content="Edit your first review instead.">Add Review</button>
+    {% else %}
+    <a href="{% url 'core:review_create' thing_pk=thing_detail.pk %}" class='btn btn-dark'>Add Review</a>
+    {% endif %}
+
+{% else %}
+<a href="{% url 'core:review_create' thing_pk=thing_detail.pk %}" class='btn btn-dark'>Add Review</a>
+{% endif %}
+
+{% for review in thing_detail.reviews.all|dictsortreversed:"posted_on" %}
+    <div class="row my-4 rows-cols-4">
+        <div class="col col-3 col-md-2">
+            <img src="{{review.author.profile_pic.url}}" class="img-thumbnail">
+        </div>
+    
+        <div class="col col-9 col-md-10">
+            <h5>{{review.author.first_name}} {{review.author.last_name}} <small> {{review.posted_on}}{% if review.is_edited %}, Edited{% endif %}</small></h5>
+            <a href='{% url 'core:user_detail' pk=review.author.pk%}' type="button" class="btn btn-dark btn-sm">Visit Profile</a>
+            {% if review.author.pk == user.pk %}
+            <a href='{% url 'core:review_update' pk=review.pk thing_pk=thing_detail.pk %}' type="button" class="btn btn-warning btn-sm mx-1">Edit</a>
+            {% endif %}
+            <small>has made {{review.author.reviews.count}} reviews</small>
+            
+            <p class="starability-result mt-2" data-rating="{{review.rating|to_int}}">
+                Rated: {{review.rating|to_int}} stars
+            </p>
+    
+            <div class="accordion" id="accordion{{forloop.counter}}">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading{{forloop.counter}}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="false" aria-controls="collapse{{forloop.counter}}">
+                            {{review.title}}
+                        </button>
+                    </h2>
+                    
+                    <div id="collapse{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="heading{{forloop.counter}}" data-bs-parent="#accordion{{forloop.counter}}">
+                        <div class="accordion-body">
+                            {{review.content}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% if thing_detail.category != 'Tour' %}
 <style>
     .testimonial-group > .row {
         display: block;
@@ -214,55 +264,7 @@
         </div>
         {% endfor %}
     </div>
-  </div>
-
-{% if user.is_authenticated %}
-    {% user_reviewed user.pk thing_detail.pk as reviewed %}
-    {% if reviewed %}
-    <button type="button" class="btn btn-dark" data-bs-toggle="popover"  data-bs-trigger="focus" title="Not Allowed" data-bs-content="Edit your first review instead.">Add Review</button>
-    {% else %}
-    <a href="{% url 'core:review_create' thing_pk=thing_detail.pk %}" class='btn btn-dark'>Add Review</a>
-    {% endif %}
-
-{% else %}
-<a href="{% url 'core:review_create' thing_pk=thing_detail.pk %}" class='btn btn-dark'>Add Review</a>
-{% endif %}
-
-{% for review in thing_detail.reviews.all|dictsortreversed:"posted_on" %}
-<div class="row my-4 rows-cols-4">
-    <div class="col col-3 col-md-2">
-        <img src="{{review.author.profile_pic.url}}" class="img-thumbnail">
-    </div>
-
-    <div class="col col-9 col-md-10">
-        <h5>{{review.author.first_name}} {{review.author.last_name}} <small> {{review.posted_on}}{% if review.is_edited %}, Edited{% endif %}</small></h5>
-        <a href='{% url 'core:user_detail' pk=review.author.pk%}' type="button" class="btn btn-dark btn-sm">Visit Profile</a>
-        {% if review.author.pk == user.pk %}
-        <a href='{% url 'core:review_update' pk=review.pk thing_pk=thing_detail.pk %}' type="button" class="btn btn-warning btn-sm mx-1">Edit</a>
-        {% endif %}
-        <small>has made {{review.author.reviews.count}} reviews</small>
-        
-        <p class="starability-result mt-2" data-rating="{{review.rating|to_int}}">
-            Rated: {{review.rating|to_int}} stars
-        </p>
-
-        <div class="accordion" id="accordion{{forloop.counter}}">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="heading{{forloop.counter}}">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="false" aria-controls="collapse{{forloop.counter}}">
-                        {{review.title}}
-                    </button>
-                </h2>
-                
-                <div id="collapse{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="heading{{forloop.counter}}" data-bs-parent="#accordion{{forloop.counter}}">
-                    <div class="accordion-body">
-                        {{review.content}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
-{% endfor %}
+{% endif %}
 
 {% endblock base_body %}
