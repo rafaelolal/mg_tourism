@@ -242,6 +242,7 @@
                 </div>
 
                 <ul class="list-group">
+                    {% if thing.stars %}
                     <a class="list-group-item text-dark" aria-current="true">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Stars</h5>
@@ -253,6 +254,8 @@
                         </p>
                         
                     </a>
+                    {% endif %}
+                    
                     <a class="list-group-item text-dark" aria-current="true">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Category</h5>
