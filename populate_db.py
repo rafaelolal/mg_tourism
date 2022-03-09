@@ -153,9 +153,10 @@ class FakeThingGenerator:
                 return address.replace('\n', ' ')
 
     @staticmethod
-    def add_pics(thing: Thing, N: int = random.randint(0, 3)) -> None:
+    def add_pics(thing: Thing, max_n: int = 3) -> None:
         """Adds a random number of pictures to a Thing child object"""
 
+        N = random.randint(0, max_n)
         for _ in range(N):
             FakeThingGenerator.download_thing_pic()
             picture = Picture.objects.get_or_create(
@@ -292,7 +293,7 @@ categories = {'Tour': FakeThingGenerator.generate_tour_specific_fields,
 if __name__ == "__main__":
     print("Started populating.")
     
-    FakeThingGenerator(N=20).generate()
+    FakeThingGenerator(N=60).generate()
     FakeUserGenerator().generate()
     FakeReviewGenerator(UserProfile.objects.all()).generate()
     FakePlanGenerator(UserProfile.objects.all()).generate()
