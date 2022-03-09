@@ -1,11 +1,13 @@
 """Views associated with Thing objects"""
 
 from datetime import timedelta
+from re import search
 
 from typing import Any, Dict, List
 from django.db.models.query import QuerySet
 from django.db.models import Q
 
+from django.core.exceptions import FieldError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
@@ -111,18 +113,18 @@ class ThingListView(ListView):
 
         ###########################
 
-        things = None
+        search_query_sets = []
         or_filters = list(search_filters.items())
         if search_filters:
-            for i, f in enumerate(search_filters):
+            for i, f in enumerate(or_filters):
                 try:
-                    if not things:
-                        things = self.model.objects.all().filter(**dict(or_filters[i:i+1]))
+                    search_query_sets.append(self.model.objects.all().filter(**dict(or_filters[i:i+1])))
 
-                    else:
-                        things |= self.model.objects.all().filter(**dict(or_filters[i:i+1]))
-                except:
+                except FieldError:
                     pass
+            
+            things = self.combine(search_query_sets)
+            print(things)
 
         else:
             things = self.model.objects.all()
@@ -150,6 +152,7 @@ class ThingListView(ListView):
             return self.combine(query_sets)
 
         else:
+            print(things)
             return things
 
 
@@ -220,6 +223,6 @@ class ThingListView(ListView):
 
         final_queryset = queryset[0]
         for query in queryset[1:]:
-            final_queryset = final_queryset | query
+            final_queryset |= query
 
         return final_queryset
