@@ -2,11 +2,3 @@ pip freeze --local > requirements.txt
 pip install -r requirements.txt
 
 python manage.py runserver --insecure
-
-Possible fixes.... bah dum 
-1.remove comma from sentence in features\visiting things
-2. "tab" is unecessarily hyperlinked in features\adding a comment, features\editing a comment, features\removing a Thing from a play, features\liking a Plan. featu
-3.
-
-- can't search for plans
-- you can only search for plans under your own profile but it shows things instead
