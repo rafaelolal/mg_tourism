@@ -165,11 +165,11 @@
                                             <a class="btn btn-danger" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?my_plans#plan_order{{forloop.counter}}">Unfavorite</a>
                                     
                                             {% else %}
-                                            <a class="btn btn-success" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?my_plans#plan{{plan.pk}}">favorite</a>
+                                            <a class="btn btn-success" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?my_plans#plan{{plan.pk}}">Favorite</a>
                                             {% endif %}
                                         
                                         {% else %}
-                                        <a class="btn btn-success" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}">favorite</a>
+                                        <a class="btn btn-success" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}">Favorite</a>
                                         {% endif %}
                                     
                                     {% else %}
