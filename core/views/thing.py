@@ -129,7 +129,11 @@ class ThingListView(ListView):
                 except FieldError:
                     pass
             
+<<<<<<< HEAD
             things = self.combine(search_querysets)
+=======
+            things = self.combine(search_query_sets)
+>>>>>>> 54508465363652288aeec1db3b25e5191e826e5b
 
         else:
             things = self.model.objects.all()
