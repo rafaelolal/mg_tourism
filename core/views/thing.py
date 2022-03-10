@@ -81,7 +81,6 @@ class ThingListView(ListView):
         query_fields = self.get_query_fields()
         query_categories = self.get_query_categories()
         queryset = self.get_filtered_query(query_fields, query_categories)
-        print('--------------------------\n', queryset)
         return queryset
 
     def get_query_categories(self) -> List[str]:
@@ -154,16 +153,11 @@ class ThingListView(ListView):
             else:
                 querysets.append(apply_on)
 
-        print(things)
-
         if querysets:
-            print('querysets', querysets)
             return self.combine(querysets)
 
         else:
-            print('things', things)
             return things
-
 
     @staticmethod
     def get_search_filters(query_fields, query_categories):
