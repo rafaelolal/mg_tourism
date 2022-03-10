@@ -138,152 +138,153 @@
 
             <div class="tab-pane fade {{my_is_selected}}" id="pills-my-plans" role="tabpanel" aria-labelledby="pills-my-plans-tab">
                 <div class="p-4 bg-light rounded-3 mb-4">
-                <a href="{% url 'core:plan_create' %}" class='btn btn-primary mb-4'>Create a Plan</a>
-                {% if user.pk == user_detail.pk %}
-                {% endif %}
-                {% get_visible_plans user_detail.plans.all user.pk user_detail.pk as visible_plans %}
-                {% if visible_plans %}
-                    {% for plan in visible_plans %}
-                    <a id="plan{{plan.pk}}"></a>
-                    <a id="plan_order{{forloop.counter}}"></a>
-                        <div class="card text-center mb-1">
-                            <div class="card-header">
-                                {% if plan.is_public %}
-                                Public
-                                {% else %}
-                                Private
-                                {% endif %}
-                            </div>
+                    <a href="{% url 'core:plan_create' %}" class='btn btn-primary mb-4'>Create a Plan</a>
+                    {% if user.pk == user_detail.pk %}
+                    {% endif %}
+                    {% get_visible_plans user_detail.plans.all user.pk user_detail.pk as visible_plans %}
+                    {% if visible_plans %}
+                        {% for plan in visible_plans %}
+                        <a id="plan{{plan.pk}}"></a>
+                        <a id="plan_order{{forloop.counter}}"></a>
+                            <div class="card text-center mb-1">
+                                <div class="card-header">
+                                    {% if plan.is_public %}
+                                    Public
+                                    {% else %}
+                                    Private
+                                    {% endif %}
+                                </div>
 
-                            <div class="card-body">
-                                <h5 class="card-title">{{plan.name}}</h5>
-                                <p class="card-text">{{plan.description}}</p>
-                                {% if user.pk != user_detail.pk %}
-                                    {% if user.is_authenticated %}
-                                        {% user_favorited user.pk plan.pk as user_favorited %}
-                                        {% if user_favorited %}
-                                        <a class="btn btn-danger" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?my_plans#plan_order{{forloop.counter}}">Unfavorite</a>
-                                
+                                <div class="card-body">
+                                    <h5 class="card-title">{{plan.name}}</h5>
+                                    <p class="card-text">{{plan.description}}</p>
+                                    {% if user.pk != user_detail.pk %}
+                                        {% if user.is_authenticated %}
+                                            {% user_favorited user.pk plan.pk as user_favorited %}
+                                            {% if user_favorited %}
+                                            <a class="btn btn-danger" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?my_plans#plan_order{{forloop.counter}}">Unfavorite</a>
+                                    
+                                            {% else %}
+                                            <a class="btn btn-success" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?my_plans#plan{{plan.pk}}">favorite</a>
+                                            {% endif %}
+                                        
                                         {% else %}
-                                        <a class="btn btn-success" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?my_plans#plan{{plan.pk}}">favorite</a>
+                                        <a class="btn btn-success" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}">favorite</a>
                                         {% endif %}
                                     
                                     {% else %}
-                                    <a class="btn btn-success" href="{% url 'core:plan_favorite' plan_pk=plan.pk %}">favorite</a>
+                                    <a class="btn btn-primary m-2" href="{% url 'core:plan_update' pk=plan.pk %}">Edit</a>
                                     {% endif %}
-                                
-                                {% else %}
-                                <a class="btn btn-primary m-2" href="{% url 'core:plan_update' pk=plan.pk %}">Edit</a>
-                                {% endif %}
-                            </div>
+                                </div>
 
-                            <div class="card-footer text-muted">
-                                {{plan.favorited_by.all.count}} people favorited this plan
-                            </div>
-                        </div>
-
-                        {% if plan.things.all %}
-                        <div class="accordion mb-4" id="thing_accordion">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="according_heading{{forloop.counter}}}">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="false" aria-controls="collapse{{forloop.counter}}">
-                                        Things
-                                    </button>
-                                </h2>
-                            </div>
-
-                            <div id="collapse{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="according_heading{{forloop.counter}}}" data-bs-parent="#thing_accordion">
-                                <div class="row mt-2">
-                                    {% for thing in plan.things.all %}
-                                    <div class="col-xl-6 col-12 pb-2">
-                                        <div class="card bg-dark text-white">
-                                            {% if thing.get_picture.image.url %}
-                                                <img src={{thing.get_picture.image.url}} class="card-img img-fluid height-25%">
-                                            {% else %}
-                                                <img src="{% static 'thing_default.jpg' %}" class="card-img img-fluid">
-                                            {% endif %}
-                                            
-                                            <div class="card-img-overlay">
-                                                <h5 class="card-title">{{thing.name}}</h5>
-                                                <p class="card-text">{{thing.short_description}}</p>
-                                                <a href="{% url 'core:thing_detail' pk=thing.pk %}" class='btn btn-outline-light m-1'>Visit</a>
-                                                {% if user.pk == user_detail.pk %}
-                                                <a href="{% url 'core:plan_remove' plan_pk=plan.pk thing_pk=thing.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?my_plans#plan{{forloop.counter}}" class="btn btn-outline-danger">
-                                                    Remove
-                                                </a>
-                                                {% endif %}
-                                            </div>
-                        
-                                            <ul class="list-group text-black">
-                                                {% if thing.stars %}
-                                                <a class="list-group-item" aria-current="true">
-                                                    <div class="d-flex w-100 justify-content-between">
-                                                        <h5 class="mb-1">Stars</h5>
-                                                        <small>{{thing.stars}} • {{thing.reviews.count}}</small>
-                                                    </div>
-    
-                                                    <p class="starability-result mb-1" data-rating="{{thing.stars|to_int}}">
-                                                    Rated: {{thing.stars|to_int}} stars
-                                                    </p>
-                                                </a>
-                                                {% endif %}
-                                                
-                                                <a class="list-group-item" aria-current="true">
-                                                    <div class="d-flex w-100 justify-content-between">
-                                                        <h5 class="mb-1">Category</h5>
-                                                    </div>
-    
-                                                    <p>{{thing.category}}</p>
-                                                </a>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
+                                <div class="card-footer text-muted">
+                                    {{plan.favorited_by.all.count}} people favorited this plan
                                 </div>
                             </div>
-                        </div>
+
+                            {% if plan.things.all %}
+                            <div class="accordion mb-4" id="thing_accordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="according_heading{{forloop.counter}}}">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="false" aria-controls="collapse{{forloop.counter}}">
+                                            Things
+                                        </button>
+                                    </h2>
+                                </div>
+
+                                <div id="collapse{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="according_heading{{forloop.counter}}}" data-bs-parent="#thing_accordion">
+                                    <div class="row mt-2">
+                                        {% for thing in plan.things.all %}
+                                        <div class="col-xl-6 col-12 pb-2">
+                                            <div class="card bg-dark text-white">
+                                                {% if thing.get_picture.image.url %}
+                                                    <img src={{thing.get_picture.image.url}} class="card-img img-fluid height-25%">
+                                                {% else %}
+                                                    <img src="{% static 'thing_default.jpg' %}" class="card-img img-fluid">
+                                                {% endif %}
+                                                
+                                                <div class="card-img-overlay">
+                                                    <h5 class="card-title">{{thing.name}}</h5>
+                                                    <p class="card-text">{{thing.short_description}}</p>
+                                                    <a href="{% url 'core:thing_detail' pk=thing.pk %}" class='btn btn-outline-light m-1'>Visit</a>
+                                                    {% if user.pk == user_detail.pk %}
+                                                    <a href="{% url 'core:plan_remove' plan_pk=plan.pk thing_pk=thing.pk %}?next={% url 'core:user_detail' pk=user_detail.pk %}?my_plans#plan{{forloop.counter}}" class="btn btn-outline-danger">
+                                                        Remove
+                                                    </a>
+                                                    {% endif %}
+                                                </div>
                             
-                        {% else %}
-                        <div class="mt-2 alert alert-warning d-flex align-items-center" role="alert">
+                                                <ul class="list-group text-black">
+                                                    {% if thing.stars %}
+                                                    <a class="list-group-item" aria-current="true">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">Stars</h5>
+                                                            <small>{{thing.stars}} • {{thing.reviews.count}}</small>
+                                                        </div>
+        
+                                                        <p class="starability-result mb-1" data-rating="{{thing.stars|to_int}}">
+                                                        Rated: {{thing.stars|to_int}} stars
+                                                        </p>
+                                                    </a>
+                                                    {% endif %}
+                                                    
+                                                    <a class="list-group-item" aria-current="true">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">Category</h5>
+                                                        </div>
+        
+                                                        <p>{{thing.category}}</p>
+                                                    </a>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                                
+                            {% else %}
+                            <div class="mt-2 alert alert-warning d-flex align-items-center" role="alert">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                <div>
+                                    Visit a thing and click the "Add Plan" button.
+                                </div>
+                            </div>
+                            {% endif %}
+
+                        <div class="container">
+                            <hr style="height: 3px;">
+                        </div>
+                        {% endfor %}
+            
+                    {% else %}
+                        {% if user.pk == user_detail.pk %}
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
                             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                             <div>
-                                Visit a thing and click the "Add Plan" button.
+                                You have no plans.
+                            </div>
+                        </div>
+
+                        <div class="alert alert-primary d-flex align-items-center" role="alert">
+                            <a href="{% url 'core:thing_list' %}">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                            </a>
+                            <div>
+                                Create a plan then click on the icon to add things to it!
+                            </div>
+                        </div>
+
+                        {% else %}
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <div>
+                                {{user_detail.first_name}} has no plans
                             </div>
                         </div>
                         {% endif %}
-
-                    <div class="container">
-                        <hr style="height: 3px;">
-                    </div>
-                    {% endfor %}
-        
-                {% else %}
-                    {% if user.pk == user_detail.pk %}
-                    <div class="alert alert-warning d-flex align-items-center" role="alert">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                        <div>
-                            You have no plans.
-                        </div>
-                    </div>
-
-                    <div class="alert alert-primary d-flex align-items-center" role="alert">
-                        <a href="{% url 'core:thing_list' %}">
-                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-                        </a>
-                        <div>
-                            Create a plan then click on the icon to add things to it!
-                        </div>
-                    </div>
-
-                    {% else %}
-                    <div class="alert alert-warning d-flex align-items-center" role="alert">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                        <div>
-                            {{user_detail.first_name}} has no plans
-                        </div>
-                    </div>
                     {% endif %}
-                {% endif %}
+                </div>
             </div>
 
             <div class="tab-pane fade {{favorited_is_selected}}" id="pills-favorited-plans" role="tabpanel" aria-labelledby="pills-favorited-plans-tab">
