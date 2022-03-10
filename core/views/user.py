@@ -50,9 +50,6 @@ def register(request: HttpResponse) -> HttpResponse:
             registered = True
             messages.success(request, "Thank you for registering, now login to begin experiencing Minas Gerais.")
 
-        else:
-            print(user_form.errors)
-
     else:
         user_form = UserProfileForm()
 

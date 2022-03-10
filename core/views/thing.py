@@ -131,7 +131,6 @@ class ThingListView(ListView):
                     pass
             
             things = self.combine(search_query_sets)
-            print(things)
 
         else:
             things = self.model.objects.all()
@@ -159,7 +158,6 @@ class ThingListView(ListView):
             return self.combine(query_sets)
 
         else:
-            print(things)
             return things
 
 
