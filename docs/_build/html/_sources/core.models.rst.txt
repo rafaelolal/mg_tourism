@@ -4,10 +4,10 @@ core.models package
 Submodules
 ----------
 
-core.models.comment module
+core.models.review module
 --------------------------
 
-.. automodule:: core.models.comment
+.. automodule:: core.models.review
    :members:
    :undoc-members:
    :show-inheritance:

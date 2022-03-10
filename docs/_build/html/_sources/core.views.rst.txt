@@ -4,10 +4,10 @@ core.views package
 Submodules
 ----------
 
-core.views.comment module
+core.views.review module
 -------------------------
 
-.. automodule:: core.views.comment
+.. automodule:: core.views.review
    :members:
    :undoc-members:
    :show-inheritance:

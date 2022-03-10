@@ -179,21 +179,33 @@ Tags are functions that can be used within a template</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="core.templatetags.my_tags.get_sorts">
+<span class="sig-prename descclassname"><span class="pre">core.templatetags.my_tags.</span></span><span class="sig-name descname"><span class="pre">get_sorts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#core.templatetags.my_tags.get_sorts" title="Permalink to this definition"></a></dt>
+<dd><p>Returns all sorts possible</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="core.templatetags.my_tags.get_thing">
 <span class="sig-prename descclassname"><span class="pre">core.templatetags.my_tags.</span></span><span class="sig-name descname"><span class="pre">get_thing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="core.models.html#core.models.thing.Thing" title="core.models.thing.Thing"><span class="pre">core.models.thing.Thing</span></a></span></span><a class="headerlink" href="#core.templatetags.my_tags.get_thing" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a Thing object with the given pk</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="core.templatetags.my_tags.get_things_near">
+<span class="sig-prename descclassname"><span class="pre">core.templatetags.my_tags.</span></span><span class="sig-name descname"><span class="pre">get_things_near</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="core.models.html#core.models.thing.Thing" title="core.models.thing.Thing"><span class="pre">core.models.thing.Thing</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.db.models.query.QuerySet</span></span></span><a class="headerlink" href="#core.templatetags.my_tags.get_things_near" title="Permalink to this definition"></a></dt>
+<dd><p>Returns up to 5 Thing objects that match the given neighborhood</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="core.templatetags.my_tags.get_top_plans">
 <span class="sig-prename descclassname"><span class="pre">core.templatetags.my_tags.</span></span><span class="sig-name descname"><span class="pre">get_top_plans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.db.models.query.QuerySet</span></span></span><a class="headerlink" href="#core.templatetags.my_tags.get_top_plans" title="Permalink to this definition"></a></dt>
-<dd><p>Returns a QuerySet object of the top 5 plans by likes</p>
+<dd><p>Returns a QuerySet object of the top 5 plans by favorites</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="core.templatetags.my_tags.get_top_things">
 <span class="sig-prename descclassname"><span class="pre">core.templatetags.my_tags.</span></span><span class="sig-name descname"><span class="pre">get_top_things</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.db.models.query.QuerySet</span></span></span><a class="headerlink" href="#core.templatetags.my_tags.get_top_things" title="Permalink to this definition"></a></dt>
-<dd><p>Returns a QuerySet object with the top 3 things by comment count</p>
+<dd><p>Returns a QuerySet object with the top 3 things by review count</p>
 </dd></dl>
 
 <dl class="py function">
@@ -227,15 +239,21 @@ Tags are functions that can be used within a template</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="core.templatetags.my_tags.user_commented">
-<span class="sig-prename descclassname"><span class="pre">core.templatetags.my_tags.</span></span><span class="sig-name descname"><span class="pre">user_commented</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_pk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thing_pk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#core.templatetags.my_tags.user_commented" title="Permalink to this definition"></a></dt>
-<dd><p>Checks wether a user has commented on a thing</p>
+<dt class="sig sig-object py" id="core.templatetags.my_tags.things_sorted_by">
+<span class="sig-prename descclassname"><span class="pre">core.templatetags.my_tags.</span></span><span class="sig-name descname"><span class="pre">things_sorted_by</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">things</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">django.db.models.query.QuerySet</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">django.db.models.query.QuerySet</span></span></span><a class="headerlink" href="#core.templatetags.my_tags.things_sorted_by" title="Permalink to this definition"></a></dt>
+<dd><p>Converts a sort option to the corresponding Thing field</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="core.templatetags.my_tags.user_liked">
-<span class="sig-prename descclassname"><span class="pre">core.templatetags.my_tags.</span></span><span class="sig-name descname"><span class="pre">user_liked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_pk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plan_pk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#core.templatetags.my_tags.user_liked" title="Permalink to this definition"></a></dt>
-<dd><p>Checks wether a user has liked a plan</p>
+<dt class="sig sig-object py" id="core.templatetags.my_tags.user_favorited">
+<span class="sig-prename descclassname"><span class="pre">core.templatetags.my_tags.</span></span><span class="sig-name descname"><span class="pre">user_favorited</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_pk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plan_pk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#core.templatetags.my_tags.user_favorited" title="Permalink to this definition"></a></dt>
+<dd><p>Checks wether a user has favorited a plan</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.templatetags.my_tags.user_reviewed">
+<span class="sig-prename descclassname"><span class="pre">core.templatetags.my_tags.</span></span><span class="sig-name descname"><span class="pre">user_reviewed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_pk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thing_pk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#core.templatetags.my_tags.user_reviewed" title="Permalink to this definition"></a></dt>
+<dd><p>Checks wether a user has reviewed on a thing</p>
 </dd></dl>
 
 </section>

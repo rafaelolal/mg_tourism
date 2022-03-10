@@ -97,27 +97,27 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
 </section>
-<section id="module-core.models.comment">
-<span id="core-models-comment-module"></span><h2>core.models.comment module<a class="headerlink" href="#module-core.models.comment" title="Permalink to this headline"></a></h2>
+<section id="module-core.models.review">
+<span id="core-models-review-module"></span><h2>core.models.review module<a class="headerlink" href="#module-core.models.review" title="Permalink to this headline"></a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="core.models.comment.Comment">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.comment.</span></span><span class="sig-name descname"><span class="pre">Comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posted_on</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_edited</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">author</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.comment.Comment" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.review.</span></span><span class="sig-name descname"><span class="pre">Review</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posted_on</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_edited</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">author</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.review.Review" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
 <dl class="py exception">
-<dt class="sig sig-object py" id="core.models.comment.Comment.DoesNotExist">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.comment.Comment.DoesNotExist" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.review.Review.DoesNotExist" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
 </dd></dl>
 
 <dl class="py exception">
-<dt class="sig sig-object py" id="core.models.comment.Comment.MultipleObjectsReturned">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.comment.Comment.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.review.Review.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="core.models.comment.Comment.author">
-<span class="sig-name descname"><span class="pre">author</span></span><a class="headerlink" href="#core.models.comment.Comment.author" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review.author">
+<span class="sig-name descname"><span class="pre">author</span></span><a class="headerlink" href="#core.models.review.Review.author" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related object on the forward side of a many-to-one or
 one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 <p>In the example:</p>
@@ -129,74 +129,74 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="core.models.comment.Comment.author_id">
-<span class="sig-name descname"><span class="pre">author_id</span></span><a class="headerlink" href="#core.models.comment.Comment.author_id" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review.author_id">
+<span class="sig-name descname"><span class="pre">author_id</span></span><a class="headerlink" href="#core.models.review.Review.author_id" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="core.models.comment.Comment.content">
-<span class="sig-name descname"><span class="pre">content</span></span><a class="headerlink" href="#core.models.comment.Comment.content" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review.content">
+<span class="sig-name descname"><span class="pre">content</span></span><a class="headerlink" href="#core.models.review.Review.content" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="core.models.comment.Comment.get_absolute_url">
-<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.models.comment.Comment.get_absolute_url" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review.get_absolute_url">
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.models.review.Review.get_absolute_url" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="core.models.comment.Comment.get_next_by_posted_on">
-<span class="sig-name descname"><span class="pre">get_next_by_posted_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">posted_on&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.comment.Comment.get_next_by_posted_on" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review.get_next_by_posted_on">
+<span class="sig-name descname"><span class="pre">get_next_by_posted_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">posted_on&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.review.Review.get_next_by_posted_on" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="core.models.comment.Comment.get_previous_by_posted_on">
-<span class="sig-name descname"><span class="pre">get_previous_by_posted_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">posted_on&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.comment.Comment.get_previous_by_posted_on" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review.get_previous_by_posted_on">
+<span class="sig-name descname"><span class="pre">get_previous_by_posted_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">posted_on&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.review.Review.get_previous_by_posted_on" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="core.models.comment.Comment.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#core.models.comment.Comment.id" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#core.models.review.Review.id" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="core.models.comment.Comment.is_edited">
-<span class="sig-name descname"><span class="pre">is_edited</span></span><a class="headerlink" href="#core.models.comment.Comment.is_edited" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review.is_edited">
+<span class="sig-name descname"><span class="pre">is_edited</span></span><a class="headerlink" href="#core.models.review.Review.is_edited" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="core.models.comment.Comment.objects">
-<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#core.models.comment.Comment.objects" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#core.models.review.Review.objects" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="core.models.comment.Comment.posted_on">
-<span class="sig-name descname"><span class="pre">posted_on</span></span><a class="headerlink" href="#core.models.comment.Comment.posted_on" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review.posted_on">
+<span class="sig-name descname"><span class="pre">posted_on</span></span><a class="headerlink" href="#core.models.review.Review.posted_on" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="core.models.comment.Comment.rating">
-<span class="sig-name descname"><span class="pre">rating</span></span><a class="headerlink" href="#core.models.comment.Comment.rating" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review.rating">
+<span class="sig-name descname"><span class="pre">rating</span></span><a class="headerlink" href="#core.models.review.Review.rating" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="core.models.comment.Comment.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.models.comment.Comment.save" title="Permalink to this definition"></a></dt>
-<dd><p>Updates the average rating of a Thing when a new comment is created</p>
+<dt class="sig sig-object py" id="core.models.review.Review.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.models.review.Review.save" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the average rating of a Thing when a new review is created</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="core.models.comment.Comment.thing">
-<span class="sig-name descname"><span class="pre">thing</span></span><a class="headerlink" href="#core.models.comment.Comment.thing" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review.thing">
+<span class="sig-name descname"><span class="pre">thing</span></span><a class="headerlink" href="#core.models.review.Review.thing" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related object on the forward side of a many-to-one or
 one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 <p>In the example:</p>
@@ -208,13 +208,13 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="core.models.comment.Comment.thing_id">
-<span class="sig-name descname"><span class="pre">thing_id</span></span><a class="headerlink" href="#core.models.comment.Comment.thing_id" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review.thing_id">
+<span class="sig-name descname"><span class="pre">thing_id</span></span><a class="headerlink" href="#core.models.review.Review.thing_id" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="core.models.comment.Comment.title">
-<span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#core.models.comment.Comment.title" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.review.Review.title">
+<span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#core.models.review.Review.title" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
@@ -247,6 +247,22 @@ object the first time, the query is executed.</p>
 object the first time, the query is executed.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.plan.Plan.favorited_by">
+<span class="sig-name descname"><span class="pre">favorited_by</span></span><a class="headerlink" href="#core.models.plan.Plan.favorited_by" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="core.models.plan.Plan.get_absolute_url">
 <span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.models.plan.Plan.get_absolute_url" title="Permalink to this definition"></a></dt>
@@ -264,22 +280,6 @@ object the first time, the query is executed.</p>
 <span class="sig-name descname"><span class="pre">is_public</span></span><a class="headerlink" href="#core.models.plan.Plan.is_public" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="core.models.plan.Plan.liked_by">
-<span class="sig-name descname"><span class="pre">liked_by</span></span><a class="headerlink" href="#core.models.plan.Plan.liked_by" title="Permalink to this definition"></a></dt>
-<dd><p>Accessor to the related objects manager on the forward and reverse sides of
-a many-to-many relation.</p>
-<p>In the example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
-    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
-instances.</p>
-<p>Most of the implementation is delegated to a dynamically defined manager
-class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -786,21 +786,6 @@ object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="core.models.thing.Thing.comments">
-<span class="sig-name descname"><span class="pre">comments</span></span><a class="headerlink" href="#core.models.thing.Thing.comments" title="Permalink to this definition"></a></dt>
-<dd><p>Accessor to the related objects manager on the reverse side of a
-many-to-one relation.</p>
-<p>In the example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
-    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
-<p>Most of the implementation is delegated to a dynamically defined manager
-class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
-</dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="core.models.thing.Thing.covid_safe">
 <span class="sig-name descname"><span class="pre">covid_safe</span></span><a class="headerlink" href="#core.models.thing.Thing.covid_safe" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
@@ -916,6 +901,21 @@ class built by <code class="docutils literal notranslate"><span class="pre">crea
 <dt class="sig sig-object py" id="core.models.thing.Thing.remove_unwanted_keys">
 <span class="sig-name descname"><span class="pre">remove_unwanted_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#core.models.thing.Thing.remove_unwanted_keys" title="Permalink to this definition"></a></dt>
 <dd><p>Removed unwanted values from fields</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.thing.Thing.reviews">
+<span class="sig-name descname"><span class="pre">reviews</span></span><a class="headerlink" href="#core.models.thing.Thing.reviews" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1068,28 +1068,8 @@ object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="core.models.user.UserProfile.comments">
-<span class="sig-name descname"><span class="pre">comments</span></span><a class="headerlink" href="#core.models.user.UserProfile.comments" title="Permalink to this definition"></a></dt>
-<dd><p>Accessor to the related objects manager on the reverse side of a
-many-to-one relation.</p>
-<p>In the example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
-    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
-<p>Most of the implementation is delegated to a dynamically defined manager
-class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="core.models.user.UserProfile.get_absolute_url">
-<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.models.user.UserProfile.get_absolute_url" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="core.models.user.UserProfile.liked">
-<span class="sig-name descname"><span class="pre">liked</span></span><a class="headerlink" href="#core.models.user.UserProfile.liked" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.models.user.UserProfile.favorited">
+<span class="sig-name descname"><span class="pre">favorited</span></span><a class="headerlink" href="#core.models.user.UserProfile.favorited" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related objects manager on the forward and reverse sides of
 a many-to-many relation.</p>
 <p>In the example:</p>
@@ -1102,6 +1082,11 @@ instances.</p>
 <p>Most of the implementation is delegated to a dynamically defined manager
 class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.user.UserProfile.get_absolute_url">
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.models.user.UserProfile.get_absolute_url" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="core.models.user.UserProfile.plans">
@@ -1123,6 +1108,21 @@ class built by <code class="docutils literal notranslate"><span class="pre">crea
 <span class="sig-name descname"><span class="pre">profile_pic</span></span><a class="headerlink" href="#core.models.user.UserProfile.profile_pic" title="Permalink to this definition"></a></dt>
 <dd><p>Just like the FileDescriptor, but for ImageFields. The only difference is
 assigning the width/height to the width_field/height_field, if appropriate.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.user.UserProfile.reviews">
+<span class="sig-name descname"><span class="pre">reviews</span></span><a class="headerlink" href="#core.models.user.UserProfile.reviews" title="Permalink to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
 </dd></dl>
 
 <dl class="py attribute">

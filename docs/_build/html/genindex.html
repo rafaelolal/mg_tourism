@@ -78,7 +78,6 @@
  | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
- | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
@@ -88,7 +87,7 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="populate_db.html#populate_db.FakePlanGenerator.add_likes">add_likes() (populate_db.FakePlanGenerator static method)</a>
+      <li><a href="populate_db.html#populate_db.FakePlanGenerator.add_favorites">add_favorites() (populate_db.FakePlanGenerator static method)</a>
 </li>
       <li><a href="populate_db.html#populate_db.FakeThingGenerator.add_pics">add_pics() (populate_db.FakeThingGenerator static method)</a>
 </li>
@@ -114,9 +113,9 @@
 </li>
       <li><a href="core.views.html#core.views.thing_create.AttractionCreateView">AttractionCreateView (class in core.views.thing_create)</a>
 </li>
-      <li><a href="core.models.html#core.models.comment.Comment.author">author (core.models.comment.Comment attribute)</a>
+      <li><a href="core.models.html#core.models.review.Review.author">author (core.models.review.Review attribute)</a>
 </li>
-      <li><a href="core.models.html#core.models.comment.Comment.author_id">author_id (core.models.comment.Comment attribute)</a>
+      <li><a href="core.models.html#core.models.review.Review.author_id">author_id (core.models.review.Review attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -152,25 +151,7 @@
       </ul></li>
       <li><a href="core.views.html#core.views.thing.ThingListView.combine">combine() (core.views.thing.ThingListView static method)</a>
 </li>
-      <li><a href="core.models.html#core.models.comment.Comment">Comment (class in core.models.comment)</a>
-</li>
-      <li><a href="core.models.html#core.models.comment.Comment.DoesNotExist">Comment.DoesNotExist</a>
-</li>
-      <li><a href="core.models.html#core.models.comment.Comment.MultipleObjectsReturned">Comment.MultipleObjectsReturned</a>
-</li>
-      <li><a href="core.views.html#core.views.comment.CommentCreateView">CommentCreateView (class in core.views.comment)</a>
-</li>
-      <li><a href="core.views.html#core.views.comment.CommentDeleteView">CommentDeleteView (class in core.views.comment)</a>
-</li>
-      <li><a href="core.models.html#core.models.thing.Thing.comments">comments (core.models.thing.Thing attribute)</a>
-
-      <ul>
-        <li><a href="core.models.html#core.models.user.UserProfile.comments">(core.models.user.UserProfile attribute)</a>
-</li>
-      </ul></li>
-      <li><a href="core.views.html#core.views.comment.CommentUpdateView">CommentUpdateView (class in core.views.comment)</a>
-</li>
-      <li><a href="core.models.html#core.models.comment.Comment.content">content (core.models.comment.Comment attribute)</a>
+      <li><a href="core.models.html#core.models.review.Review.content">content (core.models.review.Review attribute)</a>
 </li>
       <li><a href="core.views.html#core.views.thing.ThingDetailView.context_object_name">context_object_name (core.views.thing.ThingDetailView attribute)</a>
 
@@ -248,15 +229,6 @@
         <li><a href="core.models.html#module-core.models">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    core.models.comment
-
-      <ul>
-        <li><a href="core.models.html#module-core.models.comment">module</a>
-</li>
-      </ul></li>
       <li>
     core.models.plan
 
@@ -264,6 +236,15 @@
         <li><a href="core.models.html#module-core.models.plan">module</a>
 </li>
       </ul></li>
+      <li>
+    core.models.review
+
+      <ul>
+        <li><a href="core.models.html#module-core.models.review">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     core.models.thing
 
@@ -314,13 +295,6 @@
 </li>
       </ul></li>
       <li>
-    core.views.comment
-
-      <ul>
-        <li><a href="core.views.html#module-core.views.comment">module</a>
-</li>
-      </ul></li>
-      <li>
     core.views.index
 
       <ul>
@@ -339,6 +313,13 @@
 
       <ul>
         <li><a href="core.views.html#module-core.views.plan">module</a>
+</li>
+      </ul></li>
+      <li>
+    core.views.review
+
+      <ul>
+        <li><a href="core.views.html#module-core.views.review">module</a>
 </li>
       </ul></li>
       <li>
@@ -366,10 +347,10 @@
 </li>
       <li><a href="core.models.html#core.models.thing.Thing.covid_safe">covid_safe (core.models.thing.Thing attribute)</a>
 </li>
-      <li><a href="populate_db.html#populate_db.FakeCommentGenerator.create">create() (populate_db.FakeCommentGenerator static method)</a>
+      <li><a href="populate_db.html#populate_db.FakePlanGenerator.create">create() (populate_db.FakePlanGenerator static method)</a>
 
       <ul>
-        <li><a href="populate_db.html#populate_db.FakePlanGenerator.create">(populate_db.FakePlanGenerator static method)</a>
+        <li><a href="populate_db.html#populate_db.FakeReviewGenerator.create">(populate_db.FakeReviewGenerator static method)</a>
 </li>
         <li><a href="populate_db.html#populate_db.FakeUserGenerator.create">(populate_db.FakeUserGenerator static method)</a>
 </li>
@@ -406,13 +387,17 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="populate_db.html#populate_db.FakeCommentGenerator">FakeCommentGenerator (class in populate_db)</a>
-</li>
       <li><a href="populate_db.html#populate_db.FakePlanGenerator">FakePlanGenerator (class in populate_db)</a>
+</li>
+      <li><a href="populate_db.html#populate_db.FakeReviewGenerator">FakeReviewGenerator (class in populate_db)</a>
 </li>
       <li><a href="populate_db.html#populate_db.FakeThingGenerator">FakeThingGenerator (class in populate_db)</a>
 </li>
       <li><a href="populate_db.html#populate_db.FakeUserGenerator">FakeUserGenerator (class in populate_db)</a>
+</li>
+      <li><a href="core.models.html#core.models.user.UserProfile.favorited">favorited (core.models.user.UserProfile attribute)</a>
+</li>
+      <li><a href="core.models.html#core.models.plan.Plan.favorited_by">favorited_by (core.models.plan.Plan attribute)</a>
 </li>
       <li><a href="core.views.html#core.views.index.FeaturesView">FeaturesView (class in core.views.index)</a>
 </li>
@@ -421,15 +406,15 @@
       <ul>
         <li><a href="core.html#core.forms.UserProfileForm.Meta.fields">(core.forms.UserProfileForm.Meta attribute)</a>
 </li>
-        <li><a href="core.views.html#core.views.comment.CommentCreateView.fields">(core.views.comment.CommentCreateView attribute)</a>
-</li>
-        <li><a href="core.views.html#core.views.comment.CommentUpdateView.fields">(core.views.comment.CommentUpdateView attribute)</a>
-</li>
         <li><a href="core.views.html#core.views.picture.PictureCreateView.fields">(core.views.picture.PictureCreateView attribute)</a>
 </li>
         <li><a href="core.views.html#core.views.plan.PlanCreateView.fields">(core.views.plan.PlanCreateView attribute)</a>
 </li>
         <li><a href="core.views.html#core.views.plan.PlanUpdateView.fields">(core.views.plan.PlanUpdateView attribute)</a>
+</li>
+        <li><a href="core.views.html#core.views.review.ReviewCreateView.fields">(core.views.review.ReviewCreateView attribute)</a>
+</li>
+        <li><a href="core.views.html#core.views.review.ReviewUpdateView.fields">(core.views.review.ReviewUpdateView attribute)</a>
 </li>
         <li><a href="core.views.html#core.views.thing.ThingUpdateView.fields">(core.views.thing.ThingUpdateView attribute)</a>
 </li>
@@ -458,16 +443,16 @@
 </li>
       <li><a href="core.views.html#core.views.thing_create.FoodCreateView">FoodCreateView (class in core.views.thing_create)</a>
 </li>
-      <li><a href="core.views.html#core.views.comment.CommentCreateView.form_valid">form_valid() (core.views.comment.CommentCreateView method)</a>
+      <li><a href="core.views.html#core.views.picture.PictureCreateView.form_valid">form_valid() (core.views.picture.PictureCreateView method)</a>
 
       <ul>
-        <li><a href="core.views.html#core.views.comment.CommentUpdateView.form_valid">(core.views.comment.CommentUpdateView method)</a>
-</li>
-        <li><a href="core.views.html#core.views.picture.PictureCreateView.form_valid">(core.views.picture.PictureCreateView method)</a>
-</li>
         <li><a href="core.views.html#core.views.plan.PlanCreateView.form_valid">(core.views.plan.PlanCreateView method)</a>
 </li>
         <li><a href="core.views.html#core.views.plan.PlanUpdateView.form_valid">(core.views.plan.PlanUpdateView method)</a>
+</li>
+        <li><a href="core.views.html#core.views.review.ReviewCreateView.form_valid">(core.views.review.ReviewCreateView method)</a>
+</li>
+        <li><a href="core.views.html#core.views.review.ReviewUpdateView.form_valid">(core.views.review.ReviewUpdateView method)</a>
 </li>
         <li><a href="core.views.html#core.views.thing_create.AttractionCreateView.form_valid">(core.views.thing_create.AttractionCreateView method)</a>
 </li>
@@ -488,10 +473,10 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="populate_db.html#populate_db.FakeCommentGenerator.generate">generate() (populate_db.FakeCommentGenerator method)</a>
+      <li><a href="populate_db.html#populate_db.FakePlanGenerator.generate">generate() (populate_db.FakePlanGenerator method)</a>
 
       <ul>
-        <li><a href="populate_db.html#populate_db.FakePlanGenerator.generate">(populate_db.FakePlanGenerator method)</a>
+        <li><a href="populate_db.html#populate_db.FakeReviewGenerator.generate">(populate_db.FakeReviewGenerator method)</a>
 </li>
         <li><a href="populate_db.html#populate_db.FakeThingGenerator.generate">(populate_db.FakeThingGenerator method)</a>
 </li>
@@ -512,10 +497,10 @@
 </li>
       <li><a href="core.views.html#core.views.thing.ThingListView.get">get() (core.views.thing.ThingListView method)</a>
 </li>
-      <li><a href="core.models.html#core.models.comment.Comment.get_absolute_url">get_absolute_url() (core.models.comment.Comment method)</a>
+      <li><a href="core.models.html#core.models.plan.Plan.get_absolute_url">get_absolute_url() (core.models.plan.Plan method)</a>
 
       <ul>
-        <li><a href="core.models.html#core.models.plan.Plan.get_absolute_url">(core.models.plan.Plan method)</a>
+        <li><a href="core.models.html#core.models.review.Review.get_absolute_url">(core.models.review.Review method)</a>
 </li>
         <li><a href="core.models.html#core.models.thing.Picture.get_absolute_url">(core.models.thing.Picture method)</a>
 </li>
@@ -542,6 +527,8 @@
 </li>
       <li><a href="core.models.html#core.models.thing.Thing.get_fields">get_fields() (core.models.thing.Thing method)</a>
 </li>
+      <li><a href="core.views.html#core.views.thing.ThingListView.get_filtered_query">get_filtered_query() (core.views.thing.ThingListView method)</a>
+</li>
       <li><a href="core.models.html#core.models.thing.Attraction.get_good_for_display">get_good_for_display() (core.models.thing.Attraction method)</a>
 
       <ul>
@@ -554,10 +541,10 @@
       </ul></li>
       <li><a href="core.templatetags.html#core.templatetags.my_tags.get_good_fors">get_good_fors() (in module core.templatetags.my_tags)</a>
 </li>
+      <li><a href="core.models.html#core.models.review.Review.get_next_by_posted_on">get_next_by_posted_on() (core.models.review.Review method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.models.html#core.models.comment.Comment.get_next_by_posted_on">get_next_by_posted_on() (core.models.comment.Comment method)</a>
-</li>
       <li><a href="core.templatetags.html#core.templatetags.my_tags.get_owner">get_owner() (in module core.templatetags.my_tags)</a>
 </li>
       <li><a href="core.templatetags.html#core.templatetags.my_tags.get_param_value">get_param_value() (in module core.templatetags.my_tags)</a>
@@ -566,7 +553,7 @@
 </li>
       <li><a href="core.templatetags.html#core.templatetags.my_tags.get_plans">get_plans() (in module core.templatetags.my_tags)</a>
 </li>
-      <li><a href="core.models.html#core.models.comment.Comment.get_previous_by_posted_on">get_previous_by_posted_on() (core.models.comment.Comment method)</a>
+      <li><a href="core.models.html#core.models.review.Review.get_previous_by_posted_on">get_previous_by_posted_on() (core.models.review.Review method)</a>
 </li>
       <li><a href="core.views.html#core.views.thing.ThingListView.get_query_categories">get_query_categories() (core.views.thing.ThingListView method)</a>
 </li>
@@ -574,15 +561,21 @@
 </li>
       <li><a href="core.views.html#core.views.thing.ThingListView.get_queryset">get_queryset() (core.views.thing.ThingListView method)</a>
 </li>
-      <li><a href="core.views.html#core.views.comment.CommentDeleteView.get_success_url">get_success_url() (core.views.comment.CommentDeleteView method)</a>
+      <li><a href="core.views.html#core.views.thing.ThingListView.get_search_filters">get_search_filters() (core.views.thing.ThingListView static method)</a>
+</li>
+      <li><a href="core.templatetags.html#core.templatetags.my_tags.get_sorts">get_sorts() (in module core.templatetags.my_tags)</a>
+</li>
+      <li><a href="core.views.html#core.views.plan.PlanCreateView.get_success_url">get_success_url() (core.views.plan.PlanCreateView method)</a>
 
       <ul>
-        <li><a href="core.views.html#core.views.plan.PlanCreateView.get_success_url">(core.views.plan.PlanCreateView method)</a>
-</li>
         <li><a href="core.views.html#core.views.plan.PlanDeleteView.get_success_url">(core.views.plan.PlanDeleteView method)</a>
+</li>
+        <li><a href="core.views.html#core.views.review.ReviewDeleteView.get_success_url">(core.views.review.ReviewDeleteView method)</a>
 </li>
       </ul></li>
       <li><a href="core.templatetags.html#core.templatetags.my_tags.get_thing">get_thing() (in module core.templatetags.my_tags)</a>
+</li>
+      <li><a href="core.templatetags.html#core.templatetags.my_tags.get_things_near">get_things_near() (in module core.templatetags.my_tags)</a>
 </li>
       <li><a href="core.templatetags.html#core.templatetags.my_tags.get_top_plans">get_top_plans() (in module core.templatetags.my_tags)</a>
 </li>
@@ -630,10 +623,10 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.models.html#core.models.comment.Comment.id">id (core.models.comment.Comment attribute)</a>
+      <li><a href="core.models.html#core.models.plan.Plan.id">id (core.models.plan.Plan attribute)</a>
 
       <ul>
-        <li><a href="core.models.html#core.models.plan.Plan.id">(core.models.plan.Plan attribute)</a>
+        <li><a href="core.models.html#core.models.review.Review.id">(core.models.review.Review attribute)</a>
 </li>
         <li><a href="core.models.html#core.models.thing.Picture.id">(core.models.thing.Picture attribute)</a>
 </li>
@@ -648,7 +641,7 @@
 </li>
       <li><a href="core.templatetags.html#core.templatetags.my_tags.is_checked">is_checked() (in module core.templatetags.my_tags)</a>
 </li>
-      <li><a href="core.models.html#core.models.comment.Comment.is_edited">is_edited (core.models.comment.Comment attribute)</a>
+      <li><a href="core.models.html#core.models.review.Review.is_edited">is_edited (core.models.review.Review attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -660,13 +653,13 @@
 </li>
       <li><a href="core.templatetags.html#core.templatetags.my_tags.is_tab_selected">is_tab_selected() (in module core.templatetags.my_tags)</a>
 </li>
-      <li><a href="core.html#core.mixins.IsFirstComment">IsFirstComment (class in core.mixins)</a>
+      <li><a href="core.html#core.mixins.IsFirstReview">IsFirstReview (class in core.mixins)</a>
 </li>
       <li><a href="core.html#core.mixins.IsSuperuserMixin">IsSuperuserMixin (class in core.mixins)</a>
 </li>
-      <li><a href="core.html#core.mixins.IsTheCommentAuthor">IsTheCommentAuthor (class in core.mixins)</a>
-</li>
       <li><a href="core.html#core.mixins.IsThePlanOwner">IsThePlanOwner (class in core.mixins)</a>
+</li>
+      <li><a href="core.html#core.mixins.IsTheReviewAuthor">IsTheReviewAuthor (class in core.mixins)</a>
 </li>
       <li><a href="core.html#core.mixins.IsTheUserMixin">IsTheUserMixin (class in core.mixins)</a>
 </li>
@@ -676,24 +669,20 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.models.html#core.models.user.UserProfile.liked">liked (core.models.user.UserProfile attribute)</a>
-</li>
-      <li><a href="core.models.html#core.models.plan.Plan.liked_by">liked_by (core.models.plan.Plan attribute)</a>
-</li>
-      <li><a href="core.views.html#core.views.comment.CommentCreateView.login_url">login_url (core.views.comment.CommentCreateView attribute)</a>
+      <li><a href="core.views.html#core.views.picture.PictureCreateView.login_url">login_url (core.views.picture.PictureCreateView attribute)</a>
 
       <ul>
-        <li><a href="core.views.html#core.views.comment.CommentDeleteView.login_url">(core.views.comment.CommentDeleteView attribute)</a>
-</li>
-        <li><a href="core.views.html#core.views.comment.CommentUpdateView.login_url">(core.views.comment.CommentUpdateView attribute)</a>
-</li>
-        <li><a href="core.views.html#core.views.picture.PictureCreateView.login_url">(core.views.picture.PictureCreateView attribute)</a>
-</li>
         <li><a href="core.views.html#core.views.plan.PlanCreateView.login_url">(core.views.plan.PlanCreateView attribute)</a>
 </li>
         <li><a href="core.views.html#core.views.plan.PlanDeleteView.login_url">(core.views.plan.PlanDeleteView attribute)</a>
 </li>
         <li><a href="core.views.html#core.views.plan.PlanUpdateView.login_url">(core.views.plan.PlanUpdateView attribute)</a>
+</li>
+        <li><a href="core.views.html#core.views.review.ReviewCreateView.login_url">(core.views.review.ReviewCreateView attribute)</a>
+</li>
+        <li><a href="core.views.html#core.views.review.ReviewDeleteView.login_url">(core.views.review.ReviewDeleteView attribute)</a>
+</li>
+        <li><a href="core.views.html#core.views.review.ReviewUpdateView.login_url">(core.views.review.ReviewUpdateView attribute)</a>
 </li>
         <li><a href="core.views.html#core.views.thing.ThingDeleteView.login_url">(core.views.thing.ThingDeleteView attribute)</a>
 </li>
@@ -785,12 +774,6 @@
       <ul>
         <li><a href="core.html#core.forms.UserProfileForm.Meta.model">(core.forms.UserProfileForm.Meta attribute)</a>
 </li>
-        <li><a href="core.views.html#core.views.comment.CommentCreateView.model">(core.views.comment.CommentCreateView attribute)</a>
-</li>
-        <li><a href="core.views.html#core.views.comment.CommentDeleteView.model">(core.views.comment.CommentDeleteView attribute)</a>
-</li>
-        <li><a href="core.views.html#core.views.comment.CommentUpdateView.model">(core.views.comment.CommentUpdateView attribute)</a>
-</li>
         <li><a href="core.views.html#core.views.picture.PictureCreateView.model">(core.views.picture.PictureCreateView attribute)</a>
 </li>
         <li><a href="core.views.html#core.views.plan.PlanCreateView.model">(core.views.plan.PlanCreateView attribute)</a>
@@ -798,6 +781,12 @@
         <li><a href="core.views.html#core.views.plan.PlanDeleteView.model">(core.views.plan.PlanDeleteView attribute)</a>
 </li>
         <li><a href="core.views.html#core.views.plan.PlanUpdateView.model">(core.views.plan.PlanUpdateView attribute)</a>
+</li>
+        <li><a href="core.views.html#core.views.review.ReviewCreateView.model">(core.views.review.ReviewCreateView attribute)</a>
+</li>
+        <li><a href="core.views.html#core.views.review.ReviewDeleteView.model">(core.views.review.ReviewDeleteView attribute)</a>
+</li>
+        <li><a href="core.views.html#core.views.review.ReviewUpdateView.model">(core.views.review.ReviewUpdateView attribute)</a>
 </li>
         <li><a href="core.views.html#core.views.thing.ThingDeleteView.model">(core.views.thing.ThingDeleteView attribute)</a>
 </li>
@@ -850,9 +839,9 @@
 </li>
         <li><a href="core.models.html#module-core.models">core.models</a>
 </li>
-        <li><a href="core.models.html#module-core.models.comment">core.models.comment</a>
-</li>
         <li><a href="core.models.html#module-core.models.plan">core.models.plan</a>
+</li>
+        <li><a href="core.models.html#module-core.models.review">core.models.review</a>
 </li>
         <li><a href="core.models.html#module-core.models.thing">core.models.thing</a>
 </li>
@@ -868,13 +857,13 @@
 </li>
         <li><a href="core.views.html#module-core.views">core.views</a>
 </li>
-        <li><a href="core.views.html#module-core.views.comment">core.views.comment</a>
-</li>
         <li><a href="core.views.html#module-core.views.index">core.views.index</a>
 </li>
         <li><a href="core.views.html#module-core.views.picture">core.views.picture</a>
 </li>
         <li><a href="core.views.html#module-core.views.plan">core.views.plan</a>
+</li>
+        <li><a href="core.views.html#module-core.views.review">core.views.review</a>
 </li>
         <li><a href="core.views.html#module-core.views.thing">core.views.thing</a>
 </li>
@@ -931,10 +920,10 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.models.html#core.models.comment.Comment.objects">objects (core.models.comment.Comment attribute)</a>
+      <li><a href="core.models.html#core.models.plan.Plan.objects">objects (core.models.plan.Plan attribute)</a>
 
       <ul>
-        <li><a href="core.models.html#core.models.plan.Plan.objects">(core.models.plan.Plan attribute)</a>
+        <li><a href="core.models.html#core.models.review.Review.objects">(core.models.review.Review attribute)</a>
 </li>
         <li><a href="core.models.html#core.models.thing.Picture.objects">(core.models.thing.Picture attribute)</a>
 </li>
@@ -987,7 +976,7 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.views.html#core.views.plan.plan_like">plan_like() (in module core.views.plan)</a>
+      <li><a href="core.views.html#core.views.plan.plan_favorite">plan_favorite() (in module core.views.plan)</a>
 </li>
       <li><a href="core.views.html#core.views.plan.PlanCreateView">PlanCreateView (class in core.views.plan)</a>
 </li>
@@ -1006,7 +995,7 @@
         <li><a href="populate_db.html#module-populate_db">module</a>
 </li>
       </ul></li>
-      <li><a href="core.models.html#core.models.comment.Comment.posted_on">posted_on (core.models.comment.Comment attribute)</a>
+      <li><a href="core.models.html#core.models.review.Review.posted_on">posted_on (core.models.review.Review attribute)</a>
 </li>
       <li><a href="core.models.html#core.models.thing.Tour.price">price (core.models.thing.Tour attribute)</a>
 </li>
@@ -1015,26 +1004,36 @@
   </ul></td>
 </tr></table>
 
-<h2 id="Q">Q</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.views.html#core.views.thing.ThingListView.query_filter_fields">query_filter_fields() (core.views.thing.ThingListView method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.models.html#core.models.comment.Comment.rating">rating (core.models.comment.Comment attribute)</a>
+      <li><a href="core.models.html#core.models.review.Review.rating">rating (core.models.review.Review attribute)</a>
 </li>
       <li><a href="core.html#core.apps.CoreConfig.ready">ready() (core.apps.CoreConfig method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.views.html#core.views.user.register">register() (in module core.views.user)</a>
 </li>
       <li><a href="core.models.html#core.models.thing.Thing.remove_unwanted_keys">remove_unwanted_keys() (core.models.thing.Thing method)</a>
+</li>
+      <li><a href="core.models.html#core.models.review.Review">Review (class in core.models.review)</a>
+</li>
+      <li><a href="core.models.html#core.models.review.Review.DoesNotExist">Review.DoesNotExist</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="core.models.html#core.models.review.Review.MultipleObjectsReturned">Review.MultipleObjectsReturned</a>
+</li>
+      <li><a href="core.views.html#core.views.review.ReviewCreateView">ReviewCreateView (class in core.views.review)</a>
+</li>
+      <li><a href="core.views.html#core.views.review.ReviewDeleteView">ReviewDeleteView (class in core.views.review)</a>
+</li>
+      <li><a href="core.models.html#core.models.thing.Thing.reviews">reviews (core.models.thing.Thing attribute)</a>
+
+      <ul>
+        <li><a href="core.models.html#core.models.user.UserProfile.reviews">(core.models.user.UserProfile attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="core.views.html#core.views.review.ReviewUpdateView">ReviewUpdateView (class in core.views.review)</a>
 </li>
       <li><a href="core.html#core.jobs.run_continuously">run_continuously() (in module core.jobs)</a>
 </li>
@@ -1044,7 +1043,7 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.models.html#core.models.comment.Comment.save">save() (core.models.comment.Comment method)</a>
+      <li><a href="core.models.html#core.models.review.Review.save">save() (core.models.review.Review method)</a>
 </li>
       <li><a href="core.models.html#core.models.thing.Shopping">Shopping (class in core.models.thing)</a>
 </li>
@@ -1076,15 +1075,9 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.views.html#core.views.comment.CommentCreateView.template_name">template_name (core.views.comment.CommentCreateView attribute)</a>
+      <li><a href="core.views.html#core.views.index.DocsView.template_name">template_name (core.views.index.DocsView attribute)</a>
 
       <ul>
-        <li><a href="core.views.html#core.views.comment.CommentDeleteView.template_name">(core.views.comment.CommentDeleteView attribute)</a>
-</li>
-        <li><a href="core.views.html#core.views.comment.CommentUpdateView.template_name">(core.views.comment.CommentUpdateView attribute)</a>
-</li>
-        <li><a href="core.views.html#core.views.index.DocsView.template_name">(core.views.index.DocsView attribute)</a>
-</li>
         <li><a href="core.views.html#core.views.index.FeaturesView.template_name">(core.views.index.FeaturesView attribute)</a>
 </li>
         <li><a href="core.views.html#core.views.index.IndexView.template_name">(core.views.index.IndexView attribute)</a>
@@ -1094,6 +1087,12 @@
         <li><a href="core.views.html#core.views.plan.PlanDeleteView.template_name">(core.views.plan.PlanDeleteView attribute)</a>
 </li>
         <li><a href="core.views.html#core.views.plan.PlanUpdateView.template_name">(core.views.plan.PlanUpdateView attribute)</a>
+</li>
+        <li><a href="core.views.html#core.views.review.ReviewCreateView.template_name">(core.views.review.ReviewCreateView attribute)</a>
+</li>
+        <li><a href="core.views.html#core.views.review.ReviewDeleteView.template_name">(core.views.review.ReviewDeleteView attribute)</a>
+</li>
+        <li><a href="core.views.html#core.views.review.ReviewUpdateView.template_name">(core.views.review.ReviewUpdateView attribute)</a>
 </li>
         <li><a href="core.views.html#core.views.thing.ThingDeleteView.template_name">(core.views.thing.ThingDeleteView attribute)</a>
 </li>
@@ -1120,21 +1119,21 @@
         <li><a href="core.views.html#core.views.user.UserUpdateView.template_name">(core.views.user.UserUpdateView attribute)</a>
 </li>
       </ul></li>
-      <li><a href="core.html#core.mixins.IsFirstComment.test_func">test_func() (core.mixins.IsFirstComment method)</a>
+      <li><a href="core.html#core.mixins.IsFirstReview.test_func">test_func() (core.mixins.IsFirstReview method)</a>
 
       <ul>
         <li><a href="core.html#core.mixins.IsSuperuserMixin.test_func">(core.mixins.IsSuperuserMixin method)</a>
 </li>
-        <li><a href="core.html#core.mixins.IsTheCommentAuthor.test_func">(core.mixins.IsTheCommentAuthor method)</a>
-</li>
         <li><a href="core.html#core.mixins.IsThePlanOwner.test_func">(core.mixins.IsThePlanOwner method)</a>
+</li>
+        <li><a href="core.html#core.mixins.IsTheReviewAuthor.test_func">(core.mixins.IsTheReviewAuthor method)</a>
 </li>
         <li><a href="core.html#core.mixins.IsTheUserMixin.test_func">(core.mixins.IsTheUserMixin method)</a>
 </li>
       </ul></li>
       <li><a href="core.models.html#core.models.thing.Thing">Thing (class in core.models.thing)</a>
 </li>
-      <li><a href="core.models.html#core.models.comment.Comment.thing">thing (core.models.comment.Comment attribute)</a>
+      <li><a href="core.models.html#core.models.review.Review.thing">thing (core.models.review.Review attribute)</a>
 
       <ul>
         <li><a href="core.models.html#core.models.thing.Picture.thing">(core.models.thing.Picture attribute)</a>
@@ -1144,7 +1143,7 @@
 </li>
       <li><a href="core.models.html#core.models.thing.Thing.MultipleObjectsReturned">Thing.MultipleObjectsReturned</a>
 </li>
-      <li><a href="core.models.html#core.models.comment.Comment.thing_id">thing_id (core.models.comment.Comment attribute)</a>
+      <li><a href="core.models.html#core.models.review.Review.thing_id">thing_id (core.models.review.Review attribute)</a>
 
       <ul>
         <li><a href="core.models.html#core.models.thing.Picture.thing_id">(core.models.thing.Picture attribute)</a>
@@ -1184,9 +1183,11 @@
 </li>
       <li><a href="core.models.html#core.models.plan.Plan.things">things (core.models.plan.Plan attribute)</a>
 </li>
+      <li><a href="core.templatetags.html#core.templatetags.my_tags.things_sorted_by">things_sorted_by() (in module core.templatetags.my_tags)</a>
+</li>
       <li><a href="core.views.html#core.views.thing.ThingUpdateView">ThingUpdateView (class in core.views.thing)</a>
 </li>
-      <li><a href="core.models.html#core.models.comment.Comment.title">title (core.models.comment.Comment attribute)</a>
+      <li><a href="core.models.html#core.models.review.Review.title">title (core.models.review.Review attribute)</a>
 </li>
       <li><a href="core.templatetags.html#core.templatetags.my_filters.to_int">to_int() (in module core.templatetags.my_filters)</a>
 </li>
@@ -1256,9 +1257,7 @@
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.templatetags.html#core.templatetags.my_tags.user_commented">user_commented() (in module core.templatetags.my_tags)</a>
-</li>
-      <li><a href="core.templatetags.html#core.templatetags.my_tags.user_liked">user_liked() (in module core.templatetags.my_tags)</a>
+      <li><a href="core.templatetags.html#core.templatetags.my_tags.user_favorited">user_favorited() (in module core.templatetags.my_tags)</a>
 </li>
       <li><a href="core.views.html#core.views.user.user_login">user_login() (in module core.views.user)</a>
 </li>
@@ -1267,6 +1266,8 @@
       <li><a href="core.models.html#core.models.user.UserProfile.user_ptr">user_ptr (core.models.user.UserProfile attribute)</a>
 </li>
       <li><a href="core.models.html#core.models.user.UserProfile.user_ptr_id">user_ptr_id (core.models.user.UserProfile attribute)</a>
+</li>
+      <li><a href="core.templatetags.html#core.templatetags.my_tags.user_reviewed">user_reviewed() (in module core.templatetags.my_tags)</a>
 </li>
       <li><a href="core.views.html#core.views.user.UserDeleteView">UserDeleteView (class in core.views.user)</a>
 </li>

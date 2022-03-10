@@ -105,7 +105,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="core.models.html">core.models package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="core.models.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="core.models.html#module-core.models.comment">core.models.comment module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.models.html#module-core.models.review">core.models.review module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.models.html#module-core.models.plan">core.models.plan module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.models.html#module-core.models.thing">core.models.thing module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.models.html#module-core.models.user">core.models.user module</a></li>
@@ -121,7 +121,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="core.views.html">core.views package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="core.views.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="core.views.html#module-core.views.comment">core.views.comment module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.views.html#module-core.views.review">core.views.review module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.views.html#module-core.views.index">core.views.index module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.views.html#module-core.views.picture">core.views.picture module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.views.html#module-core.views.plan">core.views.plan module</a></li>
@@ -264,7 +264,8 @@ crispy_forms: <a class="reference external" href="https://django-crispy-forms.re
 <section id="module-core.jobs">
 <span id="core-jobs-module"></span><h2>core.jobs module<a class="headerlink" href="#module-core.jobs" title="Permalink to this headline"></a></h2>
 <p>Source: <a class="reference external" href="https://stackoverflow.com/questions/44896618/django-run-a-function-every-x-seconds/44897678">https://stackoverflow.com/questions/44896618/django-run-a-function-every-x-seconds/44897678</a>
-Runs the “archive” command from the django_archives app every day at midnight to dynamically backup the database
+Runs the “archive” command from the django_archives
+app every day at midnight to dynamicallybackup the database
 django_archives: <a class="reference external" href="https://django-archive.readthedocs.io/en/latest/">https://django-archive.readthedocs.io/en/latest/</a></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="core.jobs.call_archive">
@@ -288,14 +289,14 @@ django_archives: <a class="reference external" href="https://django-archive.read
 Mixins are a way to validate if a user can access a view
 and will redirect to a 403 forbidden page if access is denied</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="core.mixins.IsFirstComment">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.mixins.</span></span><span class="sig-name descname"><span class="pre">IsFirstComment</span></span><a class="headerlink" href="#core.mixins.IsFirstComment" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.mixins.IsFirstReview">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.mixins.</span></span><span class="sig-name descname"><span class="pre">IsFirstReview</span></span><a class="headerlink" href="#core.mixins.IsFirstReview" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.UserPassesTestMixin</span></code></p>
 <p>Checks if a user is logged in and is the owner of the plan associated with the view
-Checks if a user has already commented on the post associated with the view</p>
+Checks if a user has already reviewed on the post associated with the view</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="core.mixins.IsFirstComment.test_func">
-<span class="sig-name descname"><span class="pre">test_func</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#core.mixins.IsFirstComment.test_func" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="core.mixins.IsFirstReview.test_func">
+<span class="sig-name descname"><span class="pre">test_func</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#core.mixins.IsFirstReview.test_func" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -314,19 +315,6 @@ Will redirect the user to a view’s login_url attribute if they are not logged 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="core.mixins.IsTheCommentAuthor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.mixins.</span></span><span class="sig-name descname"><span class="pre">IsTheCommentAuthor</span></span><a class="headerlink" href="#core.mixins.IsTheCommentAuthor" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.UserPassesTestMixin</span></code></p>
-<p>Checks if a user is logged in and is the author of the comment associated with the view
-Will redirect the user to a view’s login_url attribute if they are not logged in</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="core.mixins.IsTheCommentAuthor.test_func">
-<span class="sig-name descname"><span class="pre">test_func</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#core.mixins.IsTheCommentAuthor.test_func" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="core.mixins.IsThePlanOwner">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.mixins.</span></span><span class="sig-name descname"><span class="pre">IsThePlanOwner</span></span><a class="headerlink" href="#core.mixins.IsThePlanOwner" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.UserPassesTestMixin</span></code></p>
@@ -335,6 +323,19 @@ Will redirect the user to a view’s login_url attribute if they are not logged 
 <dl class="py method">
 <dt class="sig sig-object py" id="core.mixins.IsThePlanOwner.test_func">
 <span class="sig-name descname"><span class="pre">test_func</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#core.mixins.IsThePlanOwner.test_func" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.mixins.IsTheReviewAuthor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.mixins.</span></span><span class="sig-name descname"><span class="pre">IsTheReviewAuthor</span></span><a class="headerlink" href="#core.mixins.IsTheReviewAuthor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.UserPassesTestMixin</span></code></p>
+<p>Checks if a user is logged in and is the author of the review associated with the view
+Will redirect the user to a view’s login_url attribute if they are not logged in</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.mixins.IsTheReviewAuthor.test_func">
+<span class="sig-name descname"><span class="pre">test_func</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#core.mixins.IsTheReviewAuthor.test_func" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
