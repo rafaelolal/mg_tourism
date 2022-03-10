@@ -56,13 +56,13 @@ class ThingListView(ListView):
         Saves the user time
         """
         
-        query_set = self.get_query_set()
-        if query_set and len(query_set) == 1:
+        queryset = self.get_queryset()
+        if queryset and len(queryset) == 1:
             messages.warning(request,
                 'This is the only thing that matches your search.')
             
             return HttpResponseRedirect(reverse('core:thing_detail',
-                kwargs={'pk': query_set.first().pk}))
+                kwargs={'pk': queryset.first().pk}))
 
         return super().get(request, *args, **kwargs)
 
@@ -70,9 +70,9 @@ class ThingListView(ListView):
         """Determines the variables accessible within the template for this view"""
 
         return super().get_context_data(**kwargs,
-        categories=self.model.categories)
+            categories=self.model.categories)
 
-    def get_query_set(self) -> QuerySet:
+    def get_queryset(self) -> QuerySet:
         """Gets all the Thing objects to be displayed
         Returns only the Thing objects that fit
         the filters in the request's querystring
@@ -80,9 +80,9 @@ class ThingListView(ListView):
 
         query_fields = self.get_query_fields()
         query_categories = self.get_query_categories()
-        query_set = self.get_filtered_query(query_fields, query_categories)
-
-        return query_set
+        queryset = self.get_filtered_query(query_fields, query_categories)
+        print('--------------------------\n', queryset)
+        return queryset
 
     def get_query_categories(self) -> List[str]:
         """Returns a list of all categories in the querystring of the URL"""
@@ -120,18 +120,17 @@ class ThingListView(ListView):
 
         ###########################
 
-        search_query_sets = []
+        search_querysets = []
         or_filters = list(search_filters.items())
         if search_filters:
             for i, f in enumerate(or_filters):
                 try:
-                    search_query_sets.append(self.model.objects.all().filter(**dict(or_filters[i:i+1])))
+                    search_querysets.append(self.model.objects.all().filter(**dict(or_filters[i:i+1])))
 
                 except FieldError:
                     pass
             
-            things = self.combine(search_query_sets)
-            print(things)
+            things = self.combine(search_querysets)
 
         else:
             things = self.model.objects.all()
@@ -140,7 +139,7 @@ class ThingListView(ListView):
 
         ###########################
 
-        query_sets = []
+        querysets = []
         for category in query_categories:
             apply_on = things.filter(category=category)
 
@@ -150,16 +149,19 @@ class ThingListView(ListView):
                     apply_now[f] = cat_dependent_filters[f]
 
             if apply_now:
-                query_sets.append(apply_on.filter(**apply_now))
+                querysets.append(apply_on.filter(**apply_now))
 
             else:
-                query_sets.append(apply_on)
+                querysets.append(apply_on)
 
-        if query_sets:
-            return self.combine(query_sets)
+        print(things)
+
+        if querysets:
+            print('querysets', querysets)
+            return self.combine(querysets)
 
         else:
-            print(things)
+            print('things', things)
             return things
 
 
@@ -225,11 +227,11 @@ class ThingListView(ListView):
         return cat_dependent_filters
 
     @staticmethod
-    def combine(query_set: List) -> QuerySet:
+    def combine(queryset: List) -> QuerySet:
         """Used to combine QuerySet objects in a list of QuerySet objects"""
 
-        final_query_set = query_set[0]
-        for query in query_set[1:]:
-            final_query_set |= query
+        final_queryset = queryset[0]
+        for query in queryset[1:]:
+            final_queryset |= query
 
-        return final_query_set
+        return final_queryset
