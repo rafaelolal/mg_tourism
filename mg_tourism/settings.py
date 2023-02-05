@@ -40,7 +40,7 @@ load_dotenv()
 SECRET_KEY = 'django-insecure-y%&4gfos-g(1e+)_7et0q0jaw885s+37de%$la7ket5+3--uej'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 LOGIN_URL = 'core:user_login'
 

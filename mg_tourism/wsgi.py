@@ -10,12 +10,12 @@ https://docs.djangoproject.com/en/4.0/howto/deployment/wsgi/
 import os, sys
 
 # add the virtualenv site-packages path to the sys.path
-site_packages = '/home/thinkland/projects/envs/mg_tourism_env/lib/python3.10/site-packages'
+site_packages = '/home/rafaelolal/envs/mg_tourism_env/lib/python3.10/site-packages'
 if site_packages not in sys.path:
     sys.path.append(site_packages)
 
-project_path = '/home/thinkland/projects/mg_tourism'
-project_path2 = '/home/thinkland/projects/mg_tourism/mg_tourism'
+project_path = '/home/rafaelolal/mg_tourism'
+project_path2 = '/home/rafaelolal/mg_tourism/mg_tourism'
 
 if project_path not in sys.path:
     sys.path.append(project_path)
