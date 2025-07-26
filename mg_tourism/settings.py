@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from os import getenv
+from dotenv import load_dotenv
 from pathlib import Path
 from django_archive import archivers
 
@@ -33,8 +35,6 @@ MEDIA_URL = '/mg_tourism/media/'
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-from dotenv import load_dotenv
-from os import getenv
 load_dotenv()
 # TODO dotenv not working
 SECRET_KEY = 'django-insecure-y%&4gfos-g(1e+)_7et0q0jaw885s+37de%$la7ket5+3--uej'
